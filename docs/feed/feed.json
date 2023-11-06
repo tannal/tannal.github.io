@@ -14,7 +14,7 @@
 			"id": "https://example.com/blog/chromium/",
 			"url": "https://example.com/blog/chromium/",
 			"title": "chromium",
-			"content_html": "<h1 id=\"hello-chromium\" tabindex=\"-1\">Hello Chromium <a class=\"header-anchor\" href=\"https://example.com/blog/chromium/\">#</a></h1>\n<pre class=\"language-js\" tabindex=\"0\"><code class=\"language-js\">console<span class=\"token punctuation\">.</span><span class=\"token function\">log</span><span class=\"token punctuation\">(</span><span class=\"token number\">123</span><span class=\"token punctuation\">)</span><span class=\"token punctuation\">;</span></code></pre>\n",
+			"content_html": "<h1 id=\"hello-chromium\" tabindex=\"-1\">Hello Chromium <a class=\"header-anchor\" href=\"https://example.com/blog/chromium/\">#</a></h1>\n<pre class=\"language-js\" tabindex=\"0\"><code class=\"language-js\">console<span class=\"token punctuation\">.</span><span class=\"token function\">log</span><span class=\"token punctuation\">(</span><span class=\"token number\">123</span><span class=\"token punctuation\">)</span><span class=\"token punctuation\">;</span></code></pre>\n<p>hello</p>\n",
 			"date_published": "2023-10-23T00:00:00Z"
 		}
 		,
