@@ -11,22 +11,6 @@
 	},
 	"items": [
 		{
-			"id": "https://example.com/blog/plvm/",
-			"url": "https://example.com/blog/plvm/",
-			"title": "People in Programming Language and Virtual Machine",
-			"content_html": "<h1 id=\"smalltalk\" tabindex=\"-1\">SmallTalk <a class=\"header-anchor\" href=\"https://example.com/blog/plvm/\">#</a></h1>\n<h1 id=\"strongtalk\" tabindex=\"-1\">StrongTalk <a class=\"header-anchor\" href=\"https://example.com/blog/plvm/\">#</a></h1>\n<p>Lars Bak</p>\n<p>Urs Hölzle</p>\n<p>Gilad Bracha</p>\n<h1 id=\"java\" tabindex=\"-1\">Java <a class=\"header-anchor\" href=\"https://example.com/blog/plvm/\">#</a></h1>\n<h1 id=\"ruby\" tabindex=\"-1\">Ruby <a class=\"header-anchor\" href=\"https://example.com/blog/plvm/\">#</a></h1>\n<h1 id=\"v8\" tabindex=\"-1\">V8 <a class=\"header-anchor\" href=\"https://example.com/blog/plvm/\">#</a></h1>\n<p>Lars Bak</p>\n<h1 id=\"dart\" tabindex=\"-1\">Dart <a class=\"header-anchor\" href=\"https://example.com/blog/plvm/\">#</a></h1>\n<p>Gilad Bracha</p>\n<p>Lars Bak</p>\n<h1 id=\"net\" tabindex=\"-1\">.NET <a class=\"header-anchor\" href=\"https://example.com/blog/plvm/\">#</a></h1>\n<h1 id=\"python\" tabindex=\"-1\">Python <a class=\"header-anchor\" href=\"https://example.com/blog/plvm/\">#</a></h1>\n<h1 id=\"ruby-1\" tabindex=\"-1\">Ruby <a class=\"header-anchor\" href=\"https://example.com/blog/plvm/\">#</a></h1>\n<h1 id=\"racket\" tabindex=\"-1\">Racket <a class=\"header-anchor\" href=\"https://example.com/blog/plvm/\">#</a></h1>\n",
-			"date_published": "2023-11-06T00:00:00Z"
-		}
-		,
-		{
-			"id": "https://example.com/blog/rlcstos/",
-			"url": "https://example.com/blog/rlcstos/",
-			"title": "ReLearn Computer Science Through Open Source Software",
-			"content_html": "<h2 id=\"data-stucture\" tabindex=\"-1\">Data Stucture <a class=\"header-anchor\" href=\"https://example.com/blog/rlcstos/\">#</a></h2>\n<h3 id=\"tree\" tabindex=\"-1\">Tree <a class=\"header-anchor\" href=\"https://example.com/blog/rlcstos/\">#</a></h3>\n<p>chromium renderBox is tree structure</p>\n<h2 id=\"networking\" tabindex=\"-1\">Networking <a class=\"header-anchor\" href=\"https://example.com/blog/rlcstos/\">#</a></h2>\n<p>High Peforemance Browser Networking is a good book for networking</p>\n<p><a href=\"https://hpbn.co/\">hpbn.co</a></p>\n",
-			"date_published": "2023-10-23T00:00:00Z"
-		}
-		,
-		{
 			"id": "https://example.com/blog/chromium/",
 			"url": "https://example.com/blog/chromium/",
 			"title": "chromium",

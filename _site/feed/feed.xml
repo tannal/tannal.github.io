@@ -4,50 +4,12 @@
 	<subtitle>I am writing about my experiences as a naval navel-gazer.</subtitle>
 	<link href="https://example.com/feed/feed.xml" rel="self"/>
 	<link href="https://example.com/"/>
-	<updated>2023-11-06T00:00:00Z</updated>
+	<updated>2023-10-23T00:00:00Z</updated>
 	<id>https://example.com/</id>
 	<author>
 		<name>Your Name Here</name>
 		<email>youremailaddress@example.com</email>
 	</author>
-	
-	<entry>
-		<title>People in Programming Language and Virtual Machine</title>
-		<link href="https://example.com/blog/plvm/"/>
-		<updated>2023-11-06T00:00:00Z</updated>
-		<id>https://example.com/blog/plvm/</id>
-		<content type="html">&lt;h1 id=&quot;smalltalk&quot; tabindex=&quot;-1&quot;&gt;SmallTalk &lt;a class=&quot;header-anchor&quot; href=&quot;https://example.com/blog/plvm/&quot;&gt;#&lt;/a&gt;&lt;/h1&gt;
-&lt;h1 id=&quot;strongtalk&quot; tabindex=&quot;-1&quot;&gt;StrongTalk &lt;a class=&quot;header-anchor&quot; href=&quot;https://example.com/blog/plvm/&quot;&gt;#&lt;/a&gt;&lt;/h1&gt;
-&lt;p&gt;Lars Bak&lt;/p&gt;
-&lt;p&gt;Urs Hölzle&lt;/p&gt;
-&lt;p&gt;Gilad Bracha&lt;/p&gt;
-&lt;h1 id=&quot;java&quot; tabindex=&quot;-1&quot;&gt;Java &lt;a class=&quot;header-anchor&quot; href=&quot;https://example.com/blog/plvm/&quot;&gt;#&lt;/a&gt;&lt;/h1&gt;
-&lt;h1 id=&quot;ruby&quot; tabindex=&quot;-1&quot;&gt;Ruby &lt;a class=&quot;header-anchor&quot; href=&quot;https://example.com/blog/plvm/&quot;&gt;#&lt;/a&gt;&lt;/h1&gt;
-&lt;h1 id=&quot;v8&quot; tabindex=&quot;-1&quot;&gt;V8 &lt;a class=&quot;header-anchor&quot; href=&quot;https://example.com/blog/plvm/&quot;&gt;#&lt;/a&gt;&lt;/h1&gt;
-&lt;p&gt;Lars Bak&lt;/p&gt;
-&lt;h1 id=&quot;dart&quot; tabindex=&quot;-1&quot;&gt;Dart &lt;a class=&quot;header-anchor&quot; href=&quot;https://example.com/blog/plvm/&quot;&gt;#&lt;/a&gt;&lt;/h1&gt;
-&lt;p&gt;Gilad Bracha&lt;/p&gt;
-&lt;p&gt;Lars Bak&lt;/p&gt;
-&lt;h1 id=&quot;net&quot; tabindex=&quot;-1&quot;&gt;.NET &lt;a class=&quot;header-anchor&quot; href=&quot;https://example.com/blog/plvm/&quot;&gt;#&lt;/a&gt;&lt;/h1&gt;
-&lt;h1 id=&quot;python&quot; tabindex=&quot;-1&quot;&gt;Python &lt;a class=&quot;header-anchor&quot; href=&quot;https://example.com/blog/plvm/&quot;&gt;#&lt;/a&gt;&lt;/h1&gt;
-&lt;h1 id=&quot;ruby-1&quot; tabindex=&quot;-1&quot;&gt;Ruby &lt;a class=&quot;header-anchor&quot; href=&quot;https://example.com/blog/plvm/&quot;&gt;#&lt;/a&gt;&lt;/h1&gt;
-&lt;h1 id=&quot;racket&quot; tabindex=&quot;-1&quot;&gt;Racket &lt;a class=&quot;header-anchor&quot; href=&quot;https://example.com/blog/plvm/&quot;&gt;#&lt;/a&gt;&lt;/h1&gt;
-</content>
-	</entry>
-	
-	<entry>
-		<title>ReLearn Computer Science Through Open Source Software</title>
-		<link href="https://example.com/blog/rlcstos/"/>
-		<updated>2023-10-23T00:00:00Z</updated>
-		<id>https://example.com/blog/rlcstos/</id>
-		<content type="html">&lt;h2 id=&quot;data-stucture&quot; tabindex=&quot;-1&quot;&gt;Data Stucture &lt;a class=&quot;header-anchor&quot; href=&quot;https://example.com/blog/rlcstos/&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
-&lt;h3 id=&quot;tree&quot; tabindex=&quot;-1&quot;&gt;Tree &lt;a class=&quot;header-anchor&quot; href=&quot;https://example.com/blog/rlcstos/&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
-&lt;p&gt;chromium renderBox is tree structure&lt;/p&gt;
-&lt;h2 id=&quot;networking&quot; tabindex=&quot;-1&quot;&gt;Networking &lt;a class=&quot;header-anchor&quot; href=&quot;https://example.com/blog/rlcstos/&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
-&lt;p&gt;High Peforemance Browser Networking is a good book for networking&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://hpbn.co/&quot;&gt;hpbn.co&lt;/a&gt;&lt;/p&gt;
-</content>
-	</entry>
 	
 	<entry>
 		<title>chromium</title>
