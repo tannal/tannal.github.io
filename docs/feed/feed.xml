@@ -4,7 +4,7 @@
 	<subtitle>I am writing about my experiences as a naval navel-gazer.</subtitle>
 	<link href="https://example.com/feed/feed.xml" rel="self"/>
 	<link href="https://example.com/"/>
-	<updated>2023-11-06T00:00:00Z</updated>
+	<updated>2023-11-15T00:00:00Z</updated>
 	<id>https://example.com/</id>
 	<author>
 		<name>Your Name Here</name>
@@ -12,40 +12,81 @@
 	</author>
 	
 	<entry>
-		<title>People in Programming Language and Virtual Machine</title>
-		<link href="https://example.com/blog/plvm/"/>
-		<updated>2023-11-06T00:00:00Z</updated>
-		<id>https://example.com/blog/plvm/</id>
-		<content type="html">&lt;h1 id=&quot;smalltalk&quot; tabindex=&quot;-1&quot;&gt;SmallTalk &lt;a class=&quot;header-anchor&quot; href=&quot;https://example.com/blog/plvm/&quot;&gt;#&lt;/a&gt;&lt;/h1&gt;
-&lt;h1 id=&quot;strongtalk&quot; tabindex=&quot;-1&quot;&gt;StrongTalk &lt;a class=&quot;header-anchor&quot; href=&quot;https://example.com/blog/plvm/&quot;&gt;#&lt;/a&gt;&lt;/h1&gt;
-&lt;p&gt;Lars Bak&lt;/p&gt;
-&lt;p&gt;Urs Hölzle&lt;/p&gt;
-&lt;p&gt;Gilad Bracha&lt;/p&gt;
-&lt;h1 id=&quot;java&quot; tabindex=&quot;-1&quot;&gt;Java &lt;a class=&quot;header-anchor&quot; href=&quot;https://example.com/blog/plvm/&quot;&gt;#&lt;/a&gt;&lt;/h1&gt;
-&lt;h1 id=&quot;ruby&quot; tabindex=&quot;-1&quot;&gt;Ruby &lt;a class=&quot;header-anchor&quot; href=&quot;https://example.com/blog/plvm/&quot;&gt;#&lt;/a&gt;&lt;/h1&gt;
-&lt;h1 id=&quot;v8&quot; tabindex=&quot;-1&quot;&gt;V8 &lt;a class=&quot;header-anchor&quot; href=&quot;https://example.com/blog/plvm/&quot;&gt;#&lt;/a&gt;&lt;/h1&gt;
-&lt;p&gt;Lars Bak&lt;/p&gt;
-&lt;h1 id=&quot;dart&quot; tabindex=&quot;-1&quot;&gt;Dart &lt;a class=&quot;header-anchor&quot; href=&quot;https://example.com/blog/plvm/&quot;&gt;#&lt;/a&gt;&lt;/h1&gt;
-&lt;p&gt;Gilad Bracha&lt;/p&gt;
-&lt;p&gt;Lars Bak&lt;/p&gt;
-&lt;h1 id=&quot;net&quot; tabindex=&quot;-1&quot;&gt;.NET &lt;a class=&quot;header-anchor&quot; href=&quot;https://example.com/blog/plvm/&quot;&gt;#&lt;/a&gt;&lt;/h1&gt;
-&lt;h1 id=&quot;python&quot; tabindex=&quot;-1&quot;&gt;Python &lt;a class=&quot;header-anchor&quot; href=&quot;https://example.com/blog/plvm/&quot;&gt;#&lt;/a&gt;&lt;/h1&gt;
-&lt;h1 id=&quot;ruby-1&quot; tabindex=&quot;-1&quot;&gt;Ruby &lt;a class=&quot;header-anchor&quot; href=&quot;https://example.com/blog/plvm/&quot;&gt;#&lt;/a&gt;&lt;/h1&gt;
-&lt;h1 id=&quot;racket&quot; tabindex=&quot;-1&quot;&gt;Racket &lt;a class=&quot;header-anchor&quot; href=&quot;https://example.com/blog/plvm/&quot;&gt;#&lt;/a&gt;&lt;/h1&gt;
-</content>
-	</entry>
-	
-	<entry>
-		<title>ReLearn Computer Science Through Open Source Software</title>
-		<link href="https://example.com/blog/rlcstos/"/>
-		<updated>2023-10-23T00:00:00Z</updated>
-		<id>https://example.com/blog/rlcstos/</id>
-		<content type="html">&lt;h2 id=&quot;data-stucture&quot; tabindex=&quot;-1&quot;&gt;Data Stucture &lt;a class=&quot;header-anchor&quot; href=&quot;https://example.com/blog/rlcstos/&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
-&lt;h3 id=&quot;tree&quot; tabindex=&quot;-1&quot;&gt;Tree &lt;a class=&quot;header-anchor&quot; href=&quot;https://example.com/blog/rlcstos/&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
-&lt;p&gt;chromium renderBox is tree structure&lt;/p&gt;
-&lt;h2 id=&quot;networking&quot; tabindex=&quot;-1&quot;&gt;Networking &lt;a class=&quot;header-anchor&quot; href=&quot;https://example.com/blog/rlcstos/&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
-&lt;p&gt;High Peforemance Browser Networking is a good book for networking&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://hpbn.co/&quot;&gt;hpbn.co&lt;/a&gt;&lt;/p&gt;
+		<title>AI</title>
+		<link href="https://example.com/blog/ai/"/>
+		<updated>2023-11-15T00:00:00Z</updated>
+		<id>https://example.com/blog/ai/</id>
+		<content type="html">&lt;h1 id=&quot;what-is-intelligence&quot; tabindex=&quot;-1&quot;&gt;What is intelligence &lt;a class=&quot;header-anchor&quot; href=&quot;https://example.com/blog/ai/&quot;&gt;#&lt;/a&gt;&lt;/h1&gt;
+&lt;p&gt;The intelligence is the ability to do something but don&#39;t know how.&lt;/p&gt;
+&lt;h2 id=&quot;people-has-intelligence&quot; tabindex=&quot;-1&quot;&gt;People has intelligence &lt;a class=&quot;header-anchor&quot; href=&quot;https://example.com/blog/ai/&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;You can speak a language without knowing how to control your mouth or tongue&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;You can ride a bike without knowing how to keep balance.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;You can feel what is good or bad, what is fair or unfair, but you can not explain what is fair or good.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Despite you have no idea how to speak a language, but you can teach your son or girl to speak.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&quot;what-is-artificial-intelligence&quot; tabindex=&quot;-1&quot;&gt;What is Artificial Intelligence &lt;a class=&quot;header-anchor&quot; href=&quot;https://example.com/blog/ai/&quot;&gt;#&lt;/a&gt;&lt;/h1&gt;
+&lt;p&gt;We already show that&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;people has intelligence that is can do something but don&#39;t know how.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;despite no idea how to do it, people can teach other people to learn something that they don&#39;t even know how to do it themselves.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;The second point is crucial to define Artificial Intelligence.The only thing we need to do is change &amp;quot;teach other people&amp;quot; to &amp;quot;teach machine&amp;quot;.&lt;/p&gt;
+&lt;p&gt;Or even further teach machine to do something they have no idea how, plus after that the machine can teach the ability to other machine or people.&lt;/p&gt;
+&lt;p&gt;So Artificial Intelligence is something that can do things like people, and can teach other people/machine to do things, but have no idea how itself.&lt;/p&gt;
+&lt;h1 id=&quot;how-to-build-artificial-intelligence&quot; tabindex=&quot;-1&quot;&gt;How to build Artificial Intelligence? &lt;a class=&quot;header-anchor&quot; href=&quot;https://example.com/blog/ai/&quot;&gt;#&lt;/a&gt;&lt;/h1&gt;
+&lt;ol&gt;
+&lt;li&gt;build something like human baby&lt;/li&gt;
+&lt;li&gt;teach it like what we do to our baby&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Beacuse we already know how to teach human baby.
+We should focus on how to create something like human baby, then teach it.&lt;/p&gt;
+&lt;h2 id=&quot;what-is-something-like-human-baby&quot; tabindex=&quot;-1&quot;&gt;What is something like human baby &lt;a class=&quot;header-anchor&quot; href=&quot;https://example.com/blog/ai/&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;pneural plasticity that is models that has parameters&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;a default parameter.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;algorithm to change parameters.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Default parameter is so important. A model with enough plasticity plus the right default parameter (like our DNA) is something like human baby.&lt;/p&gt;
+&lt;p&gt;How do we know how many parameters is enough?&lt;/p&gt;
+&lt;p&gt;We don&#39;t know, so we make it as big as possible.&lt;/p&gt;
+&lt;p&gt;But how do we know the default parameter?&lt;/p&gt;
+&lt;p&gt;Actually we can&#39;t, but GPT show us how to set the default parameter up.&lt;/p&gt;
+&lt;p&gt;Feed huge amount of partial words, sentences, articles, code that human created to the machine.&lt;/p&gt;
+&lt;p&gt;Let them predict what&#39;s next and adujst the parameter using unsupervised learning.&lt;/p&gt;
+&lt;p&gt;This is called pre-traning in gpt.&lt;/p&gt;
+&lt;p&gt;Then we create something like human baby.Giving it the intelligence that people have are just as easy as giving the intelligence that you have to your children.(This process is called supervised learning or reforcement learning)&lt;/p&gt;
+&lt;p&gt;AI must be teached by people at some point.&lt;/p&gt;
+&lt;h1 id=&quot;parameter-is-more-important-than-model-itself&quot; tabindex=&quot;-1&quot;&gt;Parameter is more important than model itself &lt;a class=&quot;header-anchor&quot; href=&quot;https://example.com/blog/ai/&quot;&gt;#&lt;/a&gt;&lt;/h1&gt;
+&lt;p&gt;The only thing we should care about model is its plasticity.&lt;/p&gt;
+&lt;p&gt;That is&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;the capacity that parameters can express&lt;/li&gt;
+&lt;li&gt;the way that parameters change&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;What&#39;s the meaning of the parameter?&lt;/p&gt;
+&lt;p&gt;No meaning, the meaning of parameters would change.&lt;/p&gt;
+&lt;p&gt;That&#39;s why people forget things and learn new things.&lt;/p&gt;
+&lt;h1 id=&quot;why-intelligence-can-t-program&quot; tabindex=&quot;-1&quot;&gt;Why intelligence can&#39;t program &lt;a class=&quot;header-anchor&quot; href=&quot;https://example.com/blog/ai/&quot;&gt;#&lt;/a&gt;&lt;/h1&gt;
+&lt;p&gt;You can program when you do know how. But intelligence is about what, not how.&lt;/p&gt;
 </content>
 	</entry>
 	
@@ -57,15 +98,6 @@
 		<content type="html">&lt;h1 id=&quot;hello-chromium&quot; tabindex=&quot;-1&quot;&gt;Hello Chromium &lt;a class=&quot;header-anchor&quot; href=&quot;https://example.com/blog/chromium/&quot;&gt;#&lt;/a&gt;&lt;/h1&gt;
 &lt;pre class=&quot;language-js&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-js&quot;&gt;console&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;123&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;hello&lt;/p&gt;
-</content>
-	</entry>
-	
-	<entry>
-		<title>This is a fifth post (draft)</title>
-		<link href="https://example.com/blog/fifthpost/"/>
-		<updated>2023-01-23T00:00:00Z</updated>
-		<id>https://example.com/blog/fifthpost/</id>
-		<content type="html">&lt;p&gt;This is a draft post&lt;/p&gt;
 </content>
 	</entry>
 	

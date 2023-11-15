@@ -22,28 +22,8 @@
 	</url>
 	
 	<url>
-		<loc>https://example.com/blog/fifthpost/</loc>
-		<lastmod>2023-01-23</lastmod>
-	</url>
-	
-	<url>
 		<loc>https://example.com/blog/chromium/</loc>
 		<lastmod>2023-10-23</lastmod>
-	</url>
-	
-	<url>
-		<loc>https://example.com/blog/rlcstos/</loc>
-		<lastmod>2023-10-23</lastmod>
-	</url>
-	
-	<url>
-		<loc>https://example.com/blog/plvm/</loc>
-		<lastmod>2023-11-06</lastmod>
-	</url>
-	
-	<url>
-		<loc>https://example.com/blog/paper/</loc>
-		<lastmod>2023-11-06</lastmod>
 	</url>
 	
 	<url>
@@ -84,5 +64,10 @@
 	<url>
 		<loc>https://example.com/tags/posts-with-two-tags/</loc>
 		<lastmod>2023-11-06</lastmod>
+	</url>
+	
+	<url>
+		<loc>https://example.com/blog/ai/</loc>
+		<lastmod>2023-11-15</lastmod>
 	</url>
 </urlset>
