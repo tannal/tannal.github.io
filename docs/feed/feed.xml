@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom" xml:base="en">
-	<title>Eleventy Base Blog v8</title>
-	<subtitle>I am writing about my experiences as a naval navel-gazer.</subtitle>
-	<link href="https://example.com/feed/feed.xml" rel="self"/>
-	<link href="https://example.com/"/>
+	<title>Random Things By Tannal</title>
+	<subtitle>I type like a monkey.You know, I can make great things.</subtitle>
+	<link href="https://tannal.github.io/feed/feed.xml" rel="self"/>
+	<link href="https://tannal.github.io/"/>
 	<updated>2023-11-15T00:00:00Z</updated>
-	<id>https://example.com/</id>
+	<id>https://tannal.github.io/</id>
 	<author>
-		<name>Your Name Here</name>
-		<email>youremailaddress@example.com</email>
+		<name>tannal</name>
+		<email>tannal2409@gmail.com</email>
 	</author>
 	
 	<entry>
 		<title>AI</title>
-		<link href="https://example.com/blog/ai/"/>
+		<link href="https://tannal.github.io/blog/ai/"/>
 		<updated>2023-11-15T00:00:00Z</updated>
-		<id>https://example.com/blog/ai/</id>
-		<content type="html">&lt;h1 id=&quot;what-is-intelligence&quot; tabindex=&quot;-1&quot;&gt;What is intelligence &lt;a class=&quot;header-anchor&quot; href=&quot;https://example.com/blog/ai/&quot;&gt;#&lt;/a&gt;&lt;/h1&gt;
+		<id>https://tannal.github.io/blog/ai/</id>
+		<content type="html">&lt;h1 id=&quot;what-is-intelligence&quot; tabindex=&quot;-1&quot;&gt;What is intelligence &lt;a class=&quot;header-anchor&quot; href=&quot;https://tannal.github.io/blog/ai/&quot;&gt;#&lt;/a&gt;&lt;/h1&gt;
 &lt;p&gt;The intelligence is the ability to do something but don&#39;t know how.&lt;/p&gt;
-&lt;h2 id=&quot;people-has-intelligence&quot; tabindex=&quot;-1&quot;&gt;People has intelligence &lt;a class=&quot;header-anchor&quot; href=&quot;https://example.com/blog/ai/&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;h2 id=&quot;people-has-intelligence&quot; tabindex=&quot;-1&quot;&gt;People has intelligence &lt;a class=&quot;header-anchor&quot; href=&quot;https://tannal.github.io/blog/ai/&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;You can speak a language without knowing how to control your mouth or tongue&lt;/p&gt;
@@ -33,7 +33,7 @@
 &lt;p&gt;Despite you have no idea how to speak a language, but you can teach your son or girl to speak.&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;h1 id=&quot;what-is-artificial-intelligence&quot; tabindex=&quot;-1&quot;&gt;What is Artificial Intelligence &lt;a class=&quot;header-anchor&quot; href=&quot;https://example.com/blog/ai/&quot;&gt;#&lt;/a&gt;&lt;/h1&gt;
+&lt;h1 id=&quot;what-is-artificial-intelligence&quot; tabindex=&quot;-1&quot;&gt;What is Artificial Intelligence &lt;a class=&quot;header-anchor&quot; href=&quot;https://tannal.github.io/blog/ai/&quot;&gt;#&lt;/a&gt;&lt;/h1&gt;
 &lt;p&gt;We already show that&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;
@@ -46,14 +46,14 @@
 &lt;p&gt;The second point is crucial to define Artificial Intelligence.The only thing we need to do is change &amp;quot;teach other people&amp;quot; to &amp;quot;teach machine&amp;quot;.&lt;/p&gt;
 &lt;p&gt;Or even further teach machine to do something they have no idea how, plus after that the machine can teach the ability to other machine or people.&lt;/p&gt;
 &lt;p&gt;So Artificial Intelligence is something that can do things like people, and can teach other people/machine to do things, but have no idea how itself.&lt;/p&gt;
-&lt;h1 id=&quot;how-to-build-artificial-intelligence&quot; tabindex=&quot;-1&quot;&gt;How to build Artificial Intelligence? &lt;a class=&quot;header-anchor&quot; href=&quot;https://example.com/blog/ai/&quot;&gt;#&lt;/a&gt;&lt;/h1&gt;
+&lt;h1 id=&quot;how-to-build-artificial-intelligence&quot; tabindex=&quot;-1&quot;&gt;How to build Artificial Intelligence? &lt;a class=&quot;header-anchor&quot; href=&quot;https://tannal.github.io/blog/ai/&quot;&gt;#&lt;/a&gt;&lt;/h1&gt;
 &lt;ol&gt;
 &lt;li&gt;build something like human baby&lt;/li&gt;
 &lt;li&gt;teach it like what we do to our baby&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;Beacuse we already know how to teach human baby.
 We should focus on how to create something like human baby, then teach it.&lt;/p&gt;
-&lt;h2 id=&quot;what-is-something-like-human-baby&quot; tabindex=&quot;-1&quot;&gt;What is something like human baby &lt;a class=&quot;header-anchor&quot; href=&quot;https://example.com/blog/ai/&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;h2 id=&quot;what-is-something-like-human-baby&quot; tabindex=&quot;-1&quot;&gt;What is something like human baby &lt;a class=&quot;header-anchor&quot; href=&quot;https://tannal.github.io/blog/ai/&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;pneural plasticity that is models that has parameters&lt;/p&gt;
@@ -75,7 +75,7 @@ We should focus on how to create something like human baby, then teach it.&lt;/p
 &lt;p&gt;This is called pre-traning in gpt.&lt;/p&gt;
 &lt;p&gt;Then we create something like human baby.Giving it the intelligence that people have are just as easy as giving the intelligence that you have to your children.(This process is called supervised learning or reforcement learning)&lt;/p&gt;
 &lt;p&gt;AI must be teached by people at some point.&lt;/p&gt;
-&lt;h1 id=&quot;parameter-is-more-important-than-model-itself&quot; tabindex=&quot;-1&quot;&gt;Parameter is more important than model itself &lt;a class=&quot;header-anchor&quot; href=&quot;https://example.com/blog/ai/&quot;&gt;#&lt;/a&gt;&lt;/h1&gt;
+&lt;h1 id=&quot;parameter-is-more-important-than-model-itself&quot; tabindex=&quot;-1&quot;&gt;Parameter is more important than model itself &lt;a class=&quot;header-anchor&quot; href=&quot;https://tannal.github.io/blog/ai/&quot;&gt;#&lt;/a&gt;&lt;/h1&gt;
 &lt;p&gt;The only thing we should care about model is its plasticity.&lt;/p&gt;
 &lt;p&gt;That is&lt;/p&gt;
 &lt;ul&gt;
@@ -85,17 +85,17 @@ We should focus on how to create something like human baby, then teach it.&lt;/p
 &lt;p&gt;What&#39;s the meaning of the parameter?&lt;/p&gt;
 &lt;p&gt;No meaning, the meaning of parameters would change.&lt;/p&gt;
 &lt;p&gt;That&#39;s why people forget things and learn new things.&lt;/p&gt;
-&lt;h1 id=&quot;why-intelligence-can-t-program&quot; tabindex=&quot;-1&quot;&gt;Why intelligence can&#39;t program &lt;a class=&quot;header-anchor&quot; href=&quot;https://example.com/blog/ai/&quot;&gt;#&lt;/a&gt;&lt;/h1&gt;
+&lt;h1 id=&quot;why-intelligence-can-t-program&quot; tabindex=&quot;-1&quot;&gt;Why intelligence can&#39;t program &lt;a class=&quot;header-anchor&quot; href=&quot;https://tannal.github.io/blog/ai/&quot;&gt;#&lt;/a&gt;&lt;/h1&gt;
 &lt;p&gt;You can program when you do know how. But intelligence is about what, not how.&lt;/p&gt;
 </content>
 	</entry>
 	
 	<entry>
 		<title>chromium</title>
-		<link href="https://example.com/blog/chromium/"/>
+		<link href="https://tannal.github.io/blog/chromium/"/>
 		<updated>2023-10-23T00:00:00Z</updated>
-		<id>https://example.com/blog/chromium/</id>
-		<content type="html">&lt;h1 id=&quot;hello-chromium&quot; tabindex=&quot;-1&quot;&gt;Hello Chromium &lt;a class=&quot;header-anchor&quot; href=&quot;https://example.com/blog/chromium/&quot;&gt;#&lt;/a&gt;&lt;/h1&gt;
+		<id>https://tannal.github.io/blog/chromium/</id>
+		<content type="html">&lt;h1 id=&quot;hello-chromium&quot; tabindex=&quot;-1&quot;&gt;Hello Chromium &lt;a class=&quot;header-anchor&quot; href=&quot;https://tannal.github.io/blog/chromium/&quot;&gt;#&lt;/a&gt;&lt;/h1&gt;
 &lt;pre class=&quot;language-js&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-js&quot;&gt;console&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;123&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;hello&lt;/p&gt;
 </content>
@@ -103,25 +103,25 @@ We should focus on how to create something like human baby, then teach it.&lt;/p
 	
 	<entry>
 		<title>This is my fourth post.</title>
-		<link href="https://example.com/blog/fourthpost/"/>
+		<link href="https://tannal.github.io/blog/fourthpost/"/>
 		<updated>2018-09-30T00:00:00Z</updated>
-		<id>https://example.com/blog/fourthpost/</id>
+		<id>https://tannal.github.io/blog/fourthpost/</id>
 		<content type="html">&lt;p&gt;Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment.&lt;/p&gt;
 &lt;p&gt;Bring to the table win-win survival strategies to ensure proactive domination. At the end of the day, going forward, a new normal that has evolved from generation X is on the runway heading towards a streamlined cloud solution. User generated content in real-time will have multiple touchpoints for offshoring.&lt;/p&gt;
-&lt;p&gt;&lt;picture&gt;&lt;source type=&quot;image/avif&quot; srcset=&quot;https://example.com/img/IdthKOzqFA-350.avif 350w&quot;&gt;&lt;source type=&quot;image/webp&quot; srcset=&quot;https://example.com/img/IdthKOzqFA-350.webp 350w&quot;&gt;&lt;img alt=&quot;A possum parent and two possum kids hanging from the iconic red balloon&quot; loading=&quot;lazy&quot; decoding=&quot;async&quot; src=&quot;https://example.com/img/IdthKOzqFA-350.png&quot; width=&quot;350&quot; height=&quot;685&quot;&gt;&lt;/picture&gt;&lt;/p&gt;
-&lt;h2 id=&quot;section-header&quot; tabindex=&quot;-1&quot;&gt;Section Header &lt;a class=&quot;header-anchor&quot; href=&quot;https://example.com/blog/fourthpost/&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;&lt;picture&gt;&lt;source type=&quot;image/avif&quot; srcset=&quot;https://tannal.github.io/img/IdthKOzqFA-350.avif 350w&quot;&gt;&lt;source type=&quot;image/webp&quot; srcset=&quot;https://tannal.github.io/img/IdthKOzqFA-350.webp 350w&quot;&gt;&lt;img alt=&quot;A possum parent and two possum kids hanging from the iconic red balloon&quot; loading=&quot;lazy&quot; decoding=&quot;async&quot; src=&quot;https://tannal.github.io/img/IdthKOzqFA-350.png&quot; width=&quot;350&quot; height=&quot;685&quot;&gt;&lt;/picture&gt;&lt;/p&gt;
+&lt;h2 id=&quot;section-header&quot; tabindex=&quot;-1&quot;&gt;Section Header &lt;a class=&quot;header-anchor&quot; href=&quot;https://tannal.github.io/blog/fourthpost/&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;Capitalize on low hanging fruit to identify a ballpark value added activity to beta test. Override the digital divide with additional clickthroughs from DevOps. Nanotechnology immersion along the information highway will close the loop on focusing solely on the bottom line.&lt;/p&gt;
 </content>
 	</entry>
 	
 	<entry>
 		<title>This is my third post.</title>
-		<link href="https://example.com/blog/thirdpost/"/>
+		<link href="https://tannal.github.io/blog/thirdpost/"/>
 		<updated>2018-08-24T00:00:00Z</updated>
-		<id>https://example.com/blog/thirdpost/</id>
+		<id>https://tannal.github.io/blog/thirdpost/</id>
 		<content type="html">&lt;p&gt;Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment.&lt;/p&gt;
-&lt;h2 id=&quot;code&quot; tabindex=&quot;-1&quot;&gt;Code &lt;a class=&quot;header-anchor&quot; href=&quot;https://example.com/blog/thirdpost/&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
-&lt;h3 id=&quot;styled-with-syntax&quot; tabindex=&quot;-1&quot;&gt;Styled (with Syntax) &lt;a class=&quot;header-anchor&quot; href=&quot;https://example.com/blog/thirdpost/&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;h2 id=&quot;code&quot; tabindex=&quot;-1&quot;&gt;Code &lt;a class=&quot;header-anchor&quot; href=&quot;https://tannal.github.io/blog/thirdpost/&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;h3 id=&quot;styled-with-syntax&quot; tabindex=&quot;-1&quot;&gt;Styled (with Syntax) &lt;a class=&quot;header-anchor&quot; href=&quot;https://tannal.github.io/blog/thirdpost/&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;Bring to the table win-win survival strategies to ensure proactive domination. At the end of the day, going forward, a new normal that has evolved from generation X is on the runway heading towards a streamlined cloud solution. User generated content in real-time will have multiple touchpoints for offshoring.&lt;/p&gt;
 &lt;pre class=&quot;language-js&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-js&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;// this is a command&lt;/span&gt;
 &lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;myCommand&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
@@ -131,7 +131,7 @@ We should focus on how to create something like human baby, then teach it.&lt;/p
 
 &lt;span class=&quot;token comment&quot;&gt;// Test with a line break above this line.&lt;/span&gt;
 console&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&#39;Test&#39;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;h3 id=&quot;unstyled&quot; tabindex=&quot;-1&quot;&gt;Unstyled &lt;a class=&quot;header-anchor&quot; href=&quot;https://example.com/blog/thirdpost/&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;h3 id=&quot;unstyled&quot; tabindex=&quot;-1&quot;&gt;Unstyled &lt;a class=&quot;header-anchor&quot; href=&quot;https://tannal.github.io/blog/thirdpost/&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;Bring to the table win-win survival strategies to ensure proactive domination. At the end of the day, going forward, a new normal that has evolved from generation X is on the runway heading towards a streamlined cloud solution. User generated content in real-time will have multiple touchpoints for offshoring.&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;// this is a command
 function myCommand() {
@@ -142,20 +142,20 @@ function myCommand() {
 // Test with a line break above this line.
 console.log(&#39;Test&#39;);
 &lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&quot;section-header&quot; tabindex=&quot;-1&quot;&gt;Section Header &lt;a class=&quot;header-anchor&quot; href=&quot;https://example.com/blog/thirdpost/&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;h2 id=&quot;section-header&quot; tabindex=&quot;-1&quot;&gt;Section Header &lt;a class=&quot;header-anchor&quot; href=&quot;https://tannal.github.io/blog/thirdpost/&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;Capitalize on low hanging fruit to identify a ballpark value added activity to beta test. Override the digital divide with additional clickthroughs from DevOps. Nanotechnology immersion along the information highway will close the loop on focusing solely on the bottom line.&lt;/p&gt;
 </content>
 	</entry>
 	
 	<entry>
 		<title>This is my second post with a much longer title.</title>
-		<link href="https://example.com/blog/secondpost/"/>
+		<link href="https://tannal.github.io/blog/secondpost/"/>
 		<updated>2018-07-04T00:00:00Z</updated>
-		<id>https://example.com/blog/secondpost/</id>
+		<id>https://tannal.github.io/blog/secondpost/</id>
 		<content type="html">&lt;p&gt;Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment.&lt;/p&gt;
-&lt;h2 id=&quot;section-header&quot; tabindex=&quot;-1&quot;&gt;Section Header &lt;a class=&quot;header-anchor&quot; href=&quot;https://example.com/blog/secondpost/&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&quot;https://example.com/blog/firstpost/&quot;&gt;First post&lt;/a&gt;
-&lt;a href=&quot;https://example.com/blog/thirdpost/&quot;&gt;Third post&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;section-header&quot; tabindex=&quot;-1&quot;&gt;Section Header &lt;a class=&quot;header-anchor&quot; href=&quot;https://tannal.github.io/blog/secondpost/&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://tannal.github.io/blog/firstpost/&quot;&gt;First post&lt;/a&gt;
+&lt;a href=&quot;https://tannal.github.io/blog/thirdpost/&quot;&gt;Third post&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Bring to the table win-win survival strategies to ensure proactive domination. At the end of the day, going forward, a new normal that has evolved from generation X is on the runway heading towards a streamlined cloud solution. User generated content in real-time will have multiple touchpoints for offshoring.&lt;/p&gt;
 &lt;p&gt;Capitalize on low hanging fruit to identify a ballpark value added activity to beta test. Override the digital divide with additional clickthroughs from DevOps. Nanotechnology immersion along the information highway will close the loop on focusing solely on the bottom line.&lt;/p&gt;
 </content>
@@ -163,12 +163,12 @@ console.log(&#39;Test&#39;);
 	
 	<entry>
 		<title>This is my first post.</title>
-		<link href="https://example.com/blog/firstpost/"/>
+		<link href="https://tannal.github.io/blog/firstpost/"/>
 		<updated>2018-05-01T00:00:00Z</updated>
-		<id>https://example.com/blog/firstpost/</id>
+		<id>https://tannal.github.io/blog/firstpost/</id>
 		<content type="html">&lt;p&gt;Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment.&lt;/p&gt;
 &lt;p&gt;Bring to the table win-win survival strategies to ensure proactive domination. At the end of the day, going forward, a new normal that has evolved from generation X is on the runway heading towards a streamlined cloud solution. User generated content in real-time will have multiple touchpoints for offshoring.&lt;/p&gt;
-&lt;h2 id=&quot;section-header&quot; tabindex=&quot;-1&quot;&gt;Section Header &lt;a class=&quot;header-anchor&quot; href=&quot;https://example.com/blog/firstpost/&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;h2 id=&quot;section-header&quot; tabindex=&quot;-1&quot;&gt;Section Header &lt;a class=&quot;header-anchor&quot; href=&quot;https://tannal.github.io/blog/firstpost/&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;Capitalize on low hanging fruit to identify a ballpark value added activity to beta test. Override the digital divide with additional clickthroughs from DevOps. Nanotechnology immersion along the information highway will close the loop on focusing solely on the bottom line.&lt;/p&gt;
 &lt;pre class=&quot;language-diff-js&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-diff-js&quot;&gt;&lt;span class=&quot;token unchanged language-js&quot;&gt;&lt;span class=&quot;token prefix unchanged&quot;&gt; &lt;/span&gt;&lt;span class=&quot;token comment&quot;&gt;// this is a command&lt;/span&gt;
 &lt;span class=&quot;token prefix unchanged&quot;&gt; &lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;myCommand&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
