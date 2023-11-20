@@ -4,12 +4,22 @@
 	<subtitle>I type like a monkey.You know, I can make great things.</subtitle>
 	<link href="https://tannal.github.io/feed/feed.xml" rel="self"/>
 	<link href="https://tannal.github.io/"/>
-	<updated>2023-11-15T00:00:00Z</updated>
+	<updated>2023-11-20T00:00:00Z</updated>
 	<id>https://tannal.github.io/</id>
 	<author>
 		<name>tannal</name>
 		<email>tannal2409@gmail.com</email>
 	</author>
+	
+	<entry>
+		<title>People to follow</title>
+		<link href="https://tannal.github.io/blog/people/"/>
+		<updated>2023-11-20T00:00:00Z</updated>
+		<id>https://tannal.github.io/blog/people/</id>
+		<content type="html">&lt;h1 id=&quot;from-2023-11-20&quot; tabindex=&quot;-1&quot;&gt;from 2023-11-20 &lt;a class=&quot;header-anchor&quot; href=&quot;https://tannal.github.io/blog/people/&quot;&gt;#&lt;/a&gt;&lt;/h1&gt;
+&lt;p&gt;Cliff Click https://twitter.com/cliff_click HotSpot JIT compiler PL VM&lt;/p&gt;
+</content>
+	</entry>
 	
 	<entry>
 		<title>AI</title>

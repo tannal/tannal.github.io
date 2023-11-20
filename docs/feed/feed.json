@@ -11,6 +11,14 @@
 	},
 	"items": [
 		{
+			"id": "https://tannal.github.io/blog/people/",
+			"url": "https://tannal.github.io/blog/people/",
+			"title": "People to follow",
+			"content_html": "<h1 id=\"from-2023-11-20\" tabindex=\"-1\">from 2023-11-20 <a class=\"header-anchor\" href=\"https://tannal.github.io/blog/people/\">#</a></h1>\n<p>Cliff Click https://twitter.com/cliff_click HotSpot JIT compiler PL VM</p>\n",
+			"date_published": "2023-11-20T00:00:00Z"
+		}
+		,
+		{
 			"id": "https://tannal.github.io/blog/ai/",
 			"url": "https://tannal.github.io/blog/ai/",
 			"title": "AI",
