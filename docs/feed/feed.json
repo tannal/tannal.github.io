@@ -11,10 +11,34 @@
 	},
 	"items": [
 		{
+			"id": "https://tannal.github.io/blog/raspi3/",
+			"url": "https://tannal.github.io/blog/raspi3/",
+			"title": "RasPI3",
+			"content_html": "<p>https://giyoyang.medium.com/%E4%BF%AE%E8%AA%B2%E5%BF%83%E5%BE%97-%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1%E7%B8%BD%E6%95%B4%E8%88%87%E5%AF%A6%E4%BD%9C-%E8%8B%B1%E6%96%87%E6%8E%88%E8%AA%B2-e2742733fa84</p>\n<p>https://github.com/KevinCodePlace/NYCU_Operating_System_Capstone_2023Spring</p>\n<p>https://oscapstone.github.io/labs/lab0.html#deploy-to-real-rpi3</p>\n<p>https://people.cs.nycu.edu.tw/~ttyeh/course/2023_Spring/IOC5226/outline.html</p>\n",
+			"date_published": "2023-11-23T00:00:00Z"
+		}
+		,
+		{
+			"id": "https://tannal.github.io/blog/webkit/",
+			"url": "https://tannal.github.io/blog/webkit/",
+			"title": "WebKit Dev",
+			"content_html": "<p>https://wusyong.github.io/posts/building-webkit/</p>\n",
+			"date_published": "2023-11-22T00:00:00Z"
+		}
+		,
+		{
+			"id": "https://tannal.github.io/blog/conference/",
+			"url": "https://tannal.github.io/blog/conference/",
+			"title": "We need to know some Conference",
+			"content_html": "<h1 id=\"links-for-conferences\" tabindex=\"-1\">links for conferences <a class=\"header-anchor\" href=\"https://tannal.github.io/blog/conference/\">#</a></h1>\n<p>https://www.sigplan.org/Conferences/</p>\n<h1 id=\"for-academic-paper\" tabindex=\"-1\">for academic paper <a class=\"header-anchor\" href=\"https://tannal.github.io/blog/conference/\">#</a></h1>\n<p>High Peformance Computer Architecture HPCA https://dblp.org/db/conf/hpca/hpca2023.html</p>\n<p>MICRO Micro Architecture https://dblp.org/db/conf/micro/index.html</p>\n<p>ISPASS Performance Analysis of Systems and Software https://dblp.org/db/conf/ispass/index.html</p>\n<p>FoSSaCS Foundations of Software Science and Computation Structures https://dblp.org/db/conf/fossacs/index.html</p>\n<p>POPL Symposium on Principles of Programming Languages https://dblp.org/db/conf/popl/index.html</p>\n<p>ICFP International Conference on Functional Programming https://dblp.org/db/conf/icfp/index.html</p>\n<p>ASPLOS International Conference on Architectural Support for Programming Languages and Operating Systems https://dblp.org/db/conf/asplos/index.html</p>\n<p>SOSP</p>\n<p>OSDI</p>\n<p>SIGGRAPH</p>\n<p>MPLR International Conference on Managed Programming Languages &amp; Runtimes https://dblp.org/db/conf/pppj/index.html</p>\n<p>SC High Peformance Computing https://dblp.org/db/conf/sc/index.html</p>\n<p>PLDI https://dblp.org/db/conf/pldi/index.html</p>\n<p>TACAS International Conference on Tools and Algorithms for Construction and Analysis of Systems https://dblp.org/db/conf/tacas/index.html</p>\n<p>EuroSys https://dblp.org/db/conf/eurosys/index.html</p>\n<p>https://dblp.org/db/journals/tecs/index.html</p>\n<p>https://dblp.org/db/conf/ecoop/index.html</p>\n<p>https://dblp.org/db/conf/lctrts/index.html</p>\n<p>https://dblp.org/db/conf/cc/cc2023.html</p>\n<p>https://dblp.org/db/conf/rtss/index.html</p>\n<p>https://dblp.org/db/journals/taco/index.html</p>\n<p>https://dblp.org/db/conf/cgo/index.html</p>\n<p>https://dblp.org/db/conf/oopsla/index.html</p>\n<p>https://dblp.org/db/journals/pacmpl/index.html</p>\n<h1 id=\"for-industry-experience\" tabindex=\"-1\">for industry experience <a class=\"header-anchor\" href=\"https://tannal.github.io/blog/conference/\">#</a></h1>\n<p>https://github.com/GoCon</p>\n",
+			"date_published": "2023-11-21T00:00:00Z"
+		}
+		,
+		{
 			"id": "https://tannal.github.io/blog/people/",
 			"url": "https://tannal.github.io/blog/people/",
 			"title": "People to follow",
-			"content_html": "<h1 id=\"from-2023-11-20\" tabindex=\"-1\">from 2023-11-20 <a class=\"header-anchor\" href=\"https://tannal.github.io/blog/people/\">#</a></h1>\n<p>Cliff Click https://twitter.com/cliff_click HotSpot JIT compiler PL VM</p>\n",
+			"content_html": "<h1 id=\"from-2023-11-20\" tabindex=\"-1\">from 2023-11-20 <a class=\"header-anchor\" href=\"https://tannal.github.io/blog/people/\">#</a></h1>\n<p>Cliff Click https://twitter.com/cliff_click HotSpot JIT compiler PL VM</p>\n<p>hJay Conrod https://www.jayconrod.com/posts ex-google docs team go team</p>\n",
 			"date_published": "2023-11-20T00:00:00Z"
 		}
 		,
@@ -29,8 +53,8 @@
 		{
 			"id": "https://tannal.github.io/blog/chromium/",
 			"url": "https://tannal.github.io/blog/chromium/",
-			"title": "chromium",
-			"content_html": "<h1 id=\"hello-chromium\" tabindex=\"-1\">Hello Chromium <a class=\"header-anchor\" href=\"https://tannal.github.io/blog/chromium/\">#</a></h1>\n<pre class=\"language-js\" tabindex=\"0\"><code class=\"language-js\">console<span class=\"token punctuation\">.</span><span class=\"token function\">log</span><span class=\"token punctuation\">(</span><span class=\"token number\">123</span><span class=\"token punctuation\">)</span><span class=\"token punctuation\">;</span></code></pre>\n<p>hello</p>\n",
+			"title": "Chromium Dev",
+			"content_html": "<p>I don't want to get stuck.</p>\n<p>So I just keep trying and keep trying.</p>\n<pre class=\"language-sh\" tabindex=\"0\"><code class=\"language-sh\">\n<span class=\"token function\">mkdir</span> chromium <span class=\"token operator\">&amp;</span> <span class=\"token builtin class-name\">cd</span> chromium\n\nfetch chromium --no-history --no-hooks\n\n./build/install-build-deps.sh\n\ngclient runhooks\n\ngn gen out/Default\n\nautoninja <span class=\"token parameter variable\">-C</span> out/Default chrome\n</code></pre>\n",
 			"date_published": "2023-10-23T00:00:00Z"
 		}
 		,

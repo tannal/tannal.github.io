@@ -75,4 +75,19 @@
 		<loc>https://tannal.github.io/blog/people/</loc>
 		<lastmod>2023-11-20</lastmod>
 	</url>
+	
+	<url>
+		<loc>https://tannal.github.io/blog/conference/</loc>
+		<lastmod>2023-11-21</lastmod>
+	</url>
+	
+	<url>
+		<loc>https://tannal.github.io/blog/webkit/</loc>
+		<lastmod>2023-11-22</lastmod>
+	</url>
+	
+	<url>
+		<loc>https://tannal.github.io/blog/raspi3/</loc>
+		<lastmod>2023-11-23</lastmod>
+	</url>
 </urlset>

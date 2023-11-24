@@ -4,12 +4,70 @@
 	<subtitle>I type like a monkey.You know, I can make great things.</subtitle>
 	<link href="https://tannal.github.io/feed/feed.xml" rel="self"/>
 	<link href="https://tannal.github.io/"/>
-	<updated>2023-11-20T00:00:00Z</updated>
+	<updated>2023-11-23T00:00:00Z</updated>
 	<id>https://tannal.github.io/</id>
 	<author>
 		<name>tannal</name>
 		<email>tannal2409@gmail.com</email>
 	</author>
+	
+	<entry>
+		<title>RasPI3</title>
+		<link href="https://tannal.github.io/blog/raspi3/"/>
+		<updated>2023-11-23T00:00:00Z</updated>
+		<id>https://tannal.github.io/blog/raspi3/</id>
+		<content type="html">&lt;p&gt;https://giyoyang.medium.com/%E4%BF%AE%E8%AA%B2%E5%BF%83%E5%BE%97-%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1%E7%B8%BD%E6%95%B4%E8%88%87%E5%AF%A6%E4%BD%9C-%E8%8B%B1%E6%96%87%E6%8E%88%E8%AA%B2-e2742733fa84&lt;/p&gt;
+&lt;p&gt;https://github.com/KevinCodePlace/NYCU_Operating_System_Capstone_2023Spring&lt;/p&gt;
+&lt;p&gt;https://oscapstone.github.io/labs/lab0.html#deploy-to-real-rpi3&lt;/p&gt;
+&lt;p&gt;https://people.cs.nycu.edu.tw/~ttyeh/course/2023_Spring/IOC5226/outline.html&lt;/p&gt;
+</content>
+	</entry>
+	
+	<entry>
+		<title>WebKit Dev</title>
+		<link href="https://tannal.github.io/blog/webkit/"/>
+		<updated>2023-11-22T00:00:00Z</updated>
+		<id>https://tannal.github.io/blog/webkit/</id>
+		<content type="html">&lt;p&gt;https://wusyong.github.io/posts/building-webkit/&lt;/p&gt;
+</content>
+	</entry>
+	
+	<entry>
+		<title>We need to know some Conference</title>
+		<link href="https://tannal.github.io/blog/conference/"/>
+		<updated>2023-11-21T00:00:00Z</updated>
+		<id>https://tannal.github.io/blog/conference/</id>
+		<content type="html">&lt;h1 id=&quot;links-for-conferences&quot; tabindex=&quot;-1&quot;&gt;links for conferences &lt;a class=&quot;header-anchor&quot; href=&quot;https://tannal.github.io/blog/conference/&quot;&gt;#&lt;/a&gt;&lt;/h1&gt;
+&lt;p&gt;https://www.sigplan.org/Conferences/&lt;/p&gt;
+&lt;h1 id=&quot;for-academic-paper&quot; tabindex=&quot;-1&quot;&gt;for academic paper &lt;a class=&quot;header-anchor&quot; href=&quot;https://tannal.github.io/blog/conference/&quot;&gt;#&lt;/a&gt;&lt;/h1&gt;
+&lt;p&gt;High Peformance Computer Architecture HPCA https://dblp.org/db/conf/hpca/hpca2023.html&lt;/p&gt;
+&lt;p&gt;MICRO Micro Architecture https://dblp.org/db/conf/micro/index.html&lt;/p&gt;
+&lt;p&gt;ISPASS Performance Analysis of Systems and Software https://dblp.org/db/conf/ispass/index.html&lt;/p&gt;
+&lt;p&gt;FoSSaCS Foundations of Software Science and Computation Structures https://dblp.org/db/conf/fossacs/index.html&lt;/p&gt;
+&lt;p&gt;POPL Symposium on Principles of Programming Languages https://dblp.org/db/conf/popl/index.html&lt;/p&gt;
+&lt;p&gt;ICFP International Conference on Functional Programming https://dblp.org/db/conf/icfp/index.html&lt;/p&gt;
+&lt;p&gt;ASPLOS International Conference on Architectural Support for Programming Languages and Operating Systems https://dblp.org/db/conf/asplos/index.html&lt;/p&gt;
+&lt;p&gt;SOSP&lt;/p&gt;
+&lt;p&gt;OSDI&lt;/p&gt;
+&lt;p&gt;SIGGRAPH&lt;/p&gt;
+&lt;p&gt;MPLR International Conference on Managed Programming Languages &amp;amp; Runtimes https://dblp.org/db/conf/pppj/index.html&lt;/p&gt;
+&lt;p&gt;SC High Peformance Computing https://dblp.org/db/conf/sc/index.html&lt;/p&gt;
+&lt;p&gt;PLDI https://dblp.org/db/conf/pldi/index.html&lt;/p&gt;
+&lt;p&gt;TACAS International Conference on Tools and Algorithms for Construction and Analysis of Systems https://dblp.org/db/conf/tacas/index.html&lt;/p&gt;
+&lt;p&gt;EuroSys https://dblp.org/db/conf/eurosys/index.html&lt;/p&gt;
+&lt;p&gt;https://dblp.org/db/journals/tecs/index.html&lt;/p&gt;
+&lt;p&gt;https://dblp.org/db/conf/ecoop/index.html&lt;/p&gt;
+&lt;p&gt;https://dblp.org/db/conf/lctrts/index.html&lt;/p&gt;
+&lt;p&gt;https://dblp.org/db/conf/cc/cc2023.html&lt;/p&gt;
+&lt;p&gt;https://dblp.org/db/conf/rtss/index.html&lt;/p&gt;
+&lt;p&gt;https://dblp.org/db/journals/taco/index.html&lt;/p&gt;
+&lt;p&gt;https://dblp.org/db/conf/cgo/index.html&lt;/p&gt;
+&lt;p&gt;https://dblp.org/db/conf/oopsla/index.html&lt;/p&gt;
+&lt;p&gt;https://dblp.org/db/journals/pacmpl/index.html&lt;/p&gt;
+&lt;h1 id=&quot;for-industry-experience&quot; tabindex=&quot;-1&quot;&gt;for industry experience &lt;a class=&quot;header-anchor&quot; href=&quot;https://tannal.github.io/blog/conference/&quot;&gt;#&lt;/a&gt;&lt;/h1&gt;
+&lt;p&gt;https://github.com/GoCon&lt;/p&gt;
+</content>
+	</entry>
 	
 	<entry>
 		<title>People to follow</title>
@@ -18,6 +76,7 @@
 		<id>https://tannal.github.io/blog/people/</id>
 		<content type="html">&lt;h1 id=&quot;from-2023-11-20&quot; tabindex=&quot;-1&quot;&gt;from 2023-11-20 &lt;a class=&quot;header-anchor&quot; href=&quot;https://tannal.github.io/blog/people/&quot;&gt;#&lt;/a&gt;&lt;/h1&gt;
 &lt;p&gt;Cliff Click https://twitter.com/cliff_click HotSpot JIT compiler PL VM&lt;/p&gt;
+&lt;p&gt;hJay Conrod https://www.jayconrod.com/posts ex-google docs team go team&lt;/p&gt;
 </content>
 	</entry>
 	
@@ -101,13 +160,25 @@ We should focus on how to create something like human baby, then teach it.&lt;/p
 	</entry>
 	
 	<entry>
-		<title>chromium</title>
+		<title>Chromium Dev</title>
 		<link href="https://tannal.github.io/blog/chromium/"/>
 		<updated>2023-10-23T00:00:00Z</updated>
 		<id>https://tannal.github.io/blog/chromium/</id>
-		<content type="html">&lt;h1 id=&quot;hello-chromium&quot; tabindex=&quot;-1&quot;&gt;Hello Chromium &lt;a class=&quot;header-anchor&quot; href=&quot;https://tannal.github.io/blog/chromium/&quot;&gt;#&lt;/a&gt;&lt;/h1&gt;
-&lt;pre class=&quot;language-js&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-js&quot;&gt;console&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;123&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;hello&lt;/p&gt;
+		<content type="html">&lt;p&gt;I don&#39;t want to get stuck.&lt;/p&gt;
+&lt;p&gt;So I just keep trying and keep trying.&lt;/p&gt;
+&lt;pre class=&quot;language-sh&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-sh&quot;&gt;
+&lt;span class=&quot;token function&quot;&gt;mkdir&lt;/span&gt; chromium &lt;span class=&quot;token operator&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;token builtin class-name&quot;&gt;cd&lt;/span&gt; chromium
+
+fetch chromium --no-history --no-hooks
+
+./build/install-build-deps.sh
+
+gclient runhooks
+
+gn gen out/Default
+
+autoninja &lt;span class=&quot;token parameter variable&quot;&gt;-C&lt;/span&gt; out/Default chrome
+&lt;/code&gt;&lt;/pre&gt;
 </content>
 	</entry>
 	

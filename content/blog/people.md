@@ -9,5 +9,8 @@ draft: false
 
 Cliff Click https://twitter.com/cliff_click HotSpot JIT compiler PL VM
 
+hJay Conrod https://www.jayconrod.com/posts ex-google docs team go team
+
+
 
 
