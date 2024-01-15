@@ -1,8 +1,8 @@
 module.exports = {
-	title: "Random Things By Tannal",
+	title: "Random thoughts",
 	url: "https://tannal.github.io/",
 	language: "en",
-	description: "I type like a monkey.You know, I can make great things.",
+	description: "I type like a monkey.",
 	author: {
 		name: "tannal",
 		email: "tannal2409@gmail.com",

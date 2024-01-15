@@ -1,15 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom" xml:base="en">
-	<title>Random Things By Tannal</title>
-	<subtitle>I type like a monkey.You know, I can make great things.</subtitle>
+	<title>Random thoughts</title>
+	<subtitle>I type like a monkey.</subtitle>
 	<link href="https://tannal.github.io/feed/feed.xml" rel="self"/>
 	<link href="https://tannal.github.io/"/>
-	<updated>2023-11-23T00:00:00Z</updated>
+	<updated>2024-01-13T00:00:00Z</updated>
 	<id>https://tannal.github.io/</id>
 	<author>
 		<name>tannal</name>
 		<email>tannal2409@gmail.com</email>
 	</author>
+	
+	<entry>
+		<title>Build your own linux distribution</title>
+		<link href="https://tannal.github.io/blog/build-your-own-distro/"/>
+		<updated>2024-01-13T00:00:00Z</updated>
+		<id>https://tannal.github.io/blog/build-your-own-distro/</id>
+		<content type="html">&lt;p&gt;This post will tell you how to build your own linux distro and boot it with qemu. Debug the kernel with gdb/vscode.&lt;/p&gt;
+&lt;h1 id=&quot;build-linux-kernel&quot; tabindex=&quot;-1&quot;&gt;Build Linux Kernel &lt;a class=&quot;header-anchor&quot; href=&quot;https://tannal.github.io/blog/build-your-own-distro/&quot;&gt;#&lt;/a&gt;&lt;/h1&gt;
+&lt;h2 id=&quot;download-kernel-source-code&quot; tabindex=&quot;-1&quot;&gt;Download kernel source code &lt;a class=&quot;header-anchor&quot; href=&quot;https://tannal.github.io/blog/build-your-own-distro/&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;pre class=&quot;language-bash&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;
+&lt;span class=&quot;token function&quot;&gt;wget&lt;/span&gt; https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.7.tar.xz
+
+&lt;span class=&quot;token function&quot;&gt;tar&lt;/span&gt; xvf linux-6.7.tar.xz
+
+&lt;span class=&quot;token builtin class-name&quot;&gt;cd&lt;/span&gt; linux-6.7
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&quot;config-the-kernel-tree&quot; tabindex=&quot;-1&quot;&gt;Config the kernel tree &lt;a class=&quot;header-anchor&quot; href=&quot;https://tannal.github.io/blog/build-your-own-distro/&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;create a .config file&lt;/p&gt;
+&lt;pre class=&quot;language-bash&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;
+https://github.com/tannal/tannal.glitch.me/blob/main/.config_linux_x86_dev
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&quot;build-kernel&quot; tabindex=&quot;-1&quot;&gt;build kernel &lt;a class=&quot;header-anchor&quot; href=&quot;https://tannal.github.io/blog/build-your-own-distro/&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;pre class=&quot;language-bash&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;&lt;span class=&quot;token function&quot;&gt;make&lt;/span&gt; oldconfig
+&lt;span class=&quot;token function&quot;&gt;make&lt;/span&gt; &lt;span class=&quot;token parameter variable&quot;&gt;-j20&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&quot;build-and-install-glibc&quot; tabindex=&quot;-1&quot;&gt;Build and install Glibc &lt;a class=&quot;header-anchor&quot; href=&quot;https://tannal.github.io/blog/build-your-own-distro/&quot;&gt;#&lt;/a&gt;&lt;/h1&gt;
+&lt;p&gt;Keep in mind that lld is not support for building glibc.&lt;/p&gt;
+&lt;pre class=&quot;language-bash&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;&lt;span class=&quot;token function&quot;&gt;wget&lt;/span&gt; https://ftp.gnu.org/gnu/glibc/glibc-2.38.tar.gz
+
+&lt;span class=&quot;token function&quot;&gt;tar&lt;/span&gt; xvf glibc-2.38.tar.gz
+
+&lt;span class=&quot;token builtin class-name&quot;&gt;cd&lt;/span&gt; glibc-2.38
+
+&lt;span class=&quot;token function&quot;&gt;mkdir&lt;/span&gt; build
+&lt;span class=&quot;token function&quot;&gt;mkdir&lt;/span&gt; GLIBC
+
+&lt;span class=&quot;token builtin class-name&quot;&gt;cd&lt;/span&gt; build
+
+&lt;span class=&quot;token function&quot;&gt;sudo&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;apt&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;gawk&lt;/span&gt;
+
+&lt;span class=&quot;token comment&quot;&gt;# llvm lld is not support for compiling glic&lt;/span&gt;
+&lt;span class=&quot;token function&quot;&gt;sudo&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;rm&lt;/span&gt; /usr/bin/ld
+&lt;span class=&quot;token function&quot;&gt;sudo&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;ln&lt;/span&gt; &lt;span class=&quot;token parameter variable&quot;&gt;-s&lt;/span&gt; x86_64-linux-gnu-ld /usr/bin/ld
+
+
+&lt;span class=&quot;token punctuation&quot;&gt;..&lt;/span&gt;/configure &lt;span class=&quot;token parameter variable&quot;&gt;--prefix&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;
+
+&lt;span class=&quot;token function&quot;&gt;make&lt;/span&gt; &lt;span class=&quot;token parameter variable&quot;&gt;-j20&lt;/span&gt;
+
+&lt;span class=&quot;token function&quot;&gt;make&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;token assign-left variable&quot;&gt;DESTDIR&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;..&lt;/span&gt;/GLIBC
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Glibc will install in the GLIBC directory.
+Next step we need to build busybox.&lt;/p&gt;
+&lt;h1 id=&quot;sysroot&quot; tabindex=&quot;-1&quot;&gt;sysroot &lt;a class=&quot;header-anchor&quot; href=&quot;https://tannal.github.io/blog/build-your-own-distro/&quot;&gt;#&lt;/a&gt;&lt;/h1&gt;
+&lt;p&gt;Create a directory called sysroot for busybox and copy all the GLIBC to the sysroot.&lt;/p&gt;
+&lt;pre class=&quot;language-bash&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;
+&lt;span class=&quot;token function&quot;&gt;mkdir&lt;/span&gt; sysroot
+
+&lt;span class=&quot;token builtin class-name&quot;&gt;cd&lt;/span&gt; sysroot
+
+&lt;span class=&quot;token function&quot;&gt;mkdir&lt;/span&gt; usr
+
+&lt;span class=&quot;token builtin class-name&quot;&gt;cd&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;..&lt;/span&gt;
+
+&lt;span class=&quot;token function&quot;&gt;cp&lt;/span&gt; &lt;span class=&quot;token parameter variable&quot;&gt;-r&lt;/span&gt; glibc-2.38/GLIBC/* sysroot/
+
+&lt;span class=&quot;token function&quot;&gt;ls&lt;/span&gt; sysroot/
+bin  etc  include  lib  libexec  sbin  share  var
+
+&lt;span class=&quot;token function&quot;&gt;cp&lt;/span&gt; &lt;span class=&quot;token parameter variable&quot;&gt;-r&lt;/span&gt; GLIBC/include/* sysroot/include/
+&lt;span class=&quot;token function&quot;&gt;cp&lt;/span&gt; &lt;span class=&quot;token parameter variable&quot;&gt;-r&lt;/span&gt; GLIBC/lib/* sysroot/lib/
+
+&lt;span class=&quot;token function&quot;&gt;mkdir&lt;/span&gt; sysroot/usr
+&lt;span class=&quot;token function&quot;&gt;rsync&lt;/span&gt; &lt;span class=&quot;token parameter variable&quot;&gt;-a&lt;/span&gt; /usr/include sysroot
+
+&lt;span class=&quot;token function&quot;&gt;ln&lt;/span&gt; &lt;span class=&quot;token parameter variable&quot;&gt;-s&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;..&lt;/span&gt;/include sysroot/usr/include
+&lt;span class=&quot;token function&quot;&gt;ln&lt;/span&gt; &lt;span class=&quot;token parameter variable&quot;&gt;-s&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;..&lt;/span&gt;/lib sysroot/usr/lib
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&quot;build-busybox&quot; tabindex=&quot;-1&quot;&gt;Build busybox &lt;a class=&quot;header-anchor&quot; href=&quot;https://tannal.github.io/blog/build-your-own-distro/&quot;&gt;#&lt;/a&gt;&lt;/h1&gt;
+&lt;pre class=&quot;language-bash&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;
+&lt;span class=&quot;token function&quot;&gt;wget&lt;/span&gt; https://git.busybox.net/busybox/snapshot/busybox-1_36_1.tar.bz2
+
+&lt;span class=&quot;token function&quot;&gt;tar&lt;/span&gt; xvjf busybox-1_36_1.tar.bz2
+
+&lt;span class=&quot;token builtin class-name&quot;&gt;cd&lt;/span&gt; busybox-1_36_1
+
+&lt;span class=&quot;token function&quot;&gt;make&lt;/span&gt; defconfig
+
+&lt;span class=&quot;token assign-left variable&quot;&gt;CONFIG_SYSROOT&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;../sysroot&quot;&lt;/span&gt;
+&lt;span class=&quot;token assign-left variable&quot;&gt;CONFIG_EXTRA_CFLAGS&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;-L../sysroot/lib&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+</content>
+	</entry>
 	
 	<entry>
 		<title>RasPI3</title>

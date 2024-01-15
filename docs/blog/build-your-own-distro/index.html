@@ -3,8 +3,8 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>This is my third post.</title>
-		<meta name="description" content="This is a post on My Blog about win-win survival strategies.">
+		<title>Build your own linux distribution</title>
+		<meta name="description" content="I type like a monkey.">
 		<link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="Random thoughts">
 		<link rel="alternate" href="/feed/feed.json" type="application/json" title="Random thoughts">
 		
@@ -465,47 +465,106 @@ h2 + .header-anchor {
 
 		<main id="skip">
 			
-<h1>This is my third post.</h1>
+<h1>Build your own linux distribution</h1>
 
 <ul class="post-metadata">
-	<li><time datetime="2018-08-24">24 August 2018</time></li>
-	<li><a href="/tags/second-tag/" class="post-tag">second tag</a>, </li>
-	<li><a href="/tags/posts-with-two-tags/" class="post-tag">posts with two tags</a></li>
+	<li><time datetime="2024-01-13">13 January 2024</time></li>
 </ul>
 
-<p>Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment.</p>
-<h2 id="code" tabindex="-1">Code <a class="header-anchor" href="#code">#</a></h2>
-<h3 id="styled-with-syntax" tabindex="-1">Styled (with Syntax) <a class="header-anchor" href="#styled-with-syntax">#</a></h3>
-<p>Bring to the table win-win survival strategies to ensure proactive domination. At the end of the day, going forward, a new normal that has evolved from generation X is on the runway heading towards a streamlined cloud solution. User generated content in real-time will have multiple touchpoints for offshoring.</p>
-<pre class="language-js" tabindex="0"><code class="language-js"><span class="token comment">// this is a command</span>
-<span class="token keyword">function</span> <span class="token function">myCommand</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-	<span class="token keyword">let</span> counter <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-	counter<span class="token operator">++</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
+<p>This post will tell you how to build your own linux distro and boot it with qemu. Debug the kernel with gdb/vscode.</p>
+<h1 id="build-linux-kernel" tabindex="-1">Build Linux Kernel <a class="header-anchor" href="#build-linux-kernel">#</a></h1>
+<h2 id="download-kernel-source-code" tabindex="-1">Download kernel source code <a class="header-anchor" href="#download-kernel-source-code">#</a></h2>
+<pre class="language-bash" tabindex="0"><code class="language-bash">
+<span class="token function">wget</span> https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.7.tar.xz
 
-<span class="token comment">// Test with a line break above this line.</span>
-console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'Test'</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
-<h3 id="unstyled" tabindex="-1">Unstyled <a class="header-anchor" href="#unstyled">#</a></h3>
-<p>Bring to the table win-win survival strategies to ensure proactive domination. At the end of the day, going forward, a new normal that has evolved from generation X is on the runway heading towards a streamlined cloud solution. User generated content in real-time will have multiple touchpoints for offshoring.</p>
-<pre><code>// this is a command
-function myCommand() {
-	let counter = 0;
-	counter++;
-}
+<span class="token function">tar</span> xvf linux-6.7.tar.xz
 
-// Test with a line break above this line.
-console.log('Test');
+<span class="token builtin class-name">cd</span> linux-6.7
+
 </code></pre>
-<h2 id="section-header" tabindex="-1">Section Header <a class="header-anchor" href="#section-header">#</a></h2>
-<p>Capitalize on low hanging fruit to identify a ballpark value added activity to beta test. Override the digital divide with additional clickthroughs from DevOps. Nanotechnology immersion along the information highway will close the loop on focusing solely on the bottom line.</p>
+<h2 id="config-the-kernel-tree" tabindex="-1">Config the kernel tree <a class="header-anchor" href="#config-the-kernel-tree">#</a></h2>
+<p>create a .config file</p>
+<pre class="language-bash" tabindex="0"><code class="language-bash">
+https://github.com/tannal/tannal.glitch.me/blob/main/.config_linux_x86_dev
+</code></pre>
+<h2 id="build-kernel" tabindex="-1">build kernel <a class="header-anchor" href="#build-kernel">#</a></h2>
+<pre class="language-bash" tabindex="0"><code class="language-bash"><span class="token function">make</span> oldconfig
+<span class="token function">make</span> <span class="token parameter variable">-j20</span>
+</code></pre>
+<h1 id="build-and-install-glibc" tabindex="-1">Build and install Glibc <a class="header-anchor" href="#build-and-install-glibc">#</a></h1>
+<p>Keep in mind that lld is not support for building glibc.</p>
+<pre class="language-bash" tabindex="0"><code class="language-bash"><span class="token function">wget</span> https://ftp.gnu.org/gnu/glibc/glibc-2.38.tar.gz
 
-<ul class="links-nextprev"><li>Previous: <a href="/blog/secondpost/">This is my second post with a much longer title.</a></li><li>Next: <a href="/blog/fourthpost/">This is my fourth post.</a></li>
+<span class="token function">tar</span> xvf glibc-2.38.tar.gz
+
+<span class="token builtin class-name">cd</span> glibc-2.38
+
+<span class="token function">mkdir</span> build
+<span class="token function">mkdir</span> GLIBC
+
+<span class="token builtin class-name">cd</span> build
+
+<span class="token function">sudo</span> <span class="token function">apt</span> <span class="token function">install</span> <span class="token function">gawk</span>
+
+<span class="token comment"># llvm lld is not support for compiling glic</span>
+<span class="token function">sudo</span> <span class="token function">rm</span> /usr/bin/ld
+<span class="token function">sudo</span> <span class="token function">ln</span> <span class="token parameter variable">-s</span> x86_64-linux-gnu-ld /usr/bin/ld
+
+
+<span class="token punctuation">..</span>/configure <span class="token parameter variable">--prefix</span><span class="token operator">=</span>
+
+<span class="token function">make</span> <span class="token parameter variable">-j20</span>
+
+<span class="token function">make</span> <span class="token function">install</span> <span class="token assign-left variable">DESTDIR</span><span class="token operator">=</span><span class="token punctuation">..</span>/GLIBC
+</code></pre>
+<p>Glibc will install in the GLIBC directory.
+Next step we need to build busybox.</p>
+<h1 id="sysroot" tabindex="-1">sysroot <a class="header-anchor" href="#sysroot">#</a></h1>
+<p>Create a directory called sysroot for busybox and copy all the GLIBC to the sysroot.</p>
+<pre class="language-bash" tabindex="0"><code class="language-bash">
+<span class="token function">mkdir</span> sysroot
+
+<span class="token builtin class-name">cd</span> sysroot
+
+<span class="token function">mkdir</span> usr
+
+<span class="token builtin class-name">cd</span> <span class="token punctuation">..</span>
+
+<span class="token function">cp</span> <span class="token parameter variable">-r</span> glibc-2.38/GLIBC/* sysroot/
+
+<span class="token function">ls</span> sysroot/
+bin  etc  include  lib  libexec  sbin  share  var
+
+<span class="token function">cp</span> <span class="token parameter variable">-r</span> GLIBC/include/* sysroot/include/
+<span class="token function">cp</span> <span class="token parameter variable">-r</span> GLIBC/lib/* sysroot/lib/
+
+<span class="token function">mkdir</span> sysroot/usr
+<span class="token function">rsync</span> <span class="token parameter variable">-a</span> /usr/include sysroot
+
+<span class="token function">ln</span> <span class="token parameter variable">-s</span> <span class="token punctuation">..</span>/include sysroot/usr/include
+<span class="token function">ln</span> <span class="token parameter variable">-s</span> <span class="token punctuation">..</span>/lib sysroot/usr/lib
+</code></pre>
+<h1 id="build-busybox" tabindex="-1">Build busybox <a class="header-anchor" href="#build-busybox">#</a></h1>
+<pre class="language-bash" tabindex="0"><code class="language-bash">
+<span class="token function">wget</span> https://git.busybox.net/busybox/snapshot/busybox-1_36_1.tar.bz2
+
+<span class="token function">tar</span> xvjf busybox-1_36_1.tar.bz2
+
+<span class="token builtin class-name">cd</span> busybox-1_36_1
+
+<span class="token function">make</span> defconfig
+
+<span class="token assign-left variable">CONFIG_SYSROOT</span><span class="token operator">=</span><span class="token string">"../sysroot"</span>
+<span class="token assign-left variable">CONFIG_EXTRA_CFLAGS</span><span class="token operator">=</span><span class="token string">"-L../sysroot/lib"</span>
+</code></pre>
+
+<ul class="links-nextprev"><li>Previous: <a href="/blog/raspi3/">RasPI3</a></li>
 </ul>
 
 		</main>
 
 		<footer></footer>
 
-		<!-- Current page: /blog/thirdpost/ -->
+		<!-- Current page: /blog/build-your-own-distro/ -->
 	</body>
 </html>

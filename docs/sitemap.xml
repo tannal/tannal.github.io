@@ -27,46 +27,6 @@
 	</url>
 	
 	<url>
-		<loc>https://tannal.github.io/about/</loc>
-		<lastmod>2023-11-06</lastmod>
-	</url>
-	
-	<url>
-		<loc>https://tannal.github.io/blog/</loc>
-		<lastmod>2023-11-06</lastmod>
-	</url>
-	
-	<url>
-		<loc>https://tannal.github.io/</loc>
-		<lastmod>2023-11-06</lastmod>
-	</url>
-	
-	<url>
-		<loc>https://tannal.github.io/tags/</loc>
-		<lastmod>2023-11-06</lastmod>
-	</url>
-	
-	<url>
-		<loc>https://tannal.github.io/tags/another-tag/</loc>
-		<lastmod>2023-11-06</lastmod>
-	</url>
-	
-	<url>
-		<loc>https://tannal.github.io/tags/number-2/</loc>
-		<lastmod>2023-11-06</lastmod>
-	</url>
-	
-	<url>
-		<loc>https://tannal.github.io/tags/second-tag/</loc>
-		<lastmod>2023-11-06</lastmod>
-	</url>
-	
-	<url>
-		<loc>https://tannal.github.io/tags/posts-with-two-tags/</loc>
-		<lastmod>2023-11-06</lastmod>
-	</url>
-	
-	<url>
 		<loc>https://tannal.github.io/blog/ai/</loc>
 		<lastmod>2023-11-15</lastmod>
 	</url>
@@ -89,5 +49,50 @@
 	<url>
 		<loc>https://tannal.github.io/blog/raspi3/</loc>
 		<lastmod>2023-11-23</lastmod>
+	</url>
+	
+	<url>
+		<loc>https://tannal.github.io/blog/build-your-own-distro/</loc>
+		<lastmod>2024-01-13</lastmod>
+	</url>
+	
+	<url>
+		<loc>https://tannal.github.io/about/</loc>
+		<lastmod>2024-01-15</lastmod>
+	</url>
+	
+	<url>
+		<loc>https://tannal.github.io/blog/</loc>
+		<lastmod>2024-01-15</lastmod>
+	</url>
+	
+	<url>
+		<loc>https://tannal.github.io/</loc>
+		<lastmod>2024-01-15</lastmod>
+	</url>
+	
+	<url>
+		<loc>https://tannal.github.io/tags/</loc>
+		<lastmod>2024-01-15</lastmod>
+	</url>
+	
+	<url>
+		<loc>https://tannal.github.io/tags/another-tag/</loc>
+		<lastmod>2024-01-15</lastmod>
+	</url>
+	
+	<url>
+		<loc>https://tannal.github.io/tags/number-2/</loc>
+		<lastmod>2024-01-15</lastmod>
+	</url>
+	
+	<url>
+		<loc>https://tannal.github.io/tags/second-tag/</loc>
+		<lastmod>2024-01-15</lastmod>
+	</url>
+	
+	<url>
+		<loc>https://tannal.github.io/tags/posts-with-two-tags/</loc>
+		<lastmod>2024-01-15</lastmod>
 	</url>
 </urlset>
