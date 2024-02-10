@@ -1,5 +1,5 @@
 ---
-title: AI
+title: wireguard
 date: 2023-11-15
 draft: false
 ---
