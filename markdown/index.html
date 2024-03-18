@@ -52,7 +52,7 @@
         <div class="reveal deck2">...</div>    
     </div>
 
-    <script type="module" src="./app.js"></script>
+    <script type="module" src="/app.js"></script>
     <script type="module">
         import Reveal from 'revealjs';
         // console.log(revealjs)
@@ -70,7 +70,7 @@
         deck2.initialize();
     </script>
     <script type="module">
-        import { App, Counter } from '/app.js';
+        import { App, Counter } from 'app.js';
         import ReactDOM from "react-dom";
         import markdownit from "markdown-it";
         ReactDOM.createRoot(document.querySelector('#app')).render(App());
