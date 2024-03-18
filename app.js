@@ -1,5 +1,5 @@
 import markdownit from "markdown-it";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 const md = markdownit();
 const result = md.render("# markdown-it rulezz!");
 import {
@@ -21,9 +21,15 @@ const router = createBrowserRouter([
     element: /* @__PURE__ */ React.createElement(MarkdownRender, { markdown: result })
   }
 ]);
-export async function MarkdownRender(markdown) {
-  const result2 = md.render(await (await fetch(`/test.md`)).text());
-  return /* @__PURE__ */ React.createElement("div", { dangerouslySetInnerHTML: { __html: result2 } });
+export function MarkdownRender({ markdown }) {
+  const [result2, setResult] = useState("");
+  useEffect(() => {
+    fetch(`/content/test.md`).then((response) => response.text()).then((text) => {
+      console.log(text);
+      setResult(text);
+    });
+  }, []);
+  return /* @__PURE__ */ React.createElement("div", { dangerouslySetInnerHTML: { __html: md.render(result2 || markdown) } });
 }
 export function App() {
   return /* @__PURE__ */ React.createElement(React.StrictMode, null, /* @__PURE__ */ React.createElement(RouterProvider, { router }));

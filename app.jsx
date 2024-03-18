@@ -1,7 +1,7 @@
 
 
 import markdownit from 'markdown-it'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 const md = markdownit()
 const result = md.render('# markdown-it rulezz!');
 
@@ -26,12 +26,19 @@ const router = createBrowserRouter([
     }
 ]);
 
-export async function MarkdownRender(markdown) {
-    const result = md.render(await (await fetch(`/test.md`)).text())
+export function MarkdownRender({ markdown }) {
+    const [result, setResult] = useState('');
+    useEffect(() => {
+        fetch(`/content/test.md`)
+            .then((response) => response.text())
+            .then((text) => {
+                console.log(text);
+                setResult(text);
+            });
+    }, []); // Add an empty dependency array to run the effect only once
     return (
-        <div dangerouslySetInnerHTML={{ __html: result }} />
-    )
-
+        <div dangerouslySetInnerHTML={{ __html: md.render(result || markdown) }} />
+    );
 }
 
 export function App() {
