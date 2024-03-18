@@ -22,7 +22,7 @@ jobs:
     - uses: actions/setup-node@v4
       with:
         node-version: 20
-    - run: npx @11ty/eleventy --input=. --output=.
+    - run: npx @11ty/eleventy --input=./content --output=.
         
     - uses: actions/upload-artifact@v4
       with:
