@@ -6,6 +6,7 @@ import {
   createBrowserRouter,
   RouterProvider
 } from "react-router-dom";
+import { useRoutes } from "react-router-dom";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -14,8 +15,16 @@ const router = createBrowserRouter([
   {
     path: "/counter",
     element: /* @__PURE__ */ React.createElement(Counter, null)
+  },
+  {
+    path: "/markdown",
+    element: /* @__PURE__ */ React.createElement(MarkdownRender, { markdown: result })
   }
 ]);
+export async function MarkdownRender(markdown) {
+  const result2 = md.render(await (await fetch(`/${test}.md`)).text());
+  return /* @__PURE__ */ React.createElement("div", { dangerouslySetInnerHTML: { __html: result2 } });
+}
 export function App() {
   return /* @__PURE__ */ React.createElement(React.StrictMode, null, /* @__PURE__ */ React.createElement(RouterProvider, { router }));
 }

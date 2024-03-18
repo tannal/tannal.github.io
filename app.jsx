@@ -9,6 +9,7 @@ import {
     createBrowserRouter,
     RouterProvider,
 } from "react-router-dom";
+import { useRoutes } from "react-router-dom";
 
 const router = createBrowserRouter([
     {
@@ -18,8 +19,20 @@ const router = createBrowserRouter([
     {
         path: "/counter",
         element: <Counter />,
+    },
+    {
+        path: "/markdown",
+        element: <MarkdownRender markdown={result} />,
     }
 ]);
+
+export async function MarkdownRender(markdown) {
+    const result = md.render(await (await fetch(`/${test}.md`)).text())
+    return (
+        <div dangerouslySetInnerHTML={{ __html: result }} />
+    )
+
+}
 
 export function App() {
     // render the result of the markdown conversion as dom not string
