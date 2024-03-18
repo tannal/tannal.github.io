@@ -22,7 +22,7 @@ const router = createBrowserRouter([
   }
 ]);
 export async function MarkdownRender(markdown) {
-  const result2 = md.render(await (await fetch(`/${test}.md`)).text());
+  const result2 = md.render(await (await fetch(`/test.md`)).text());
   return /* @__PURE__ */ React.createElement("div", { dangerouslySetInnerHTML: { __html: result2 } });
 }
 export function App() {

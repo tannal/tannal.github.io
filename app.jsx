@@ -27,7 +27,7 @@ const router = createBrowserRouter([
 ]);
 
 export async function MarkdownRender(markdown) {
-    const result = md.render(await (await fetch(`/${test}.md`)).text())
+    const result = md.render(await (await fetch(`/test.md`)).text())
     return (
         <div dangerouslySetInnerHTML={{ __html: result }} />
     )
