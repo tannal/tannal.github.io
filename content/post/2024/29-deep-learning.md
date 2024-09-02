@@ -1,5 +1,5 @@
 ---
-title: Rust 手写 SQL 数据库
+title: 深度学习实战
 date: 2024-08-29T10:51:56+08:00
 categories:
     - Rust
