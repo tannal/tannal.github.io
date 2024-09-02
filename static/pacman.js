@@ -2,23 +2,29 @@ class PacManGame extends HTMLElement {
   constructor() {
     super();
     this.attachShadow({ mode: "open" });
+    this.pacmanX = 0;
+    this.pacmanY = 0;
+    this.pacmanDirection = 0; // 0: right, 1: down, 2: left, 3: up
+    this.pacmanSpeed = 0.02;
+    this.mouthAngle = 0;
+    this.mouthSpeed = 5;
   }
 
   connectedCallback() {
     this.shadowRoot.innerHTML = `
-                    <style>
-                        :host {
-                            display: block;
-                            width: 100%;
-                            aspect-ratio: 1/1;
-                        }
-                        canvas {
-                            width: 100%;
-                            height: 100%;
-                        }
-                    </style>
-                    <canvas></canvas>
-                `;
+      <style>
+        :host {
+          display: block;
+          width: 400px;
+          height: 400px;
+        }
+        canvas {
+          width: 100%;
+          height: 100%;
+        }
+      </style>
+      <canvas></canvas>
+    `;
 
     this.canvas = this.shadowRoot.querySelector("canvas");
     this.gl = this.canvas.getContext("webgl2");
@@ -28,42 +34,58 @@ class PacManGame extends HTMLElement {
       return;
     }
 
+    this.canvas.width = 400;
+    this.canvas.height = 400;
+
     this.initGame();
+    this.setupKeyboardControls();
+  }
+
+  setupKeyboardControls() {
+    document.addEventListener("keydown", (event) => {
+      switch (event.key) {
+        case "ArrowRight":
+          this.pacmanDirection = 0;
+          break;
+        case "ArrowDown":
+          this.pacmanDirection = 1;
+          break;
+        case "ArrowLeft":
+          this.pacmanDirection = 2;
+          break;
+        case "ArrowUp":
+          this.pacmanDirection = 3;
+          break;
+      }
+    });
   }
 
   initGame() {
-    // Set up WebGL
     this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
-    this.gl.enable(this.gl.DEPTH_TEST);
+    this.gl.enable(this.gl.BLEND);
+    this.gl.blendFunc(this.gl.SRC_ALPHA, this.gl.ONE_MINUS_SRC_ALPHA);
 
-    // Create shaders
     const vsSource = `#version 300 es
-                    in vec4 aVertexPosition;
-                    in vec2 aTextureCoord;
+      in vec2 aVertexPosition;
+      uniform mat3 uModelViewMatrix;
+      uniform mat3 uProjectionMatrix;
 
-                    uniform mat4 uModelViewMatrix;
-                    uniform mat4 uProjectionMatrix;
-
-                    out vec2 vTextureCoord;
-
-                    void main() {
-                        gl_Position = uProjectionMatrix * uModelViewMatrix * aVertexPosition;
-                        vTextureCoord = aTextureCoord;
-                    }
-                `;
+      void main() {
+        vec3 position = uProjectionMatrix * uModelViewMatrix * vec3(aVertexPosition, 1.0);
+        gl_Position = vec4(position.xy, 0.0, 1.0);
+      }
+    `;
 
     const fsSource = `#version 300 es
-                    precision mediump float;
+      precision mediump float;
 
-                    in vec2 vTextureCoord;
-                    out vec4 fragColor;
+      uniform vec4 uColor;
+      out vec4 fragColor;
 
-                    uniform sampler2D uSampler;
-
-                    void main() {
-                        fragColor = texture(uSampler, vTextureCoord);
-                    }
-                `;
+      void main() {
+        fragColor = uColor;
+      }
+    `;
 
     const shaderProgram = this.initShaderProgram(vsSource, fsSource);
 
@@ -74,7 +96,6 @@ class PacManGame extends HTMLElement {
           shaderProgram,
           "aVertexPosition",
         ),
-        textureCoord: this.gl.getAttribLocation(shaderProgram, "aTextureCoord"),
       },
       uniformLocations: {
         projectionMatrix: this.gl.getUniformLocation(
@@ -85,98 +106,28 @@ class PacManGame extends HTMLElement {
           shaderProgram,
           "uModelViewMatrix",
         ),
-        uSampler: this.gl.getUniformLocation(shaderProgram, "uSampler"),
+        color: this.gl.getUniformLocation(shaderProgram, "uColor"),
       },
     };
 
-    // Initialize buffers and textures
     this.initBuffers();
-    this.initTextures();
 
-    // Start game loop
     this.lastTime = 0;
     requestAnimationFrame(this.render.bind(this));
   }
 
   initBuffers() {
-    const positions = [-1.0, -1.0, 1.0, -1.0, 1.0, 1.0, -1.0, 1.0];
-
-    const textureCoordinates = [0.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0];
-
-    const indices = [0, 1, 2, 0, 2, 3];
+    const positions = new Float32Array([
+      -0.05, -0.05, 0.05, -0.05, 0.05, 0.05, -0.05, 0.05,
+    ]);
 
     const positionBuffer = this.gl.createBuffer();
     this.gl.bindBuffer(this.gl.ARRAY_BUFFER, positionBuffer);
-    this.gl.bufferData(
-      this.gl.ARRAY_BUFFER,
-      new Float32Array(positions),
-      this.gl.STATIC_DRAW,
-    );
-
-    const textureCoordBuffer = this.gl.createBuffer();
-    this.gl.bindBuffer(this.gl.ARRAY_BUFFER, textureCoordBuffer);
-    this.gl.bufferData(
-      this.gl.ARRAY_BUFFER,
-      new Float32Array(textureCoordinates),
-      this.gl.STATIC_DRAW,
-    );
-
-    const indexBuffer = this.gl.createBuffer();
-    this.gl.bindBuffer(this.gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
-    this.gl.bufferData(
-      this.gl.ELEMENT_ARRAY_BUFFER,
-      new Uint16Array(indices),
-      this.gl.STATIC_DRAW,
-    );
+    this.gl.bufferData(this.gl.ARRAY_BUFFER, positions, this.gl.STATIC_DRAW);
 
     this.buffers = {
       position: positionBuffer,
-      textureCoord: textureCoordBuffer,
-      indices: indexBuffer,
     };
-  }
-
-  initTextures() {
-    const texture = this.gl.createTexture();
-    this.gl.bindTexture(this.gl.TEXTURE_2D, texture);
-
-    const level = 0;
-    const internalFormat = this.gl.RGBA;
-    const width = 1;
-    const height = 1;
-    const border = 0;
-    const srcFormat = this.gl.RGBA;
-    const srcType = this.gl.UNSIGNED_BYTE;
-    const pixel = new Uint8Array([0, 0, 255, 255]); // Blue
-    this.gl.texImage2D(
-      this.gl.TEXTURE_2D,
-      level,
-      internalFormat,
-      width,
-      height,
-      border,
-      srcFormat,
-      srcType,
-      pixel,
-    );
-
-    this.gl.texParameteri(
-      this.gl.TEXTURE_2D,
-      this.gl.TEXTURE_WRAP_S,
-      this.gl.CLAMP_TO_EDGE,
-    );
-    this.gl.texParameteri(
-      this.gl.TEXTURE_2D,
-      this.gl.TEXTURE_WRAP_T,
-      this.gl.CLAMP_TO_EDGE,
-    );
-    this.gl.texParameteri(
-      this.gl.TEXTURE_2D,
-      this.gl.TEXTURE_MIN_FILTER,
-      this.gl.LINEAR,
-    );
-
-    this.texture = texture;
   }
 
   render(now) {
@@ -184,19 +135,65 @@ class PacManGame extends HTMLElement {
     const deltaTime = now - this.lastTime;
     this.lastTime = now;
 
-    this.drawScene(deltaTime);
+    this.updateGame(deltaTime);
+    this.drawScene();
 
     requestAnimationFrame(this.render.bind(this));
   }
 
-  drawScene(deltaTime) {
-    this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
+  updateGame(deltaTime) {
+    // Update Pac-Man position
+    switch (this.pacmanDirection) {
+      case 0: // right
+        this.pacmanX += this.pacmanSpeed;
+        break;
+      case 1: // down
+        this.pacmanY -= this.pacmanSpeed;
+        break;
+      case 2: // left
+        this.pacmanX -= this.pacmanSpeed;
+        break;
+      case 3: // up
+        this.pacmanY += this.pacmanSpeed;
+        break;
+    }
 
-    const projectionMatrix = mat4.create();
-    mat4.ortho(projectionMatrix, -1, 1, -1, 1, 0.1, 100);
+    // Keep Pac-Man within bounds
+    this.pacmanX = Math.max(-0.95, Math.min(0.95, this.pacmanX));
+    this.pacmanY = Math.max(-0.95, Math.min(0.95, this.pacmanY));
 
-    const modelViewMatrix = mat4.create();
-    mat4.translate(modelViewMatrix, modelViewMatrix, [0.0, 0.0, -1.0]);
+    // Update mouth animation
+    this.mouthAngle += this.mouthSpeed * deltaTime;
+    if (this.mouthAngle > Math.PI / 4 || this.mouthAngle < 0) {
+      this.mouthSpeed = -this.mouthSpeed;
+    }
+  }
+
+  drawScene() {
+    this.gl.clear(this.gl.COLOR_BUFFER_BIT);
+    this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);
+
+    const projectionMatrix = mat3.projection(
+      this.gl.canvas.clientWidth,
+      this.gl.canvas.clientHeight,
+    );
+
+    // Draw Pac-Man
+    const pacmanModelViewMatrix = mat3.translation(this.pacmanX, this.pacmanY);
+    mat3.rotate(pacmanModelViewMatrix, (this.pacmanDirection * Math.PI) / 2);
+
+    this.gl.useProgram(this.programInfo.program);
+
+    this.gl.uniformMatrix3fv(
+      this.programInfo.uniformLocations.projectionMatrix,
+      false,
+      projectionMatrix,
+    );
+    this.gl.uniformMatrix3fv(
+      this.programInfo.uniformLocations.modelViewMatrix,
+      false,
+      pacmanModelViewMatrix,
+    );
 
     this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.buffers.position);
     this.gl.vertexAttribPointer(
@@ -211,39 +208,19 @@ class PacManGame extends HTMLElement {
       this.programInfo.attribLocations.vertexPosition,
     );
 
-    this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.buffers.textureCoord);
-    this.gl.vertexAttribPointer(
-      this.programInfo.attribLocations.textureCoord,
-      2,
-      this.gl.FLOAT,
-      false,
-      0,
-      0,
-    );
-    this.gl.enableVertexAttribArray(
-      this.programInfo.attribLocations.textureCoord,
-    );
+    // Draw Pac-Man body
+    this.gl.uniform4fv(
+      this.programInfo.uniformLocations.color,
+      [1.0, 1.0, 0.0, 1.0],
+    ); // Yellow
+    this.gl.drawArrays(this.gl.TRIANGLE_FAN, 0, 4);
 
-    this.gl.bindBuffer(this.gl.ELEMENT_ARRAY_BUFFER, this.buffers.indices);
-
-    this.gl.useProgram(this.programInfo.program);
-
-    this.gl.uniformMatrix4fv(
-      this.programInfo.uniformLocations.projectionMatrix,
-      false,
-      projectionMatrix,
-    );
-    this.gl.uniformMatrix4fv(
-      this.programInfo.uniformLocations.modelViewMatrix,
-      false,
-      modelViewMatrix,
-    );
-
-    this.gl.activeTexture(this.gl.TEXTURE0);
-    this.gl.bindTexture(this.gl.TEXTURE_2D, this.texture);
-    this.gl.uniform1i(this.programInfo.uniformLocations.uSampler, 0);
-
-    this.gl.drawElements(this.gl.TRIANGLES, 6, this.gl.UNSIGNED_SHORT, 0);
+    // Draw Pac-Man mouth
+    this.gl.uniform4fv(
+      this.programInfo.uniformLocations.color,
+      [0.0, 0.0, 0.0, 1.0],
+    ); // Black
+    this.gl.drawArrays(this.gl.TRIANGLES, 0, 3);
   }
 
   initShaderProgram(vsSource, fsSource) {
@@ -286,79 +263,51 @@ class PacManGame extends HTMLElement {
 
 customElements.define("pac-man-game", PacManGame);
 
-// Simple matrix library (you might want to use a more robust library in a real project)
-const mat4 = {
-  create: function () {
-    return new Float32Array(16);
+// Simple matrix library
+const mat3 = {
+  projection: function (width, height) {
+    return new Float32Array([2 / width, 0, 0, 0, -2 / height, 0, -1, 1, 1]);
   },
-  ortho: function (out, left, right, bottom, top, near, far) {
-    let lr = 1 / (left - right);
-    let bt = 1 / (bottom - top);
-    let nf = 1 / (near - far);
-    out[0] = -2 * lr;
-    out[1] = 0;
-    out[2] = 0;
-    out[3] = 0;
-    out[4] = 0;
-    out[5] = -2 * bt;
-    out[6] = 0;
-    out[7] = 0;
-    out[8] = 0;
-    out[9] = 0;
-    out[10] = 2 * nf;
-    out[11] = 0;
-    out[12] = (left + right) * lr;
-    out[13] = (top + bottom) * bt;
-    out[14] = (far + near) * nf;
-    out[15] = 1;
-    return out;
+  translation: function (tx, ty) {
+    return new Float32Array([1, 0, 0, 0, 1, 0, tx, ty, 1]);
   },
-  translate: function (out, a, v) {
-    let x = v[0],
-      y = v[1],
-      z = v[2];
-    let a00, a01, a02, a03;
-    let a10, a11, a12, a13;
-    let a20, a21, a22, a23;
-
-    if (a === out) {
-      out[12] = a[0] * x + a[4] * y + a[8] * z + a[12];
-      out[13] = a[1] * x + a[5] * y + a[9] * z + a[13];
-      out[14] = a[2] * x + a[6] * y + a[10] * z + a[14];
-      out[15] = a[3] * x + a[7] * y + a[11] * z + a[15];
-    } else {
-      a00 = a[0];
-      a01 = a[1];
-      a02 = a[2];
-      a03 = a[3];
-      a10 = a[4];
-      a11 = a[5];
-      a12 = a[6];
-      a13 = a[7];
-      a20 = a[8];
-      a21 = a[9];
-      a22 = a[10];
-      a23 = a[11];
-
-      out[0] = a00;
-      out[1] = a01;
-      out[2] = a02;
-      out[3] = a03;
-      out[4] = a10;
-      out[5] = a11;
-      out[6] = a12;
-      out[7] = a13;
-      out[8] = a20;
-      out[9] = a21;
-      out[10] = a22;
-      out[11] = a23;
-
-      out[12] = a00 * x + a10 * y + a20 * z + a[12];
-      out[13] = a01 * x + a11 * y + a21 * z + a[13];
-      out[14] = a02 * x + a12 * y + a22 * z + a[14];
-      out[15] = a03 * x + a13 * y + a23 * z + a[15];
-    }
-
-    return out;
+  rotation: function (angleInRadians) {
+    const c = Math.cos(angleInRadians);
+    const s = Math.sin(angleInRadians);
+    return new Float32Array([c, -s, 0, s, c, 0, 0, 0, 1]);
+  },
+  multiply: function (a, b) {
+    const a00 = a[0 * 3 + 0];
+    const a01 = a[0 * 3 + 1];
+    const a02 = a[0 * 3 + 2];
+    const a10 = a[1 * 3 + 0];
+    const a11 = a[1 * 3 + 1];
+    const a12 = a[1 * 3 + 2];
+    const a20 = a[2 * 3 + 0];
+    const a21 = a[2 * 3 + 1];
+    const a22 = a[2 * 3 + 2];
+    const b00 = b[0 * 3 + 0];
+    const b01 = b[0 * 3 + 1];
+    const b02 = b[0 * 3 + 2];
+    const b10 = b[1 * 3 + 0];
+    const b11 = b[1 * 3 + 1];
+    const b12 = b[1 * 3 + 2];
+    const b20 = b[2 * 3 + 0];
+    const b21 = b[2 * 3 + 1];
+    const b22 = b[2 * 3 + 2];
+    return new Float32Array([
+      b00 * a00 + b01 * a10 + b02 * a20,
+      b00 * a01 + b01 * a11 + b02 * a21,
+      b00 * a02 + b01 * a12 + b02 * a22,
+      b10 * a00 + b11 * a10 + b12 * a20,
+      b10 * a01 + b11 * a11 + b12 * a21,
+      b10 * a02 + b11 * a12 + b12 * a22,
+      b20 * a00 + b21 * a10 + b22 * a20,
+      b20 * a01 + b21 * a11 + b22 * a21,
+      b20 * a02 + b21 * a12 + b22 * a22,
+    ]);
+  },
+  rotate: function (m, angleInRadians) {
+    return mat3.multiply(m, mat3.rotation(angleInRadians));
   },
 };

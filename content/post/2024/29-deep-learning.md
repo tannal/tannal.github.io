@@ -14,8 +14,20 @@ tags:
 <script src="/codepen.js" type="module"></script>
 <script src="/bilibili-player.js" type="module"></script>
 <script src="/douyin-player.js" type="module"></script>
+<script src="/live-editor.js" type="module"></script>
+<script src="/live-document-editor.js" type="module"></script>
+
+<live-document-editor></live-document-editor>
+
+
+<pac-man-game></pac-man-game>
+
 
 ohly
+
+
+<live-editor>
+</live-editor>
 
 <twitter-embed tweet-id="1616207740275200013"></twitter-embed>;
 
