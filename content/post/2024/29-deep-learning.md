@@ -18,7 +18,7 @@ tags:
 训练 llm.c
 
 
-<script src="./test.js" type="module">
+<script src="/test.js" type="module">
 
 
 课程详情，以及如何购买，都在飞书云文档中，复制下面的链接打开即可：
