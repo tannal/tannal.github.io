@@ -7,19 +7,70 @@ tags:
     - C/C++ 实战
 ---
 
+<script src="/test.js" type="module"></script>
+<script src="/pacman.js" type="module"></script>
+<script src="/youtube.js" type="module"></script>
+<script src="/twitter.js" type="module"></script>
+<script src="/codepen.js" type="module"></script>
+<script src="/bilibili-player.js" type="module"></script>
+<script src="/douyin-player.js" type="module"></script>
+
+ohly
+
+<twitter-embed tweet-id="1616207740275200013"></twitter-embed>;
+
+
+<codepen-embed pen-id="NWZMBPy" user="gmltA"></codepen-embed>;
+
+
 本深度学习教程从数据集，预训练，微调，推理，从后往前讲述。
+
+<youtube-player video-id="dQw4w9WgXcQ"></youtube-player>;
+
+
+123
+
+<bilibili-player bvid="BV1ncHve1EZt"></bilibili-player>;
+
+
+13213
+
 
 
 首先是推理，神经网络的推理是一个forward函数，
 
-部署 vllm  
+部署 vllm
 推理 tinygrad ggml
-微调 RAG LORA 
+微调 RAG LORA
 训练 llm.c
 
 
-<script src="/test.js" type="module">
+<my-counter>
+</my-counter>
 
+312312
+
+<my-animation>
+</my-animation>
+
+Game of Life
+
+// A iframe to https://www.youtube.com/watch?v=K9ldnxwBwOQ&list=RDK9ldnxwBwOQ&start_radio=1
+
+<google-youtube
+  video-id="K9ldnxwBwOQ"
+  height="270px"
+  width="480px"
+  rel="0"
+  start="5"
+  autoplay="1">
+</google-youtube>
+
+<pac-man-game></pac-man-game>
+
+
+<game-of-life>
+</game-of-life>
 
 课程详情，以及如何购买，都在飞书云文档中，复制下面的链接打开即可：
 
