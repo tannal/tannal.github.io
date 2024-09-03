@@ -7,6 +7,10 @@ tags:
     - C/C++
 ---
 
+<script src="/pacman-canvas.js" type="module"></script>
+
+<pacman-canvas></pacman-canvas>
+
 
 # tc39
 
