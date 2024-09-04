@@ -5,6 +5,9 @@ categories:
     - Javascript Engine
 tags:
     - C/C++
+
+image: "https://tannal.github.io/comment.png"
+
 ---
 
 <script src="/pacman-canvas.js" type="module"></script>
@@ -13,6 +16,8 @@ tags:
 
 
 # tc39
+
+12312312
 
 [ECMAScript proposal: Promise.try](
 https://github.com/tc39/proposal-promise-try/tree/main
