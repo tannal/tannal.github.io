@@ -12,7 +12,7 @@ tags:
 
 
 <midi-player
-  src="http://tannal.github.io/heisemaoyi.midi"
+  src="https://tannal.github.io/heisemaoyi.midi"
   sound-font visualizer="#myVisualizer">
 </midi-player>
 <midi-visualizer type="piano-roll" id="myVisualizer"></midi-visualizer>
