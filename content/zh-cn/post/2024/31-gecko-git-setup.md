@@ -1,12 +1,21 @@
 ---
 title: 我的 2024 年，关于工作、开源、副业
-date: 2024-09-23 14:23:11+0000
+date: 2024-09-13 14:23:11+0000
 categories:
     - 生活随想
 tags:
     - 年终总结
     - 关于我
 ---
+
+<script src="https://cdn.jsdelivr.net/combine/npm/tone@14.7.58,npm/@magenta/music@1.23.1/es6/core.js,npm/focus-visible@5,npm/html-midi-player@1.4.0"></script>
+
+
+<midi-player
+  src="http://tannal.github.io/heisemaoyi.midi"
+  sound-font visualizer="#myVisualizer">
+</midi-player>
+<midi-visualizer type="piano-roll" id="myVisualizer"></midi-visualizer>
 
 ## **工作**
 
