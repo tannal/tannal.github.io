@@ -10,7 +10,7 @@ image: "https://tannal.github.io/comment.png"
 
 ---
 
-<script src="/pacman-canvas.js" type="module"></script>
+<script defer src="/pacman-canvas.js" type="module"></script>
 
 <pacman-canvas></pacman-canvas>
 
