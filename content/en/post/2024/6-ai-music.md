@@ -21,7 +21,7 @@ tags:
 
 <script defer src="/bilibili-player.js" type="module"></script>
 
-<bilibili-player bvid="BV1rVH8ewEcx"></bilibili-player>;
+<bilibili-player bvid="BV1sxtsegEf3"></bilibili-player>;
 
 
 ## **GNU/Linux Documentry**
