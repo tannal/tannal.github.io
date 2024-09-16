@@ -10,7 +10,7 @@
 [[social]]
 identifier = "github"
 name = "GitHub"
-url = "https://github.com/roseduan"
+url = "https://github.com/tannal"
 
 [social.params]
 icon = "brand-github"
@@ -41,8 +41,8 @@ icon = "brand-wechat"
 
 [[social]]
 identifier = "bilibili"
-name = "B 站「程序员roseduan」"
-url = "https://space.bilibili.com/26194591"
+name = "B 站「起个名字叫犟驴」"
+url = "https://space.bilibili.com/3546751254399476"
 
 [social.params]
 icon = "brand-bilibili"

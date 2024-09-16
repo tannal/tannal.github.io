@@ -141,8 +141,8 @@ emitMetadata = 0
 owner = "tannal"
 admin = "tannal"
 repo = "tannal.github.io"
-clientID = "354d1c483644032e3d21"
-clientSecret = "3f65d24831ac79f4e68f762f5f02e4a75ae40ad3"
+clientID = "Ov23liqc7SD1bN7OvCI6"
+clientSecret = "81392477719f125d4b2cd91457a0e6190c0a5e53"
 
 [comments.cusdis]
 host = ""
