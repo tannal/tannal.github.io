@@ -142,7 +142,7 @@ owner = "tannal"
 admin = "tannal"
 repo = "tannal.github.io"
 clientID = "Ov23liqc7SD1bN7OvCI6"
-clientSecret = "81392477719f125d4b2cd91457a0e6190c0a5e53"
+clientSecret = "4e3b6ff5f3b5246fcaa6398ae3509b147a7b9fdb"
 
 [comments.cusdis]
 host = ""

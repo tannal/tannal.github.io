@@ -9,22 +9,9 @@ tags:
 ---
 
 <script defer src="/youtube.js" type="module"></script>
-<script defer typse="module" src="https://cdn.jsdelivr.net/combine/npm/tone@14.7.58,npm/@magenta/music@1.23.1/es6/core.js,npm/focus-visible@5,npm/html-midi-player@1.4.0"></script>
 
 
-<midi-visualizer type="piano-roll" id="myVisualizer"></midi-visualizer>
-
-<midi-player
-  src="https://tannal.github.io/heisemaoyi.midi"
-  sound-font visualizer="#myVisualizer">
-</midi-player>
-
-<script defer src="/bilibili-player.js" type="module"></script>
-
-<bilibili-player bvid="BV1rVH8ewEcx"></bilibili-player>;
-
-
-## **How to teach CSS**
+## How to teach CSS
 
 <youtube-player video-id="ZPTVr2pS0XE"></youtube-player>
 
