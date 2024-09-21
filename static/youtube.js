@@ -36,9 +36,11 @@ class YouTubePlayer extends HTMLElement {
       tag.src = "https://www.youtube.com/iframe_api";
       const firstScriptTag = document.getElementsByTagName("script")[0];
       firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+      let fn = window.onYouTubeIframeAPIReady
 
       window.onYouTubeIframeAPIReady = () => {
         this.createPlayer();
+        fn();
       };
     } else {
       this.createPlayer();
