@@ -1,6 +1,6 @@
 ---
 title: The Hitchhiker's Guide to Firefox Contributor
-date: 2024-09-14 19:23:11+0000
+date: 2024-09-24 19:23:11+0000
 categories:
     - open source
     - firefox
@@ -72,6 +72,65 @@ mk_add_options MOZ_OBJDIR=@TOPSRCDIR@/obj-@CONFIG_GUESS@-jsshell
 # echo "ac_add_options --enable-application=browser" > mozconfig.browser
 ```
 
+## How to add a new web platform test
+
+The web platform tests are located in the `testing/web-platform/tests` directory.
+
+Take the zoom animation discrete test as an example.
+
+Create a testing/web-platform/tests/css/css-viewport/zoom/discrete-animation.html file.
+
+```html
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>CSS Zoom: animation and transition tests</title>
+<link rel="help" href="https://drafts.csswg.org/css-transform-2/#propdef-zoom">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script src="/css/support/interpolation-testcommon.js"></script>
+
+<body>
+
+<script>
+test_no_interpolation({
+  property: 'zoom',
+  from: '1',
+  to: '2',
+});
+
+</script>
+```
+
+Update the test manifest file by running the following command.
+
+Then you can run the test.
+
+```sh
+./mach wpt-manifest-update
+./mach wpt css/css-viewport/zoom/zoom-animation-discrete.html
+```
+
+The WPT (Web Platform Tests) framework indeed provides many useful helper functions, especially when testing CSS properties and animations. 
+
+In addition to `test_no_interpolation`, there are several other commonly used helper functions. Here are some important examples:
+
+- `test_interpolation`: Tests if a property interpolates correctly.
+- `test_composition`: Tests the combined effect of multiple animations or transitions.
+- `test_computed_value`: Tests if the computed value matches the expected value.
+- `test_valid_value`: Tests if a value is valid for a specific property.
+- `test_invalid_value`: Tests if a value is invalid for a specific property.
+- `test_property_values`: Tests a set of values for validity or invalidity.
+- `test_discrete_values`: Tests the behavior of discrete values.
+- `test_addition`: Tests addition operations, such as stacking transforms.
+- `test_multiplication`: Tests multiplication operations, such as scaling.
+- `create_test_element`: Creates an element for testing purposes.
+- `assert_equals_rounded`: Compares approximately equal numerical values.
+
+Most of these functions are defined in various support files under the `/css/support/` directory, such as `interpolation-testcommon.js`, `computed-testcommon.js`, and so on.
+
+Using these helper functions can greatly simplify your test code, improve readability, and maintainability. They encapsulate many common testing patterns and complex setup processes, making it easier to write comprehensive and precise CSS tests.
+
+When writing WPT tests, it is recommended to first explore the relevant support files to understand the available helper functions. This helps avoid duplicating existing functionality and ensures that your tests align with the existing style and quality of tests.
 
 ## Logging
 
