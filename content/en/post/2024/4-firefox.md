@@ -132,6 +132,55 @@ Using these helper functions can greatly simplify your test code, improve readab
 
 When writing WPT tests, it is recommended to first explore the relevant support files to understand the available helper functions. This helps avoid duplicating existing functionality and ensures that your tests align with the existing style and quality of tests.
 
+There is another example of a test for input element vertical alignment.
+
+It's a little bit different because it has reference files.
+
+```html
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Input type=range baseline alignment</title>
+<link rel="match" href="range-baseline-ref.html">
+<link rel="help" href="https://html.spec.whatwg.org/multipage/input.html#range-state-(type=range)">
+<style>
+  .range-input {
+    margin: 20px;
+    padding: 10px;
+    outline: 20px solid blue;
+    visibility: hidden;
+  }
+</style>
+<div class="text-wrapper">
+  Baseline text
+  <input type="range" class="range-input">
+  More baseline text
+</div>
+```
+
+```html
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Reference for Input type=range baseline alignment</title>
+<style>
+  .range-placeholder {
+    display: inline-block;
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+    padding: 10px;
+    outline: 20px solid transparent;
+    width: 160px;
+    height: 20px;
+  }
+</style>
+<div>
+  Baseline text
+  <span class="range-placeholder"></span>
+  More baseline text
+</div>
+
+```
+
 ## Logging
 
 
