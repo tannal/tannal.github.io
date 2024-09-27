@@ -1,5 +1,5 @@
 ---
-title: "关于"
+title: "About"
 date: 2022-03-06
 layout: "about"
 slug: "about"
