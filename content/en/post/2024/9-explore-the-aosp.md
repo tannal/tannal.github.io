@@ -76,8 +76,12 @@ E.G. We can search for browsing history using the following command:
 
 ![](./aosp-1.png)
 
-/data/data/
+The /data/data/ 
 
 
 
 ![](aosp-2.png)
+
+
+
+![](aosp-3.png)
