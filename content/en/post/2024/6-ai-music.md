@@ -15,7 +15,7 @@ tags:
 <midi-visualizer type="piano-roll" id="myVisualizer"></midi-visualizer>
 
 <midi-player
-  src="https://tannal.github.io/heisemaoyi.midi"
+  src="https://tannal.github.io/test.mid"
   sound-font visualizer="#myVisualizer">
 </midi-player>
 
