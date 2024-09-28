@@ -2,10 +2,10 @@
 title: Training an AI for melody creating
 date: 2024-09-14 19:23:11+0000
 categories:
-    - open source
+    - Music Creation
 tags:
     - Open Source
-    - Documentry
+    - Transformer
 ---
 
 <script defer src="/youtube.js" type="module"></script>
@@ -22,6 +22,12 @@ tags:
 <script defer src="/bilibili-player.js" type="module"></script>
 
 <!-- <bilibili-player bvid="BV1sxtsegEf3"></bilibili-player>; -->
+
+## Music theory
+
+- melody
+- harmony
+- rhythm
 
 ## Dataset
 
