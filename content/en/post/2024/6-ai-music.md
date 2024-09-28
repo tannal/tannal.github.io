@@ -21,74 +21,73 @@ tags:
 
 <script defer src="/bilibili-player.js" type="module"></script>
 
-<bilibili-player bvid="BV1sxtsegEf3"></bilibili-player>;
+<!-- <bilibili-player bvid="BV1sxtsegEf3"></bilibili-player>; -->
+
+## Dataset
+
+- Lakh MIDI Dataset 包含 17 万多个 MIDI 文件。
+
+https://colinraffel.com/projects/lmd/#get
+
+- MAESTRO Dataset 古典钢琴音乐数据集。
+
+https://magenta.tensorflow.org/datasets/maestro
+
+- FMA (Free Music Archive) 包含各种流派的音频文件。
+
+https://freemusicarchive.org/search/?quicksearch=&search-genre=Classical
+
+- MusicNet 古典音乐数据集，带有乐器、音高等标注。
+- Million Song Dataset 大规模音乐元数据集。
+- RWC (Real World Computing) Music Database 包含流行音乐、古典音乐等多种类型。
+- NSynth Dataset 由 Google 发布的单音音色数据集。
+- MUSDB18 多轨音乐分离数据集。
+- Nottingham Database 民谣曲调数据集。
+- Bach Chorales Dataset 巴赫合唱曲数据集。
+
+## Tranditional Music Generation
+
+- Rule-based
+- Markov Chain
+- Hidden Markov Model
+
+## Neural Network Music Generation
+
+- LSTM
+- GRU
+- Transformer
+- VAE
+- GAN
+- RL
 
 
-## **GNU/Linux Documentry**
-
-<youtube-player video-id="k0RYQVkQmWU"></youtube-player>
+## Music assistant tools
 
 
-## Build
+##  Related Work
 
-You need to install rust to use cargo.
+- [Magenta](https://magenta.tensorflow.org/)
 
-```bash
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+- [OpenAI Jukebox](https://openai.com/research/jukebox/)
 
-```
+- [Google Magenta](https://magenta.tensorflow.org/)
 
-Setup git and get the codebase.
+- [DeepJ](https://deepj.net/)
 
+- [AIVA](https://www.aiva.ai/)
 
-```bash
-cargo install --git https://github.com/glandium/git-cinnabar
-git cinnabar setup
+- [Amper Music](https://www.ampermusic.com/)
 
+- [Jukedeck](https://www.jukedeck.com/)
 
-git clone hg::https://hg.mozilla.org/mozilla-unified gecko && cd gecko
-git config fetch.prune true
-git cinnabar fetch --tags
+- [Flow Machines](https://www.flow-machines.com/)
 
-mv .git/hooks/fsmonitor-watchman.sample .git/hooks/query-watchman
-git config core.fsmonitor .git/hooks/query-watchman
-```
+- [MuseNet](https://openai.com/research/jukebox/)
 
-Then you can actually build it.
+- [NSynth](https://magenta.tensorflow.org/nsynth)
 
-Many projects use custom python scripts for building and testing.
+- [MusicVAE](https://magenta.tensorflow.org/music-vae)
 
-The one that firefox codebase using is called mach.
+- [DDSP](https://magenta.tensorflow.org/ddsp)
 
-```bash
-./mach bootstrap
-
-./mach run
-```
-
-The bootstrap process will ask you what target do you want to build?
-
-Normally you will choose the desktop firefox browser to build.
-
-In practice, you can manually set the config into a file.
-
-For example, build SpiderMonkey under the firefox codebase.
-
-```bash
-MOZCONFIG=mozconfig.jsshell ./mach build
-
-# For jsshell mozconfig.jsshell
-ac_add_options --enable-application=js
-mk_add_options MOZ_OBJDIR=@TOPSRCDIR@/obj-@CONFIG_GUESS@-jsshell
-
-# For full browser
-# echo "ac_add_options --enable-application=browser" > mozconfig.browser
-```
-
-
-## Logging
-
-
-```cpp
-Debug()
-```
+- [Onsets and Frames](https://magenta.tensorflow.org/onsets-frames)
