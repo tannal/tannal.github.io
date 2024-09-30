@@ -97,3 +97,16 @@ https://freemusicarchive.org/search/?quicksearch=&search-genre=Classical
 - [DDSP](https://magenta.tensorflow.org/ddsp)
 
 - [Onsets and Frames](https://magenta.tensorflow.org/onsets-frames)
+
+## Appendix
+
+
+### Mixed precision training
+
+- [Mixed precision training](https://pytorch.org/docs/stable/notes/amp_examples.html)
+
+stochastic_rounding is a technique that can be used to improve the accuracy of the model when using mixed precision training. It is a rounding technique that rounds to the nearest even integer, which can help reduce the bias introduced by rounding errors.
+
+It is used in Adamw optimizer and encoder in the transformer model.
+
+Parameters update in the optimizer is done in FP32, while the model weights are stored in FP16. This can lead to a loss of precision in the model weights, which can affect the accuracy of the model. stochastic_rounding can help reduce this loss of precision by rounding the model weights to the nearest even integer.

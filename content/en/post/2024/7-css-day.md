@@ -19,6 +19,32 @@ tags:
 
 <youtube-player video-id="k_3pRxdv-cI"></youtube-player>
 
+## Web Design Engineering
+
+<youtube-player video-id="su6WA0kUUJE"></youtube-player>
+
+## Layout and Reading Order
+
+<youtube-player video-id="X6azWrtHS-k"></youtube-player>
+
+## Utility First CSS Isn’t Inline Styles | Sarah Dayan
+
+<youtube-player video-id="g6wtyg3O4Fo"></youtube-player>
+
+## Character Modeling in CSS | Julia Miocene
+
+<youtube-player video-id="l9It4DraRm0"></youtube-player>
+
+## Problems solved by OpenType | Roel Nieskens
+<youtube-player video-id="TreBK-EyACQ"></youtube-player>
+
+## Standardization Stories | Elika Etemad
+
+<youtube-player video-id="krh_nb9PdVk"></youtube-player>
+
+## The Garden and The Treadmill | Stephen Hay
+
+<youtube-player video-id="qckCVuMxBts"></youtube-player>
 
 
 <!-- <canvas-2d width="800" height="600">
