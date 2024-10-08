@@ -11,26 +11,28 @@ menu:
 ---
 
 
-Hi, I'm Meng Tan (Alex Meng T.), a systems software engineer passionate about programming language runtime, and low-level programming.
+Hi, I'm Alex Meng. I'm a passionate developer with a deep interest in browser engines, web technologies, and open-source contributions. 
 
-I'm currently working at NENU, contributing to their fully-managed PostgreSQL service built on a key-value storage engine.
-Previously, I've interned at KuaiShou Techonolog, where I worked on various aspects of docs editing and typsing layout engine.
+## Key Interests:
+- Browser engines (WebKit, Gecko, Servo)
+- Web standards and specifications
+- Open-source development
+- Systems programming (C++, Rust)
+- Performance optimization
 
-I hold a Master's degree in Computer Science from Northeast Normal University and a Bachelor's degree in Computer Science and Technology from Northeast Normal University.
+## Notable Contributions:
+- WebKit: Improved ARM64 disassembler output and working on WebAssembly SIMD support
+- Mozilla Firefox: Implemented regex 'v' flag and contributed to Gecko layout engine
+- Servo: Refactored networking module for improved performance
+- Node.js: Implemented V8 Fast API for URL.revokeObjectURL
 
-I'm an active contributor to several open-source projects:
+## Consulting 
 
-Mozilla Firefox: Contributing to SpiderMonkey (JavaScript engine) and the layout engine.
-Servo: Working on improving CSS layout algorithms and WebRender integration.
-Node.js: Implementing performance improvements and enhancing APIs.
+I'm available for consulting on a variety of topics, including:
+- WebAssembly and SIMD
+- Web standards and browser compatibility
+- Performance optimization
+- Open-source development
+- LLMs and Articifial Intelligence
 
-Skills
-Programming Languages: Rust (3 years), C++, Python, Node.js, GoLang
-Areas of Expertise: Stream-Processing Systems, Database Systems (Optimizer and Query Execution), Key-Value Storage Systems, SSD-optimized File Systems
-Contact Me
-GitHub: github.com/tannal
-Personal Website: tannal.github.io
-LinkedIn: linkedin.com/in/alex-meng-tannal
-Email: tannal2409@gmail.com
-
-Feel free to reach out if you'd like to discuss Artificial Inteligence, systems programming, or any exciting tech projects!
+I'm constantly looking for new challenges and opportunities to grow as a developer. Feel free to reach out if you'd like to collaborate or discuss anything related to web technologies and browser development!
