@@ -7,6 +7,10 @@ tags:
     - 神经网络
 ---
 
+## AI generated content is your starting point. Not your end goal.
+
+
+
 ## Pytorch版本的GPT2
 
 ## GPT2
