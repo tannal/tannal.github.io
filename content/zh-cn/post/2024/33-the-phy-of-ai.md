@@ -1,5 +1,5 @@
 ---
-title: LLM.C 人工智能训练和推理的最佳实践
+title: lanntai AI for human
 date: 2024-09-06T10:51:56+08:00
 categories:
     - 大语言模型
@@ -8,8 +8,6 @@ tags:
 ---
 
 ## AI generated content is your starting point. Not your end goal.
-
-
 
 ## Pytorch版本的GPT2
 
