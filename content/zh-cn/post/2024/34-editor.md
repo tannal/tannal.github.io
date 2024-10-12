@@ -1,13 +1,11 @@
 ---
-title: lanntai AI for human
+title: 
 date: 2024-09-06T10:51:56+08:00
 categories:
     - 大语言模型
 tags:
     - 神经网络
 ---
-
-## AI generated content is your starting point. Not your end goal.
 
 ## Pytorch版本的GPT2
 
