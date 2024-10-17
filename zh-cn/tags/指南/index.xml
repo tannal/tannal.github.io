@@ -1,0 +1,414 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>指南 on 谭盟</title><link>https://tannal.github.io/zh-cn/tags/%E6%8C%87%E5%8D%97/</link><description>Recent content in 指南 on 谭盟</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Thu, 03 Oct 2024 10:51:56 +0800</lastBuildDate><atom:link href="https://tannal.github.io/zh-cn/tags/%E6%8C%87%E5%8D%97/index.xml" rel="self" type="application/rss+xml"/><item><title>计算机科学探索指南</title><link>https://tannal.github.io/zh-cn/p/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6%E6%8E%A2%E7%B4%A2%E6%8C%87%E5%8D%97/</link><pubDate>Thu, 03 Oct 2024 10:51:56 +0800</pubDate><guid>https://tannal.github.io/zh-cn/p/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6%E6%8E%A2%E7%B4%A2%E6%8C%87%E5%8D%97/</guid><description>&lt;h2 id="科普英语和科学上网">科普，英语和科学上网
+&lt;/h2>&lt;p>FAQ：程序员写代码写的都是二进制么？不是，写的的文字，text，需要编译器或者解释器运行。在计算机行业中，只有做安全的人会大量接触二进制（也就是人们常说的hacker），其他的人都很少接触二进制。&lt;/p>
+&lt;p>学英语，大量阅读英文内容，看纪录篇，英文采访，英文直播，Meme。&lt;/p>
+&lt;p>比搜索引擎还好用的hacker news。&lt;/p>
+&lt;p>&lt;a class="link" href="https://hn.algolia.com/" target="_blank" rel="noopener"
+>https://hn.algolia.com/&lt;/a>&lt;/p>
+&lt;p>The Primeagine youtuber，学英文特别好用，因为他的内容很有趣，他经常会读博客然后发表评论，完美的英文学习材料。
+&lt;a class="link" href="https://www.youtube.com/@ThePrimeTimeagen" target="_blank" rel="noopener"
+>https://www.youtube.com/@ThePrimeTimeagen&lt;/a>&lt;/p>
+&lt;p>等我日语好了，我就在B站开个读日本科技博客的账号，学习一下&lt;/p>
+&lt;h2 id="先学会运行代码再学会编写代码">先学会运行代码，再学会编写代码
+&lt;/h2>&lt;p>静态网站&lt;/p>
+&lt;p>&lt;a class="link" href="https://github.com/tannal/tannal.github.io" target="_blank" rel="noopener"
+>https://github.com/tannal/tannal.github.io&lt;/a>&lt;/p>
+&lt;p>hugo静态网站生成，用Web Component原生组件做动态内容。如嵌入B站视频。&lt;/p>
+&lt;h2 id="小厂学做事大厂学做人学真技术还得看开源项目">小厂学做事，大厂学做人，学真技术还得看开源项目
+&lt;/h2>&lt;h3 id="客户端">客户端
+&lt;/h3>&lt;ul>
+&lt;li>React&lt;/li>
+&lt;/ul>
+&lt;p>&lt;a class="link" href="" >Excaldraw&lt;/a>&lt;/p>
+&lt;ul>
+&lt;li>Flutter&lt;/li>
+&lt;/ul>
+&lt;p>&lt;a class="link" href="https://github.com/zulip/zulip-flutter" target="_blank" rel="noopener"
+>https://github.com/zulip/zulip-flutter&lt;/a>&lt;/p>
+&lt;ul>
+&lt;li>ReactNative&lt;/li>
+&lt;/ul>
+&lt;p>&lt;a class="link" href="https://frontendmasters.com/courses/intermediate-react-native-v2/" target="_blank" rel="noopener"
+>https://frontendmasters.com/courses/intermediate-react-native-v2/&lt;/a>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Electron&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>C# .NET&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>GTK&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>QT&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>NativeScript&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>KMP&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Kotlin Android&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Java Android&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Android NDK&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>服务端&lt;/p>
+&lt;ul>
+&lt;li>Go Gin gorm&lt;/li>
+&lt;li>Rust&lt;/li>
+&lt;li>Java SpringBoot SpringCloud&lt;/li>
+&lt;li>Java Quarkus&lt;/li>
+&lt;li>Ruby on Rails&lt;/li>
+&lt;li>Python Flask&lt;/li>
+&lt;li>PHP&lt;/li>
+&lt;/ul>
+&lt;p>纯技术&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;a class="link" href="" >quickjs&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="" >Luajit&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="" >Firefox Layout&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="" >Firefox SpiderMonkey&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="" >Firefox Graphics&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="" >Zed代码编辑器&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="" >Wasmtime&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="" >WasmEdge&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="" >Wasmer&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="" >Typst&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>移动应用&lt;/p>
+&lt;p>桌面应用&lt;/p>
+&lt;p>系统&lt;/p>
+&lt;h3 id="梗">梗
+&lt;/h3>&lt;h2 id="程序软件服务系统网站应用sdk库框架包引擎">程序、软件、服务、系统、网站、应用、SDK、库、框架、包、引擎
+&lt;/h2>&lt;p>这些个玩意都叫软件，它们有什么区别呢？&lt;/p>
+&lt;p>GUI软件，主要分平台和设计，桌面应用，移动应用和网页应用。&lt;/p>
+&lt;p>网页，即前后端啊，懂得都懂，如即时通讯，社交网络，流媒体，直播，视频会议，设计&lt;/p>
+&lt;h2 id="开发环境设置">开发环境设置
+&lt;/h2>&lt;p>有几样东西&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>sdk版本管理器&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>sdk（或者编译器）&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>sdk的构建系统和包管理器&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>如gcc/g++/clang/clang++和Makefile，ninja-build和CMake&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>如rustup和rust和cargo&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>如sdkman和koltin/java/scala和Maven和Gradle&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>如node和npm和bundler（webpack）&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>如dart和flutter和pub&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>如k8s和docker和dockerhub&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="以技术来分">以技术来分
+&lt;/h3>&lt;h4 id="编写程序">编写程序
+&lt;/h4>&lt;p>计算程序，如计算圆周率，计算1到100的和，计算人生的意义（42），数据结构加算法，数据可以独立于函数存在，而反过来不行。&lt;/p>
+&lt;h4 id="编译器">编译器
+&lt;/h4>&lt;p>编译器，把结构化，带有描述性质的文字（通常是人写的或者AI生成的）翻译成汇编或机器语言（x86，arm，rsicv，mips）的叫编译器，最后没有看到机器代码的叫解释器，大部分编译器都会有中间表示如SSA或者Sea of Nodes。&lt;/p>
+&lt;h4 id="操作系统">操作系统
+&lt;/h4>&lt;p>操作系统，创造一堆概念和服务，帮你管理CPU和内存和硬盘和显示器和鼠标和键盘和显卡和麦克风和扬声器和摄像头和网卡和声卡等各种各样的能插在电脑上面的东西，作为用户你需要的时候按照操作系统的说明书让他帮你完成即可，操作系统是电脑的管理者，你只是个用户，而操作系统听root用户的，你是root的话约等于你拥有这台电脑。&lt;/p>
+&lt;h4 id="计算机安全">计算机安全
+&lt;/h4>&lt;p>安全，非常广泛，什么叫做攻击呢？比如我在网页上面点击一个按钮打开了windows的计算器应用程序，则说明攻击者攻击浏览器攻击成功。&lt;/p>
+&lt;h4 id="计算机网络">计算机网络
+&lt;/h4>&lt;p>没错，通信。&lt;/p>
+&lt;p>数字信号和模拟信号。&lt;/p>
+&lt;p>电信运营商&lt;/p>
+&lt;p>电话服务 定位服务
+2G 3G 4G
+NFC 蓝牙 无线网络 Vlan&lt;/p>
+&lt;p>网络服务，传递数据，带宽和延迟。&lt;/p>
+&lt;p>四层负载均衡&lt;/p>
+&lt;h4 id="面向对象编程其运行时">面向对象编程其运行时
+&lt;/h4>&lt;p>编程语言及其运行时，让编程更容易更方便，仅此而已。&lt;/p>
+&lt;h5 id="java">Java
+&lt;/h5>&lt;h5 id="python">Python
+&lt;/h5>&lt;h5 id="ruby">Ruby
+&lt;/h5>&lt;h5 id="php">PHP
+&lt;/h5>&lt;h5 id="javascript">JavaScript
+&lt;/h5>&lt;p>v8
+Spdiermonkey
+JavaScriptCore
+quickjs&lt;/p>
+&lt;h5 id="lua">Lua
+&lt;/h5>&lt;h4 id="gpu和cpu渲染">GPU和CPU渲染
+&lt;/h4>&lt;p>2D图形和GUI，展示，应用和可编程，视觉，阅读传递信息。&lt;/p>
+&lt;p>早期GUI的主要对象是字体，这篇报告完整的阐述了字体的历史和现状，以及未来的发展方向，非常值得一读。
+&lt;a class="link" href="https://behdad.org/text2024/" target="_blank" rel="noopener"
+>https://behdad.org/text2024/&lt;/a>&lt;/p>
+&lt;p>后来GUI的发展主要推动力是Web&lt;/p>
+&lt;p>现代GUI有很多特点&lt;/p>
+&lt;ul>
+&lt;li>数据驱动视图&lt;/li>
+&lt;li>事件驱动&lt;/li>
+&lt;li>响应式布局&lt;/li>
+&lt;li>动画&lt;/li>
+&lt;li>跨平台&lt;/li>
+&lt;li>无障碍&lt;/li>
+&lt;li>主题&lt;/li>
+&lt;li>国际化&lt;/li>
+&lt;li>本地化&lt;/li>
+&lt;/ul>
+&lt;h4 id="跨平台gui的研究">跨平台GUI的研究
+&lt;/h4>&lt;ul>
+&lt;li>QT&lt;/li>
+&lt;li>GTK&lt;/li>
+&lt;li>wxWidgets&lt;/li>
+&lt;/ul>
+&lt;p>这是比较经典的跨平台GUI框架，各有优缺点。&lt;/p>
+&lt;p>Rust编写的跨平台GUI，有很多，如：&lt;/p>
+&lt;ul>
+&lt;li>zed 使用自己的GUI库。&lt;/li>
+&lt;li>Embark 投资 winit 和 rust-gpu。&lt;/li>
+&lt;li>Google Fonts 投资 vello和xilem。&lt;/li>
+&lt;li>System76 投资 iced 和 COSMIC-Text.&lt;/li>
+&lt;li>Futurewei（华为） 投资 Dioxus, Makepad, 和 Servo。&lt;/li>
+&lt;li>Igalia 投资 Servo。&lt;/li>
+&lt;li>Slint 投资 Slint 自己。&lt;/li>
+&lt;/ul>
+&lt;p>这里有一份报告，详细介绍了各种跨平台GUI框架的优缺点。&lt;/p>
+&lt;p>&lt;a class="link" href="https://www.igalia.com/downloads/2023-cross-platform-mobile-app-frameworks.pdf" target="_blank" rel="noopener"
+>https://www.igalia.com/downloads/2023-cross-platform-mobile-app-frameworks.pdf&lt;/a>&lt;/p>
+&lt;h4 id="多媒体">多媒体
+&lt;/h4>&lt;p>多媒体，音视频，不用说了，视觉听觉传播信息的媒介，信息的主要载体。&lt;/p>
+&lt;p>gstreamer&lt;/p>
+&lt;p>ffmpeg&lt;/p>
+&lt;p>run.io&lt;/p>
+&lt;h4 id="计算机图形学">计算机图形学
+&lt;/h4>&lt;p>2D实时渲染&lt;/p>
+&lt;p>3D图形和实时渲染，其实主要的推动力是游戏和电影特效以及CGI动画。&lt;/p>
+&lt;p>渲染引擎&lt;/p>
+&lt;p>物理引擎&lt;/p>
+&lt;p>Epic Games
+Unity
+Nvidia&lt;/p>
+&lt;h4 id="存储系统">存储系统
+&lt;/h4>&lt;p>数据库系统，在文件系统之上创造了sql等概念，使得你可以通过sql管理数据文件，特别是一致性问题和性能问题，多个用户读写一个文件。&lt;/p>
+&lt;p>Andy Pavlo的数据库课程
+&lt;a class="link" href="https://www.youtube.com/watch?v=APqWIjtzNGE" target="_blank" rel="noopener"
+>https://www.youtube.com/watch?v=APqWIjtzNGE&lt;/a>&lt;/p>
+&lt;p>Oracle&lt;/p>
+&lt;h4 id="人工智能">人工智能
+&lt;/h4>&lt;p>人工智能，计算机怎么这么难用，他就不能自己学习一下如何解决我的问题么？我很懒，不想写代码，不想学编程，如果电脑是我说一下动一下，我不说就不动，那有什么意思，能不能让他像个人，长点脑子，会说中文，多好，这就是人工智能要解决的问题。&lt;/p>
+&lt;p>手写数字识别
+GPT2
+LLAMA3
+Stable Diffusion
+强化学习&lt;/p>
+&lt;p>Hinton的访谈，Hinton一生的研究主题都围绕在大脑如何运作，他成为深度学习之父一点也不奇怪。&lt;/p>
+&lt;p>&lt;a class="link" href="https://www.youtube.com/watch?v=n4IQOBka8bc" target="_blank" rel="noopener"
+>https://www.youtube.com/watch?v=n4IQOBka8bc&lt;/a>&lt;/p>
+&lt;h4 id="计算机的scalability问题">计算机的Scalability问题
+&lt;/h4>&lt;p>Scalability问题引发的分布式系统和虚拟化的研究，以及这些研究的商业成果云计算。&lt;/p>
+&lt;p>分布式系统，一台电脑就算买最好的CPU，也扛不住双十一，所以我们需要好多电脑，叫机房，再多一点叫数据中心，我怎么把应用程序运行在1000台电脑上面还能保证不出错，同时获得尽可能现行的1000倍速度提升？&lt;/p>
+&lt;p>我今天有100台电脑，如何让我的产出达到100倍的线性关系，有1000台电脑产出到1000倍，这就是scalability的问题，于是出现了虚拟化技术，以及其商业化版本——云计算（我发现我的数据中心有一半的电脑在空闲，多浪费，不如租出去）。&lt;/p>
+&lt;p>虚拟化和云平台。&lt;/p>
+&lt;p>VMware、Oracle、VirtualBox&lt;/p>
+&lt;h4 id="计算机的微型整合soc系统">计算机的微型整合SOC系统
+&lt;/h4>&lt;p>嵌入式系统如手机&lt;/p>
+&lt;h4 id="半导体行业">半导体行业
+&lt;/h4>&lt;p>芯片设计和半导体制造，包括人工智能加速器。&lt;/p>
+&lt;ul>
+&lt;li>微控制器&lt;/li>
+&lt;li>物联网终端智能设备&lt;/li>
+&lt;li>移动设备&lt;/li>
+&lt;li>个人电脑&lt;/li>
+&lt;li>数据中心服务器&lt;/li>
+&lt;li>超级计算机&lt;/li>
+&lt;/ul>
+&lt;p>Qualcomm
+联发科
+Nvidia
+AMD
+Intel
+Apple
+Google
+Amazon
+Microsoft
+Meta
+IBM
+Oracle
+Huawei
+平头哥&lt;/p>
+&lt;h3 id="以应用业务来分">以应用业务来分
+&lt;/h3>&lt;p>各种乱七八糟的管理系统。&lt;/p>
+&lt;p>即时通讯，社交网络，流媒体，直播，视频会议。&lt;/p>
+&lt;p>出行，招聘，租房，二手交易，快递，订票，短视频，网盘。&lt;/p>
+&lt;p>文档，协同，办公，表格，数据分析，计算，PPT，沟通汇报演说。&lt;/p>
+&lt;p>电子商务，游戏。&lt;/p>
+&lt;p>云服务，计算机科学中的租房子业务，租计算，存储，网络，等服务给你。&lt;/p>
+&lt;h3 id="以目标用户来分">以目标用户来分
+&lt;/h3>&lt;p>各种编辑器，如文本编辑器，代码编辑器，富文本编辑器，文档编辑器，图片编辑器（Photoshop），音频视频编辑器，动画编辑器，画画软件。&lt;/p>
+&lt;p>CAD工业设计，UI设计（figma），芯片设计，各种物理现实世界硬件仿真器。&lt;/p>
+&lt;p>游戏引擎。&lt;/p>
+&lt;h2 id="计算机科学历史">计算机科学历史
+&lt;/h2>&lt;h3 id="二战后-1950">二战后 1950
+&lt;/h3>&lt;p>密码破译，编码，纠错码&lt;/p>
+&lt;h3 id="半导体行业-1970-1980">半导体行业 1970-1980
+&lt;/h3>&lt;p>这期间得到大力发展的是编译器汇编器，以及操作系统，C语言等高级编译器。&lt;/p>
+&lt;p>隶属于美国通用电气（AT&amp;amp;T）的贝尔实验室开发出了unix操作系统，并广泛应用于高校和研究中心。主要人物是Ken和Dennis，在设计实现unix操作系统的过程中创造了C语言&lt;/p>
+&lt;h3 id="xerox研究中心个人电脑时代-1980---1990">Xerox研究中心个人电脑时代 1980 - 1990
+&lt;/h3>&lt;p>这段期间得到大力发展的是计算机科学中的编程语言（主要是），操作系统，以及互联网（下一个时代）。&lt;/p>
+&lt;p>开端是Xerox研究中心的以下成果之一，用户界面被Steve Jobs学习并进一步发展。&lt;/p>
+&lt;ul>
+&lt;li>用网络连接不同的电脑，即互联网&lt;/li>
+&lt;li>用户界面&lt;/li>
+&lt;li>面向对象编程&lt;/li>
+&lt;/ul>
+&lt;p>诞生了Mac电脑和Windows操作系统，在乔布斯的Lost Interview采访中他表示Web将会改变世界，并说苹果会做到这一点。，&lt;/p>
+&lt;p>采访是在1995年，而Webkit第一版发布是在1998年，很可能在采访的1995年苹果就已经fork了KDE的浏览器引擎开始在做webkit了，在这也落在互联网泡沫的中期。&lt;/p>
+&lt;h3 id="互联网时代-1990-2010">互联网时代 1990-2010
+&lt;/h3>&lt;p>在个人电脑时代后期，IBM出售了个人电脑业务给联想。&lt;/p>
+&lt;p>这段期间得到大力发展的是浏览器和万维网，由于Netscape实在无法抵抗微软内置IE抢占市场的商业行为，开源了firefox的源代码，也是开源操作系统内核Linux发展的黄金时期，面向对象编程语言如Java在此期间也开始喷涌而出。&lt;/p>
+&lt;p>当时软件行业以售卖为生（类似于现在的游戏行业），再加上天下苦微软和AT&amp;amp;T久矣，firefox源代码的开放间接导致了世界范围内的开源软件运动（Free Software MoveMent）。&lt;/p>
+&lt;p>GNU组织诞生，重写大部分unix系统提供的软件包，同时也想要重写一个开源的操作系统，后因进展缓慢转向由芬兰大学生发起的hobby project —— Linux。&lt;/p>
+&lt;p>大量的用户自发的开始把能够在windows和unix上运行的软件移植到Linux，最著名的也是最终导致Linux成功的是Apache httpd服务器。人们可以免费的获取Linux，免费的安装httpd来搭建自己的网站服务，这让Linux的用户量随着互联网泡沫一起攀升。&lt;/p>
+&lt;p>由Netscape发起的浏览器项目得到大量关注，搜索引擎和门户网站等商业公司成长起来，诞生了谷歌，脸书，Netflix，亚马逊等网络服务，Oracle。&lt;/p>
+&lt;p>同样来自斯坦福的Sun Micosystems创业公司，这是一家技术公司的典范，自己设计CPU，自己开发编译器，自己开发操作系统，自己开发编程语言Java，最后被Oracle收购了，Sun的CTO是前Google CEO 艾瑞克·施密特。&lt;/p>
+&lt;p>在中国大陆诞生了老牌互联网企业，百度，腾讯，阿里巴巴。&lt;/p>
+&lt;h3 id="智能手机和移动互联网-2010-2020">智能手机和移动互联网 2010-2020
+&lt;/h3>&lt;p>2007年苹果发布第一款ipone手机。&lt;/p>
+&lt;p>同年Google发布安卓操作系统，并开放源代码，即现在的AOSP项目&lt;/p>
+&lt;p>华为 小米 OOPO 魅族 三星 苹果 叫做系统整合厂商。&lt;/p>
+&lt;p>整合什么东西？&lt;/p>
+&lt;ul>
+&lt;li>计算芯片和通信芯片（3G 4G 5G）&lt;/li>
+&lt;li>存储 （memory，flash，disk）&lt;/li>
+&lt;li>摄像头&lt;/li>
+&lt;li>软件系统，UI&lt;/li>
+&lt;li>定位&lt;/li>
+&lt;li>屏幕&lt;/li>
+&lt;li>电源管理&lt;/li>
+&lt;li>音视频多媒体&lt;/li>
+&lt;/ul>
+&lt;h3 id="疫情时期的科技行业">疫情时期的科技行业
+&lt;/h3>&lt;h2 id="c语言和操作系统">C语言和操作系统
+&lt;/h2>&lt;ul>
+&lt;li>
+&lt;p>台湾Jserv大神的课程&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Shiwolo聚焦系统编程和Linux操作系统&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>台湾交通大学的曹长官的OSDI课程&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>犹太大学的嵌入式操作系统课程&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>John等安全人员的报告&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>北京清华大学的os组&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>上海交通大学的ipadas实验室&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>南京大学jyy的嵌入式操作系统&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>内核态和用户态的一系列服务&lt;/p>
+&lt;p>Linux，Windows，Macos，Android，IOS是主流平台。&lt;/p>
+&lt;p>对于编译型语言，除非有特殊需要，2024年请优先考虑Rust和Golang，然后考虑C++，最后考虑C语言。&lt;/p>
+&lt;p>你肯定好奇编译器是谁写的，怎么写出来的，我也不会。&lt;/p>
+&lt;p>生产C/C++编译器的组织和公司就三个：&lt;/p>
+&lt;ul>
+&lt;li>GNU&lt;/li>
+&lt;li>LLVM&lt;/li>
+&lt;li>Microsoft&lt;/li>
+&lt;/ul>
+&lt;h2 id="面向对象编程">面向对象编程
+&lt;/h2>&lt;p>面向对象编程，感觉写不出了就加字段，加类，问题就解决了。&lt;/p>
+&lt;p>过程编程，感觉写不出来了就加结构体加全局变量，问题就解决了。&lt;/p>
+&lt;p>函数式编程，感觉写不出来了就多加点函数，问题就解决了。&lt;/p>
+&lt;p>现在的软件都是OOP味道的代码，只是味道重不重而已。&lt;/p>
+&lt;h3 id="编程语言的运行时和开发工具">编程语言的运行时和开发工具
+&lt;/h3>&lt;p>JVM OpenJDK Java&lt;/p>
+&lt;p>Python CPython&lt;/p>
+&lt;p>JavaScript JavaScriptCore 和 V8 和 SpiderMonkey&lt;/p>
+&lt;h3 id="2d图形-gui是怎么整出来的">2D图形 GUI是怎么整出来的？
+&lt;/h3>&lt;p>首先我们有平台相关图形API，OpenGL，Vulkan，DirectX，Metal。&lt;/p>
+&lt;p>然后我们有平台相关的窗口API，用于创建窗口和渲染区域（这部分的内容通常由图形API确定），这个程序帮我们handle各种各样的事件，如鼠标移动（会伴随着碰撞测试）。&lt;/p>
+&lt;p>我们用图形API，写一些shader和渲染逻辑，得到一个2D图形库，这个2D图形库的API跟浏览器的Canvas类似。&lt;/p>
+&lt;ul>
+&lt;li>三角形&lt;/li>
+&lt;li>长方形&lt;/li>
+&lt;li>圆形&lt;/li>
+&lt;li>渲染一个路径，多边形&lt;/li>
+&lt;li>渲染字体&lt;/li>
+&lt;li>渲染image&lt;/li>
+&lt;/ul>
+&lt;p>市面上的2D图形库有&lt;/p>
+&lt;ul>
+&lt;li>Skia 被谷歌收购，用于chrome浏览器和&lt;/li>
+&lt;li>Cairo Webkit使用，不过可能要部分切成skia。&lt;/li>
+&lt;li>Webrender servo项目和Rust项目诞生的专注于web渲染，应该来自于mozilla图形团队。&lt;/li>
+&lt;li>Vello 由Google Fonts投资，Android。&lt;/li>
+&lt;li>没了&lt;/li>
+&lt;/ul>
+&lt;p>2D图形库加上对于窗口API的封装，就是一个GUI toolkit，如&lt;/p>
+&lt;ul>
+&lt;li>GTK&lt;/li>
+&lt;li>QT&lt;/li>
+&lt;li>Flutter 使用skia。&lt;/li>
+&lt;li>Electron 这玩意就是个chrome，使用skia，对你没听错，VSCode是个浏览器。&lt;/li>
+&lt;li>Java 生态，用Java写GUI最著名的是？对没错，Jetbrains的IDE。&lt;/li>
+&lt;li>Android应用编程，Kotlin以及KMP&lt;/li>
+&lt;li>React Native&lt;/li>
+&lt;/ul>
+&lt;p>有了GUI toolkit加上一些库和包和组件，基本上就能拿来做生产级应用了。&lt;/p>
+&lt;p>比较重要的库是&lt;/p>
+&lt;ul>
+&lt;li>动画&lt;/li>
+&lt;li>导航&lt;/li>
+&lt;li>存储&lt;/li>
+&lt;li>网络&lt;/li>
+&lt;li>于现有代码的整合&lt;/li>
+&lt;li>没了&lt;/li>
+&lt;/ul>
+&lt;p>OK，这就是GUI，你得想到的想不到的应用程序背后就是这些东西。&lt;/p>
+&lt;h2 id="3d图形游戏是怎么做出来的">3D图形，游戏是怎么做出来的？
+&lt;/h2>&lt;h2 id="多媒体应用音视频文档动画设计">多媒体应用，音视频，文档，动画，设计。
+&lt;/h2>&lt;h2 id="学科交叉">学科交叉
+&lt;/h2>&lt;p>Google Deepmind AlphaFold&lt;/p></description></item></channel></rss>
