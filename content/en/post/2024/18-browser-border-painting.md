@@ -2,9 +2,9 @@
 title: How browser paint box border
 date: 2024-10-30 14:23:11+0000
 categories:
-    - editor
+    - chromium
 tags:
-    - editor
+    - chromium
 ---
 
 ## Chromium
