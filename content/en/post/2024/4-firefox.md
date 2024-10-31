@@ -6,7 +6,8 @@ categories:
     - firefox
 tags:
     - Open Source
-    - Documentry
+    - firefox
+    - gecko
 ---
 
 <script defer src="/youtube.js" type="module"></script>

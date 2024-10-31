@@ -3,9 +3,10 @@ title: Implement the v flag for RegExp in SpiderMonkey
 date: 2024-09-21 19:23:11+0000
 categories:
     - Open Source
+    - Spidermonkey
 tags:
     - Open Source
-    - Documentry
+    - Spidermonkey
 ---
 
 ## The problem
