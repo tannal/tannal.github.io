@@ -71,3 +71,14 @@ So I wrote a test for this and contributed back to test262.
 ## The implementation in Spidermonkey
 
 
+The regex engine in spidermonkey is implemented using v8's irregex engine.
+
+
+
+
+
+## Reference
+
+More on regex engine in spidermonkey.
+
+https://hacks.mozilla.org/2020/06/a-new-regexp-engine-in-spidermonkey/

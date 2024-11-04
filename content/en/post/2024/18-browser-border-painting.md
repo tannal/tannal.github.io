@@ -7,6 +7,13 @@ tags:
     - chromium
 ---
 
+<script defer src="/ringbuffer.js" type="module"></script>
+<ring-buffer-animation>
+</ring-buffer-animation>
+<script defer src="/newton-pendulum.js" type="module"></script>
+
+<newton-pendulum>
+</newton-pendulum>
 ## Chromium
 
 ```bash
