@@ -119,7 +119,11 @@ export class InteractiveBarChart extends HTMLElement {
             }
         `;
 
-        // ... existing tooltip code ...
+        // 添加提示框
+        const tooltip = document.createElement('div');
+        tooltip.className = 'tooltip';
+        tooltip.style.display = 'none';
+        
 
         this.shadowRoot.innerHTML = '';
         this.shadowRoot.appendChild(style);

@@ -14,6 +14,12 @@ tags:
 
 <snow-fall></snow-fall>
 
+  <music-score
+    clef="treble"
+    time-signature="4/4"
+    notes="C4/q, D4/q, E4/q, F4/q">
+  </music-score>
+
 <script defer src="/browser-border-paint.js" type="module"></script>
 
 ## Chromium

@@ -2,6 +2,7 @@
 const moduleUrls = [
     '/interactive-bar-chart.js',
     '/snow.js',
+    '/music-score.js',
 ];
 
 Promise.all(moduleUrls.map(url => import(url)))
