@@ -6,15 +6,15 @@ categories:
 tags:
     - chromium
 ---
-
 <script defer src="/ringbuffer.js" type="module"></script>
-<ring-buffer-animation>
-</ring-buffer-animation>
 <script defer src="/newton-pendulum.js" type="module"></script>
 
-<newton-pendulum>
-</newton-pendulum>
+<interactive-bar-chart>
+</interactive-bar-chart>
 
+<snow-fall></snow-fall>
+
+<script defer src="/browser-border-paint.js" type="module"></script>
 
 ## Chromium
 

@@ -2,12 +2,9 @@
 title: The Hitchhiker's Guide to Firefox Contributor
 date: 2024-09-24 19:23:11+0000
 categories:
-    - open source
     - firefox
 tags:
-    - Open Source
     - firefox
-    - gecko
 ---
 
 <script defer src="/youtube.js" type="module"></script>
