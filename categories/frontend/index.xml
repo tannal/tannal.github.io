@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Frontend on tannal</title><link>https://tannal.github.io/categories/frontend/</link><description>Recent content in Frontend on tannal</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sat, 14 Sep 2024 19:23:11 +0000</lastBuildDate><atom:link href="https://tannal.github.io/categories/frontend/index.xml" rel="self" type="application/rss+xml"/><item><title>CSS Day 2024</title><link>https://tannal.github.io/p/css-day-2024/</link><pubDate>Sat, 14 Sep 2024 19:23:11 +0000</pubDate><guid>https://tannal.github.io/p/css-day-2024/</guid><description>&lt;script defer src="https://tannal.github.io/youtube.js" type="module">&lt;/script>
+&lt;script defer src="https://tannal.github.io/webgl.js" type="module">&lt;/script>
+&lt;h2 id="how-to-teach-css">How to teach CSS
+&lt;/h2>&lt;p>&lt;youtube-player video-id="ZPTVr2pS0XE">&lt;/youtube-player>&lt;/p>
+&lt;h2 id="start-over-engineering-your-css">Start over-engineering your CSS
+&lt;/h2>&lt;p>&lt;youtube-player video-id="k_3pRxdv-cI">&lt;/youtube-player>&lt;/p>
+&lt;h2 id="web-design-engineering">Web Design Engineering
+&lt;/h2>&lt;p>&lt;youtube-player video-id="su6WA0kUUJE">&lt;/youtube-player>&lt;/p>
+&lt;h2 id="layout-and-reading-order">Layout and Reading Order
+&lt;/h2>&lt;p>&lt;youtube-player video-id="X6azWrtHS-k">&lt;/youtube-player>&lt;/p>
+&lt;h2 id="utility-first-css-isnt-inline-styles--sarah-dayan">Utility First CSS Isn’t Inline Styles | Sarah Dayan
+&lt;/h2>&lt;p>&lt;youtube-player video-id="g6wtyg3O4Fo">&lt;/youtube-player>&lt;/p>
+&lt;h2 id="character-modeling-in-css--julia-miocene">Character Modeling in CSS | Julia Miocene
+&lt;/h2>&lt;p>&lt;youtube-player video-id="l9It4DraRm0">&lt;/youtube-player>&lt;/p>
+&lt;h2 id="problems-solved-by-opentype--roel-nieskens">Problems solved by OpenType | Roel Nieskens
+&lt;/h2>&lt;p>&lt;youtube-player video-id="TreBK-EyACQ">&lt;/youtube-player>&lt;/p>
+&lt;h2 id="standardization-stories--elika-etemad">Standardization Stories | Elika Etemad
+&lt;/h2>&lt;p>&lt;youtube-player video-id="krh_nb9PdVk">&lt;/youtube-player>&lt;/p>
+&lt;h2 id="the-garden-and-the-treadmill--stephen-hay">The Garden and The Treadmill | Stephen Hay
+&lt;/h2>&lt;p>&lt;youtube-player video-id="qckCVuMxBts">&lt;/youtube-player>&lt;/p>
+&lt;!-- &lt;canvas-2d width="800" height="600">
+&lt;line-2d x1="100" y1="100" x2="700" y2="500" color="#000000" width="5">&lt;/line-2d>
+&lt;rect-2d x="50" y="50" width="200" height="100" color="#FF0000">&lt;/rect-2d>
+&lt;circle-2d cx="400" cy="300" radius="50" color="#0000FF">&lt;/circle-2d>
+&lt;/canvas-2d> -->
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="line">&lt;span class="cl">&lt;span class="n">Debug&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;textarea id="input" placeholder="Enter text to tokenize">&lt;/textarea>
+&lt;p>&lt;button id="tokenize" disabled>Tokenize&lt;/button>&lt;/p>
+&lt;div id="output">&lt;/div>
+&lt;script>
+const inputEl = document.getElementById('input');
+const outputEl = document.getElementById('output');
+const tokenizeBtn = document.getElementById('tokenize');
+let wasmModule;
+WebAssembly.instantiateStreaming(fetch("/tokenizer.wasm"), {})
+.then(result => {
+wasmModule = result.instance.exports;
+if (typeof wasmModule.tokenize !== 'function') {
+throw new Error('tokenize function not found in WebAssembly module');
+}
+tokenizeBtn.disabled = false;
+console.log('WebAssembly module loaded successfully');
+})
+.catch(error => {
+console.error('Failed to load WebAssembly module:', error);
+outputEl.textContent = 'Error: Failed to load tokenizer';
+});
+tokenizeBtn.addEventListener('click', () => {
+if (!wasmModule) {
+outputEl.textContent = 'Error: WebAssembly module not loaded';
+return;
+}
+try {
+const input = inputEl.value;
+const tokenizedArray = wasmModule.tokenize(input);
+outputEl.textContent = `Tokenized sequence:\n${tokenizedArray.join(' ')}`;
+} catch (error) {
+console.error('Error during tokenization:', error);
+outputEl.textContent = 'Error: Tokenization failed';
+}
+});
+&lt;/script></description></item></channel></rss>

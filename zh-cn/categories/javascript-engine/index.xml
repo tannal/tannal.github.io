@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Javascript Engine on 谭盟</title><link>https://tannal.github.io/zh-cn/categories/javascript-engine/</link><description>Recent content in Javascript Engine on 谭盟</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Mon, 02 Sep 2024 10:51:56 +0800</lastBuildDate><atom:link href="https://tannal.github.io/zh-cn/categories/javascript-engine/index.xml" rel="self" type="application/rss+xml"/><item><title>Promise.try</title><link>https://tannal.github.io/zh-cn/p/promise.try/</link><pubDate>Mon, 02 Sep 2024 10:51:56 +0800</pubDate><guid>https://tannal.github.io/zh-cn/p/promise.try/</guid><description>&lt;img src="https://tannal.github.io/comment.png" alt="Featured image of post Promise.try" />&lt;script defer src="https://tannal.github.io/pacman-canvas.js" type="module">&lt;/script>
+&lt;p>&lt;pacman-canvas>&lt;/pacman-canvas>&lt;/p>
+&lt;h1 id="tc39">tc39
+&lt;/h1>&lt;p>12312312&lt;/p>
+&lt;p>&lt;a class="link" href="https://github.com/tc39/proposal-promise-try/tree/main" target="_blank" rel="noopener"
+>ECMAScript proposal: Promise.try&lt;/a>: A proposal for a Promise.try method that allows you to safely call a function and get a promise that either resolves with the result or rejects with an error thrown in the function.&lt;/p>
+&lt;h1 id="standards">Standards
+&lt;/h1>&lt;p>&lt;a class="link" href="https://tc39.es/proposal-promise-try/#sec-promise.try" target="_blank" rel="noopener"
+>https://tc39.es/proposal-promise-try/#sec-promise.try&lt;/a>&lt;/p>
+&lt;p>Promise.try
+1 Promise.try ( callbackfn, &amp;hellip;args )&lt;/p>
+&lt;p>When the try method is called with argument callbackfn, the following steps are taken:&lt;/p>
+&lt;ol>
+&lt;li>Let C be the this value.&lt;/li>
+&lt;li>If C is not an Object, throw a TypeError exception.&lt;/li>
+&lt;li>Let promiseCapability be ? NewPromiseCapability(C).&lt;/li>
+&lt;li>Let status be Completion(Call(callbackfn, undefined, args)).&lt;/li>
+&lt;li>If status is an abrupt completion, then
+a. Perform ? Call(promiseCapability.[[Reject]], undefined, « status.[[Value]] »).&lt;/li>
+&lt;li>Else,
+a. Perform ? Call(promiseCapability.[[Resolve]], undefined, « status.[[Value]] »).&lt;/li>
+&lt;li>Return promiseCapability.[[Promise]].&lt;/li>
+&lt;/ol>
+&lt;h1 id="implementations">Implementations
+&lt;/h1>&lt;h2 id="v8">v8
+&lt;/h2>&lt;ul>
+&lt;li>&lt;a class="link" href="https://bugs.chromium.org/p/v8/issues/detail?id=11600" target="_blank" rel="noopener"
+>Chromium Bug&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://bugs.chromium.org/p/v8/issues/detail?id=11600" target="_blank" rel="noopener"
+>V8 tracking bug&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://chromium-review.googlesource.com/c/v8/v8/&amp;#43;/2870000" target="_blank" rel="noopener"
+>V8 CL&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://chromium-review.googlesource.com/c/v8/v8/&amp;#43;/2870001" target="_blank" rel="noopener"
+>V8 API CL&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://chromium-review.googlesource.com/c/v8/v8/&amp;#43;/2870002" target="_blank" rel="noopener"
+>V8 Test CL&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="babel">Babel
+&lt;/h2>&lt;h2 id="typescript">TypeScript
+&lt;/h2>&lt;h2 id="spidermonkey">SpiderMonkey
+&lt;/h2>&lt;p>The first thing to do is enable or writing the tests.&lt;/p>
+&lt;p>js/src/tests/test262-update.py
+You can update FEATURE_CHECK_NEEDED array, then run the script to update the test262 tests.&lt;/p>
+&lt;p>If test262 doesn&amp;rsquo;t cover the feature, we need to write a test for it under non262.&lt;/p>
+&lt;p>E.G. js/src/tests/non262/Promise/try.js&lt;/p>
+&lt;p>The tests has some header comments that explain how to run them.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-js" data-lang="js">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// |reftest| shell-option(--enable-promise-try) skip-if(!Promise.try||!xulRuntime.shell)
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The &lt;code>shell-option&lt;/code> is used to enable the feature in the shell.&lt;/p>
+&lt;p>The &lt;code>skip-if&lt;/code> is used to skip the test if the feature is not enabled.&lt;/p>
+&lt;p>The &lt;code>xulRuntime.shell&lt;/code> is used to enable the feature in the shell.&lt;/p>
+&lt;p>The &lt;code>reftest&lt;/code> is used to compare the output of the test with the expected output.&lt;/p>
+&lt;p>The test is written in the form of a function that is called with the &lt;code>Promise.try&lt;/code> method.&lt;/p>
+&lt;p>For The &lt;code>--enable-promise-try&lt;/code> option, it is used to enable the feature in the shell.&lt;/p>
+&lt;p>Which is written in &lt;code>js/src/shell/js.cpp&lt;/code> file.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">op&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">getBoolOption&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;enable-promise-try&amp;#34;&lt;/span>&lt;span class="p">))&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">JS&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">Prefs&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">setAtStartup_experimental_promise_try&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">true&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>In firefox, new features often are enabled in the nightly build with some perfs.&lt;/p>
+&lt;p>modules/libpref/init/StaticPrefList.yaml&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="c"># Experimental support for Promise.try in JavaScript.&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>- &lt;span class="w"> &lt;/span>&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">javascript.options.experimental.promise_try&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">type&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">bool&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">value&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">false&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">mirror&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">always&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">set_spidermonkey_pref&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">startup&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>When the test suite is ready, you can run the tests with the following command.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">./mach &lt;span class="nb">test&lt;/span> js/src/tests/non262/Promise/try.js
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The next step is to implement the feature.&lt;/p>
+&lt;p>Note that there is a cool project called &lt;code>core-js&lt;/code> that provides polyfills for new features.&lt;/p>
+&lt;p>For the &lt;code>Promise.try&lt;/code> method, it is implemented in the &lt;code>core-js&lt;/code> library.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-js" data-lang="js">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// `Promise.try` method
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// https://github.com/tc39/proposal-promise-try
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">$&lt;/span>&lt;span class="p">({&lt;/span> &lt;span class="nx">target&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s1">&amp;#39;Promise&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">stat&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">forced&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="nx">FORCED&lt;/span> &lt;span class="p">},&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s1">&amp;#39;try&amp;#39;&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="kd">function&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">callbackfn&lt;/span> &lt;span class="cm">/* , ...args */&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">var&lt;/span> &lt;span class="nx">args&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">arguments&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">length&lt;/span> &lt;span class="o">&amp;gt;&lt;/span> &lt;span class="mi">1&lt;/span> &lt;span class="o">?&lt;/span> &lt;span class="nx">slice&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">arguments&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="p">[];&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">var&lt;/span> &lt;span class="nx">promiseCapability&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">newPromiseCapabilityModule&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">f&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">this&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">var&lt;/span> &lt;span class="nx">result&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">perform&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kd">function&lt;/span> &lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nx">apply&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">aCallable&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">callbackfn&lt;/span>&lt;span class="p">),&lt;/span> &lt;span class="kc">undefined&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">args&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">(&lt;/span>&lt;span class="nx">result&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">error&lt;/span> &lt;span class="o">?&lt;/span> &lt;span class="nx">promiseCapability&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">reject&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="nx">promiseCapability&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">resolve&lt;/span>&lt;span class="p">)(&lt;/span>&lt;span class="nx">result&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">value&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nx">promiseCapability&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">promise&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>In javascript engines, the &lt;code>Promise.try&lt;/code> method is just a engine specific implementation of the js code above.&lt;/p>
+&lt;p>Let&amp;rsquo;s see how spidermoneky express this in their C++ code.&lt;/p>
+&lt;p>The implementation is done in the &lt;code>js/src/builtin/Promise.cpp&lt;/code> file.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="line">&lt;span class="cl">&lt;span class="k">static&lt;/span> &lt;span class="kt">bool&lt;/span> &lt;span class="nf">Promise_static_try&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">JSContext&lt;/span>&lt;span class="o">*&lt;/span> &lt;span class="n">cx&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kt">unsigned&lt;/span> &lt;span class="n">argc&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">Value&lt;/span>&lt;span class="o">*&lt;/span> &lt;span class="n">vp&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">CallArgs&lt;/span> &lt;span class="n">args&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">CallArgsFromVp&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">argc&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">vp&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 1. Let C be the this value.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="n">RootedValue&lt;/span> &lt;span class="n">cVal&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">cx&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">args&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">thisv&lt;/span>&lt;span class="p">());&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 2. If C is not an Object, throw a TypeError exception.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="o">!&lt;/span>&lt;span class="n">cVal&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">isObject&lt;/span>&lt;span class="p">())&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">JS_ReportErrorNumberASCII&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">cx&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">GetErrorMessage&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="k">nullptr&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">JSMSG_OBJECT_REQUIRED&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s">&amp;#34;Receiver of Promise.try call&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nb">false&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 3. Let promiseCapability be ? NewPromiseCapability(C).
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="n">RootedObject&lt;/span> &lt;span class="n">c&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">cx&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="n">cVal&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">toObject&lt;/span>&lt;span class="p">());&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">Rooted&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">PromiseCapability&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">promiseCapability&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">cx&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="o">!&lt;/span>&lt;span class="n">NewPromiseCapability&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">cx&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">c&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="n">promiseCapability&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nb">false&lt;/span>&lt;span class="p">))&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nb">false&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">HandleObject&lt;/span> &lt;span class="n">promiseObject&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">promiseCapability&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">promise&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 4. Let status be Completion(Call(callbackfn, undefined, args)).
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="n">HandleValueArray&lt;/span> &lt;span class="n">iargs&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">HandleValueArray&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">subarray&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">args&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">args&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">length&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">HandleValue&lt;/span> &lt;span class="n">callbackfn&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">args&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">get&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">RootedValue&lt;/span> &lt;span class="n">rval&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">cx&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">bool&lt;/span> &lt;span class="n">ok&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">Call&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">cx&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">callbackfn&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">UndefinedHandleValue&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">iargs&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="n">rval&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 5. If status is an abrupt completion, then
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="o">!&lt;/span>&lt;span class="n">ok&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">RootedValue&lt;/span> &lt;span class="n">reason&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">cx&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">Rooted&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">SavedFrame&lt;/span>&lt;span class="o">*&amp;gt;&lt;/span> &lt;span class="n">stack&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">cx&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="o">!&lt;/span>&lt;span class="n">MaybeGetAndClearExceptionAndStack&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">cx&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="n">reason&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="n">stack&lt;/span>&lt;span class="p">))&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nb">false&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 5.a. Perform ? Call(promiseCapability.[[Reject]], undefined, «
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="c1">// status.[[Value]] »).
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="o">!&lt;/span>&lt;span class="n">CallPromiseRejectFunction&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">cx&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">promiseCapability&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">reject&lt;/span>&lt;span class="p">(),&lt;/span> &lt;span class="n">reason&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">promiseObject&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">stack&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">UnhandledRejectionBehavior&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">Report&lt;/span>&lt;span class="p">))&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nb">false&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span> &lt;span class="k">else&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 6. Else,
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="c1">// 6.a. Perform ? Call(promiseCapability.[[Resolve]], undefined, «
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="c1">// status.[[Value]] »).
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="o">!&lt;/span>&lt;span class="n">CallPromiseResolveFunction&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">cx&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">promiseCapability&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">resolve&lt;/span>&lt;span class="p">(),&lt;/span> &lt;span class="n">rval&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">promiseObject&lt;/span>&lt;span class="p">))&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nb">false&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 7. Return promiseCapability.[[Promise]].
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="n">args&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">rval&lt;/span>&lt;span class="p">().&lt;/span>&lt;span class="n">setObject&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="n">promiseObject&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nb">true&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>It&amp;rsquo;s quite complicated right? But it&amp;rsquo;s just a translation of the js code above.&lt;/p>
+&lt;p>The &lt;code>NewPromiseCapability&lt;/code> function is used to create a new promise capability.&lt;/p>
+&lt;p>The &lt;code>Call&lt;/code> function is used to call the callback function.&lt;/p>
+&lt;p>The &lt;code>CallPromiseRejectFunction&lt;/code> and &lt;code>CallPromiseResolveFunction&lt;/code> functions are used to call the resolve and reject functions of the promise capability.&lt;/p>
+&lt;p>The &lt;code>MaybeGetAndClearExceptionAndStack&lt;/code> function is used to get the exception and stack if an error occurs.&lt;/p>
+&lt;p>The &lt;code>SavedFrame&lt;/code> is used to store the stack trace.&lt;/p>
+&lt;p>The &lt;code>UnhandledRejectionBehavior::Report&lt;/code> is used to report the error.&lt;/p>
+&lt;p>The &lt;code>args.rval().setObject(*promiseObject);&lt;/code> is used to return the promise object.&lt;/p>
+&lt;h2 id="jsc">JSC
+&lt;/h2>&lt;p>&lt;a class="link" href="https://github.com/WebKit/WebKit/commit/6d51d579af47028306a003653150ade5d395f942" target="_blank" rel="noopener"
+>https://github.com/WebKit/WebKit/commit/6d51d579af47028306a003653150ade5d395f942&lt;/a>&lt;/p></description></item></channel></rss>
