@@ -9,6 +9,21 @@ tags:
 <script defer src="/ringbuffer.js" type="module"></script>
 <script defer src="/newton-pendulum.js" type="module"></script>
 
+<style>
+body:not(.wc-loaded) {
+    opacity: 0;
+}
+</style>
+<script type="module">
+  (() => {
+    Promise.allSettled(
+      [...document.querySelectorAll(":not(:defined)")].map((component) =>
+        customElements.whenDefined(component.tagName.toLowerCase())
+      )
+    ).then(() => document.body.classList.add("wc-loaded"));
+  })();
+</script>
+
 <interactive-bar-chart>
 </interactive-bar-chart>
 
