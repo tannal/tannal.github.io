@@ -1,0 +1,765 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on tannal</title><link>https://tannal.github.io/post/</link><description>Recent content in Posts on tannal</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Wed, 30 Oct 2024 14:23:11 +0000</lastBuildDate><atom:link href="https://tannal.github.io/post/index.xml" rel="self" type="application/rss+xml"/><item><title>How browser paint box border</title><link>https://tannal.github.io/p/how-browser-paint-box-border/</link><pubDate>Wed, 30 Oct 2024 14:23:11 +0000</pubDate><guid>https://tannal.github.io/p/how-browser-paint-box-border/</guid><description>&lt;script defer src="https://tannal.github.io/ringbuffer.js" type="module">&lt;/script>
+&lt;script defer src="https://tannal.github.io/newton-pendulum.js" type="module">&lt;/script>
+&lt;style>
+body:not(.wc-loaded) {
+opacity: 0;
+}
+&lt;/style>
+&lt;script type="module">
+(() => {
+Promise.allSettled(
+[...document.querySelectorAll(":not(:defined)")].map((component) =>
+customElements.whenDefined(component.tagName.toLowerCase())
+)
+).then(() => document.body.classList.add("wc-loaded"));
+})();
+&lt;/script>
+&lt;interactive-bar-chart>
+&lt;/interactive-bar-chart>
+&lt;p>&lt;snow-fall>&lt;/snow-fall>&lt;/p>
+&lt;p>&lt;music-score
+clef="treble"
+time-signature="4/4"
+notes="C4/q, D4/q, E4/q, F4/q">
+&lt;/music-score>&lt;/p>
+&lt;p>&lt;piano-keyboard>&lt;/piano-keyboard>&lt;/p>
+&lt;script defer src="https://tannal.github.io/browser-border-paint.js" type="module">&lt;/script>
+&lt;h2 id="chromium">Chromium
+&lt;/h2>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">class BoxBorderPainter &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">private:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> // 边框属性标志
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> bool is_uniform_color_&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> bool is_uniform_style_&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> bool is_uniform_width_&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> bool has_transparency_&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> // 可见边的集合，可能是位掩码
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> unsigned visible_edge_set_&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> static const unsigned &lt;span class="nv">kAllBorderEdges&lt;/span> &lt;span class="o">=&lt;/span> 0xF&lt;span class="p">;&lt;/span> // 推测值
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> // 边框的几何形状
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> RoundedRect outer_&lt;span class="p">;&lt;/span> // 外边框
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> RoundedRect inner_&lt;span class="p">;&lt;/span> // 内边框
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> // 绘制上下文
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> PaintContext context_&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> // 样式相关
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> const ComputedStyle&lt;span class="p">&amp;amp;&lt;/span> style_&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> ElementRole element_role_&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> BleedAvoidance bleed_avoidance_&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">}&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="webkit">Webkit
+&lt;/h2>&lt;h2 id="gecko">Gecko
+&lt;/h2></description></item><item><title>All you need to know about regex engine</title><link>https://tannal.github.io/p/all-you-need-to-know-about-regex-engine/</link><pubDate>Mon, 28 Oct 2024 14:23:11 +0000</pubDate><guid>https://tannal.github.io/p/all-you-need-to-know-about-regex-engine/</guid><description>&lt;h2 id="history">History
+&lt;/h2>&lt;p>Stephen Kleene introduced regular expressions in the 1950s. They are used in many text processing tasks, such as search, find, and replace. Regular expressions are widely used in programming languages, text editors, and command-line utilities.&lt;/p>
+&lt;p>Ken Thompson implemented the first regular expression engine in the QED text editor in the 1960s. Later, he improved the engine and integrated it into the Unix operating system. The engine was written in assembly language and used a backtracking algorithm.&lt;/p>
+&lt;h2 id="interface">Interface
+&lt;/h2>&lt;p>A regular expression engine provides an interface for matching patterns in text. The engine takes a regular expression and a text string as input and returns the positions of the matches in the text. The engine can also replace the matches with a replacement string.&lt;/p>
+&lt;h2 id="implementations">Implementations
+&lt;/h2>&lt;ul>
+&lt;li>
+&lt;p>ed - The original Unix text editor, which includes a regular expression engine. (Ken Thompson, 1971)&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>grep - A command-line utility for searching text files using regular expressions. (Ken Thompson, 1973)&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>sed - A stream editor for filtering and transforming text using regular expressions. (Lee E. McMahon, 1974)&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>awk - A programming language for processing text files using regular expressions. (Alfred Aho, Peter Weinberger, and Brian Kernighan, 1977)&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Perl - A programming language that includes a powerful regular expression engine. (Larry Wall, 1987)&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="thompson-nfa-algorithm-most-common">Thompson NFA algorithm (most common)
+&lt;/h3>&lt;p>Ken Thompson introduced the Nondeterministic Finite Automaton (NFA) algorithm for regular expression matching. The algorithm uses a state machine to match patterns in text. The NFA algorithm is efficient and easy to implement.&lt;/p>
+&lt;h3 id="dfa-algorithm-aho-corasick-algorithm">DFA algorithm (Aho-Corasick algorithm)
+&lt;/h3>&lt;p>The Deterministic Finite Automaton (DFA) algorithm is an alternative to the NFA algorithm. The DFA algorithm uses a deterministic state machine to match patterns in text. The DFA algorithm is more efficient than the NFA algorithm but harder to implement.&lt;/p>
+&lt;h3 id="backtracking-algorithm-perl">Backtracking algorithm (Perl)
+&lt;/h3>&lt;p>The backtracking algorithm is a general algorithm for regular expression matching. The algorithm uses recursion to explore all possible matches in the text. The backtracking algorithm is simple to implement but can be slow for complex patterns.&lt;/p>
+&lt;h3 id="modern-and-popular-implementations">Modern and popular implementations
+&lt;/h3>&lt;ul>
+&lt;li>
+&lt;p>Golang - The standard library includes a regular expression package that implements the Thompson NFA algorithm.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Python - The re module provides regular expression support using the Thompson NFA algorithm.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Java - The java.util.regex package provides regular expression support using the DFA algorithm.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>V8 (JavaScript) - The V8 engine includes a regular expression engine that uses the Thompson NFA algorithm.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Spidermonkey (JavaScript) - The Spidermonkey engine includes a regular expression engine that uses the Thompson NFA algorithm.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>JavaScriptCore (JavaScript) - The JavaScriptCore engine includes a regular expression engine that uses the Thompson NFA algorithm.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>ICU (C/C++) - The International Components for Unicode library includes a regular expression engine that uses the DFA algorithm.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Ripgrep - A command-line utility for searching text files using regular expressions. (Andrew Gallant, 2016)&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Rust - The regex crate provides regular expression support using the Thompson NFA algorithm.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>PCRE - The Perl Compatible Regular Expressions library provides regular expression support using the backtracking algorithm.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Ruby - The Onigmo library provides regular expression support using the backtracking algorithm.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>LLVM - The LLVM project includes a regular expression engine that uses the DFA algorithm.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>GCC - The GNU Compiler Collection includes a regular expression engine that uses the DFA algorithm.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>.NET - The System.Text.RegularExpressions namespace provides regular expression support using the DFA algorithm.&lt;/p>
+&lt;/li>
+&lt;/ul></description></item><item><title>CSS Table in Servo</title><link>https://tannal.github.io/p/css-table-in-servo/</link><pubDate>Fri, 27 Sep 2024 19:23:11 +0000</pubDate><guid>https://tannal.github.io/p/css-table-in-servo/</guid><description>&lt;h2 id="some-call-stack">Some call stack
+&lt;/h2>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-rust" data-lang="rust">&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>#&lt;span class="mi">0&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">layout_2020&lt;/span>::&lt;span class="n">table&lt;/span>::&lt;span class="n">layout&lt;/span>::&lt;span class="n">TableLayout&lt;/span>::&lt;span class="n">compute_grid_min_max&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mh">0x7fff863616c0&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">layout_context&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mh">0x7ffe4ffec1d8&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">writing_mode&lt;/span>&lt;span class="o">=..&lt;/span>&lt;span class="p">.)&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">at&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">components&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">layout_2020&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">table&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">layout&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">rs&lt;/span>:&lt;span class="mi">739&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>#&lt;span class="mi">1&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mh">0x000055555b503ad0&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">in&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">layout_2020&lt;/span>::&lt;span class="n">table&lt;/span>::&lt;span class="n">layout&lt;/span>::&lt;span class="n">TableLayout&lt;/span>::&lt;span class="n">layout&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="o">=..&lt;/span>&lt;span class="p">.,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">layout_context&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mh">0x7ffe4ffec1d8&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">positioning_context&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mh">0x7fff863625f8&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">containing_block_for_children&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mh">0x7fff86361968&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">containing_block_for_table&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mh">0x7ffe4ffe61c0&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">at&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">components&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">layout_2020&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">table&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">layout&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">rs&lt;/span>:&lt;span class="mi">1686&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>#&lt;span class="mi">2&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mh">0x000055555b4dbd58&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">in&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">layout_2020&lt;/span>::&lt;span class="n">table&lt;/span>::&lt;span class="n">Table&lt;/span>::&lt;span class="n">layout&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mh">0x7ffe25835178&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">layout_context&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mh">0x7ffe4ffec1d8&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">positioning_context&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mh">0x7fff863625f8&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">containing_block_for_children&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mh">0x7fff86361968&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">containing_block_for_table&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mh">0x7ffe4ffe61c0&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">at&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">components&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">layout_2020&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">table&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">layout&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">rs&lt;/span>:&lt;span class="mi">2750&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>#&lt;span class="mi">3&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mh">0x000055555b553f31&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">in&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">layout_2020&lt;/span>::&lt;span class="n">formatting_contexts&lt;/span>::&lt;span class="n">NonReplacedFormattingContext&lt;/span>::&lt;span class="n">layout&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mh">0x7ffe25835160&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">layout_context&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mh">0x7ffe4ffec1d8&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">positioning_context&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mh">0x7fff863625f8&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">containing_block_for_children&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mh">0x7fff86361968&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">containing_block&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mh">0x7ffe4ffe61c0&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">at&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">components&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">layout_2020&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">formatting_contexts&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">rs&lt;/span>:&lt;span class="mi">260&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>#&lt;span class="mi">4&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mh">0x000055555b552497&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">in&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">layout_2020&lt;/span>::&lt;span class="n">formatting_contexts&lt;/span>::&lt;span class="n">NonReplacedFormattingContext&lt;/span>::&lt;span class="n">layout_in_flow_block_level&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mh">0x7ffe25835160&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">layout_context&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mh">0x7ffe4ffec1d8&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">positioning_context&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mh">0x7fff863625f8&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">containing_block&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mh">0x7ffe4ffe61c0&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">sequential_layout_state&lt;/span>&lt;span class="o">=..&lt;/span>&lt;span class="p">.)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">at&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">components&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">layout_2020&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">flow&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="k">mod&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">rs&lt;/span>:&lt;span class="mi">987&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>#&lt;span class="mi">5&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mh">0x000055555b5fc59b&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">in&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">layout_2020&lt;/span>::&lt;span class="n">flow&lt;/span>::&lt;span class="p">{&lt;/span>&lt;span class="k">impl&lt;/span>#&lt;span class="mi">5&lt;/span>&lt;span class="p">}&lt;/span>::&lt;span class="n">layout&lt;/span>::&lt;span class="p">{&lt;/span>&lt;span class="n">closure&lt;/span>#&lt;span class="mi">2&lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">positioning_context&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mh">0x7fff863625f8&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">at&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">components&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">layout_2020&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">flow&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="k">mod&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">rs&lt;/span>:&lt;span class="mi">696&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>#&lt;span class="mi">6&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mh">0x000055555b67d4d0&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">in&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">layout_2020&lt;/span>::&lt;span class="n">positioned&lt;/span>::&lt;span class="n">PositioningContext&lt;/span>::&lt;span class="n">layout_maybe_position_relative_fragment&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">layout_2020&lt;/span>::&lt;span class="n">flow&lt;/span>::&lt;span class="p">{&lt;/span>&lt;span class="k">impl&lt;/span>#&lt;span class="mi">5&lt;/span>&lt;span class="p">}&lt;/span>::&lt;span class="n">layout&lt;/span>::&lt;span class="p">{&lt;/span>&lt;span class="n">closure_env&lt;/span>#&lt;span class="mi">2&lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mh">0x7fff863625f8&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">layout_context&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mh">0x7ffe4ffec1d8&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">containing_block&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mh">0x7ffe4ffe61c0&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">style&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mh">0x7ffe4f84c970&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">fragment_layout_fn&lt;/span>&lt;span class="o">=..&lt;/span>&lt;span class="p">.)&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">at&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">components&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">layout_2020&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">positioned&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">rs&lt;/span>:&lt;span class="mi">205&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>#&lt;span class="mi">7&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mh">0x000055555b635587&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">in&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">layout_2020&lt;/span>::&lt;span class="n">flow&lt;/span>::&lt;span class="n">BlockLevelBox&lt;/span>::&lt;span class="n">layout&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mh">0x7ffe25835158&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">layout_context&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mh">0x7ffe4ffec1d8&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">positioning_context&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mh">0x7fff863625f8&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">containing_block&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mh">0x7ffe4ffe61c0&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">sequential_layout_state&lt;/span>&lt;span class="o">=..&lt;/span>&lt;span class="p">.,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">collapsible_with_parent_start_margin&lt;/span>&lt;span class="o">=..&lt;/span>&lt;span class="p">.)&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">at&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">components&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">layout_2020&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">flow&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="k">mod&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">rs&lt;/span>:&lt;span class="mi">691&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Explore the AOSP Project</title><link>https://tannal.github.io/p/explore-the-aosp-project/</link><pubDate>Fri, 27 Sep 2024 19:23:11 +0000</pubDate><guid>https://tannal.github.io/p/explore-the-aosp-project/</guid><description>&lt;h2 id="build-the-aosp-project">Build the AOSP Project
+&lt;/h2>&lt;p>The Android Open Source Project (AOSP) is an open-source software stack for mobile devices, and a corresponding open-source project led by Google. It is the base of the Android operating system. The AOSP code can be found at &lt;a class="link" href="https://android.googlesource.com/" target="_blank" rel="noopener"
+>android.googlesource.com&lt;/a>.&lt;/p>
+&lt;h3 id="install-the-required-packages">Install the required packages
+&lt;/h3>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo apt-get install git-core gnupg flex bison gperf build-essential zip curl zlib1g-dev gcc-multilib g++-multilib libc6-dev-i386 lib32ncurses5-dev x11proto-core-dev libx11-dev lib32z1-dev libgl1-mesa-dev libxml2-utils xsltproc unzip
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="initialize-the-repository">Initialize the repository
+&lt;/h3>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nv">PATH&lt;/span>&lt;span class="o">=&lt;/span>~/bin:&lt;span class="nv">$PATH&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">curl https://storage.googleapis.com/git-repo-downloads/repo &amp;gt; ~/bin/repo
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">chmod a+x ~/bin/repo
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git config --global user.name &lt;span class="s2">&amp;#34;tannal&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git config --global user.email &lt;span class="s2">&amp;#34;tannal2409@gmail.com&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">mkdir aosp
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">repo init -u https://android.googlesource.com/platform/manifest
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">repo sync
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">source&lt;/span> build/envsetup.sh
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="build-the-code">Build the code
+&lt;/h3>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">lunch
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">make -j &lt;span class="m">22&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="android-cuttlefish-emulator">Android Cuttlefish Emulator
+&lt;/h3>&lt;p>The Android Cuttlefish Emulator is a virtual device that runs the Android operating system. It is used for testing and development purposes. The Android Cuttlefish Emulator can be found at &lt;a class="link" href="https://github.com/google/android-cuttlefish.git" target="_blank" rel="noopener"
+>github.com/google/android-cuttlefish&lt;/a>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">git clone https://github.com/google/android-cuttlefish.git
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> android-cuttlefish
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">tools/buildutils/build_packages.sh
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo apt install ./cuttlefish-base_*.deb ./cuttlefish-user_*.deb
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo usermod -aG kvm,cvdnetwork,render &lt;span class="nv">$USER&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo reboot
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cvd create
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cvd start --start_webrtc&lt;span class="o">=&lt;/span>&lt;span class="nb">true&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="a-rooted-phone">A rooted phone
+&lt;/h2>&lt;p>My XiaoMi8&lt;/p>
+&lt;p>Chrome use sqlite3 to store the data, the data is stored in the /data/data/com.android.chrome/databases/ directory. The data is stored in the form of a database file, which can be accessed using the sqlite3 command.&lt;/p>
+&lt;p>E.G. We can search for browsing history using the following command:&lt;/p>
+&lt;p>&lt;img src="https://tannal.github.io/aosp-1.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>The /data/data/&lt;/p>
+&lt;p>&lt;img src="https://tannal.github.io/aosp-2.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://tannal.github.io/aosp-3.png"
+loading="lazy"
+>&lt;/p></description></item><item><title>The Hitchhiker's Guide to Firefox Contributor</title><link>https://tannal.github.io/p/the-hitchhikers-guide-to-firefox-contributor/</link><pubDate>Tue, 24 Sep 2024 19:23:11 +0000</pubDate><guid>https://tannal.github.io/p/the-hitchhikers-guide-to-firefox-contributor/</guid><description>&lt;script defer src="https://tannal.github.io/youtube.js" type="module">&lt;/script>
+&lt;h2 id="mozilla--firefox-documentry">&lt;strong>Mozilla &amp;amp; Firefox Documentry&lt;/strong>
+&lt;/h2>&lt;p>&lt;youtube-player video-id="4Q7FTjhvZ7Y">&lt;/youtube-player>&lt;/p>
+&lt;h2 id="build">Build
+&lt;/h2>&lt;p>You need to install rust to use cargo.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">curl --proto &lt;span class="s1">&amp;#39;=https&amp;#39;&lt;/span> --tlsv1.2 -sSf https://sh.rustup.rs &lt;span class="p">|&lt;/span> sh
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Setup git and get the codebase.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">cargo install --git https://github.com/glandium/git-cinnabar
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git cinnabar setup
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git clone hg::https://hg.mozilla.org/mozilla-unified gecko &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> &lt;span class="nb">cd&lt;/span> gecko
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git config fetch.prune &lt;span class="nb">true&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git cinnabar fetch --tags
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">mv .git/hooks/fsmonitor-watchman.sample .git/hooks/query-watchman
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git config core.fsmonitor .git/hooks/query-watchman
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Then you can actually build it.&lt;/p>
+&lt;p>Many projects use custom python scripts for building and testing.&lt;/p>
+&lt;p>The one that firefox codebase using is called mach.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">./mach bootstrap
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">./mach run
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The bootstrap process will ask you what target do you want to build?&lt;/p>
+&lt;p>Normally you will choose the desktop firefox browser to build.&lt;/p>
+&lt;p>In practice, you can manually set the config into a file.&lt;/p>
+&lt;p>For example, build SpiderMonkey under the firefox codebase.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nv">MOZCONFIG&lt;/span>&lt;span class="o">=&lt;/span>mozconfig.jsshell ./mach build
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># For jsshell mozconfig.jsshell&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ac_add_options --enable-application&lt;span class="o">=&lt;/span>js
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">mk_add_options &lt;span class="nv">MOZ_OBJDIR&lt;/span>&lt;span class="o">=&lt;/span>@TOPSRCDIR@/obj-@CONFIG_GUESS@-jsshell
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># For full browser&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># echo &amp;#34;ac_add_options --enable-application=browser&amp;#34; &amp;gt; mozconfig.browser&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="how-to-add-a-new-web-platform-test">How to add a new web platform test
+&lt;/h2>&lt;p>The web platform tests are located in the &lt;code>testing/web-platform/tests&lt;/code> directory.&lt;/p>
+&lt;p>Take the zoom animation discrete test as an example.&lt;/p>
+&lt;p>Create a testing/web-platform/tests/css/css-viewport/zoom/discrete-animation.html file.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&amp;lt;!DOCTYPE html&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">meta&lt;/span> &lt;span class="na">charset&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;utf-8&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">title&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>CSS Zoom: animation and transition tests&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">title&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">link&lt;/span> &lt;span class="na">rel&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;help&amp;#34;&lt;/span> &lt;span class="na">href&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;https://drafts.csswg.org/css-transform-2/#propdef-zoom&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">script&lt;/span> &lt;span class="na">src&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;/resources/testharness.js&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;/&lt;/span>&lt;span class="nt">script&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">script&lt;/span> &lt;span class="na">src&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;/resources/testharnessreport.js&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;/&lt;/span>&lt;span class="nt">script&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">script&lt;/span> &lt;span class="na">src&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;/css/support/interpolation-testcommon.js&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;/&lt;/span>&lt;span class="nt">script&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">body&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">script&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">test_no_interpolation&lt;/span>&lt;span class="p">({&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">property&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s1">&amp;#39;zoom&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">from&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s1">&amp;#39;1&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">to&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s1">&amp;#39;2&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">script&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Update the test manifest file by running the following command.&lt;/p>
+&lt;p>Then you can run the test.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">./mach wpt-manifest-update
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">./mach wpt css/css-viewport/zoom/zoom-animation-discrete.html
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The WPT (Web Platform Tests) framework indeed provides many useful helper functions, especially when testing CSS properties and animations.&lt;/p>
+&lt;p>In addition to &lt;code>test_no_interpolation&lt;/code>, there are several other commonly used helper functions. Here are some important examples:&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>test_interpolation&lt;/code>: Tests if a property interpolates correctly.&lt;/li>
+&lt;li>&lt;code>test_composition&lt;/code>: Tests the combined effect of multiple animations or transitions.&lt;/li>
+&lt;li>&lt;code>test_computed_value&lt;/code>: Tests if the computed value matches the expected value.&lt;/li>
+&lt;li>&lt;code>test_valid_value&lt;/code>: Tests if a value is valid for a specific property.&lt;/li>
+&lt;li>&lt;code>test_invalid_value&lt;/code>: Tests if a value is invalid for a specific property.&lt;/li>
+&lt;li>&lt;code>test_property_values&lt;/code>: Tests a set of values for validity or invalidity.&lt;/li>
+&lt;li>&lt;code>test_discrete_values&lt;/code>: Tests the behavior of discrete values.&lt;/li>
+&lt;li>&lt;code>test_addition&lt;/code>: Tests addition operations, such as stacking transforms.&lt;/li>
+&lt;li>&lt;code>test_multiplication&lt;/code>: Tests multiplication operations, such as scaling.&lt;/li>
+&lt;li>&lt;code>create_test_element&lt;/code>: Creates an element for testing purposes.&lt;/li>
+&lt;li>&lt;code>assert_equals_rounded&lt;/code>: Compares approximately equal numerical values.&lt;/li>
+&lt;/ul>
+&lt;p>Most of these functions are defined in various support files under the &lt;code>/css/support/&lt;/code> directory, such as &lt;code>interpolation-testcommon.js&lt;/code>, &lt;code>computed-testcommon.js&lt;/code>, and so on.&lt;/p>
+&lt;p>Using these helper functions can greatly simplify your test code, improve readability, and maintainability. They encapsulate many common testing patterns and complex setup processes, making it easier to write comprehensive and precise CSS tests.&lt;/p>
+&lt;p>When writing WPT tests, it is recommended to first explore the relevant support files to understand the available helper functions. This helps avoid duplicating existing functionality and ensures that your tests align with the existing style and quality of tests.&lt;/p>
+&lt;p>There is another example of a test for input element vertical alignment.&lt;/p>
+&lt;p>It&amp;rsquo;s a little bit different because it has reference files.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&amp;lt;!DOCTYPE html&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">meta&lt;/span> &lt;span class="na">charset&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;utf-8&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">title&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>Input type=range baseline alignment&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">title&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">link&lt;/span> &lt;span class="na">rel&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;match&amp;#34;&lt;/span> &lt;span class="na">href&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;range-baseline-ref.html&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">link&lt;/span> &lt;span class="na">rel&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;help&amp;#34;&lt;/span> &lt;span class="na">href&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;https://html.spec.whatwg.org/multipage/input.html#range-state-(type=range)&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">style&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">.&lt;/span>&lt;span class="nc">range-input&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">margin&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">20&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">padding&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">10&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">outline&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">20&lt;/span>&lt;span class="kt">px&lt;/span> &lt;span class="kc">solid&lt;/span> &lt;span class="kc">blue&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">visibility&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">hidden&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">style&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">div&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;text-wrapper&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Baseline text
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">input&lt;/span> &lt;span class="na">type&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;range&amp;#34;&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;range-input&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> More baseline text
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&amp;lt;!DOCTYPE html&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">meta&lt;/span> &lt;span class="na">charset&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;utf-8&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">title&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>Reference for Input type=range baseline alignment&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">title&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">style&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">.&lt;/span>&lt;span class="nc">range-placeholder&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">display&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">inline-block&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">margin-top&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">20&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">margin-left&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">20&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">margin-right&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">20&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">padding&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">10&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">outline&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">20&lt;/span>&lt;span class="kt">px&lt;/span> &lt;span class="kc">solid&lt;/span> &lt;span class="kc">transparent&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">width&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">160&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">height&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">20&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">style&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Baseline text
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">span&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;range-placeholder&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;/&lt;/span>&lt;span class="nt">span&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> More baseline text
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="logging">Logging
+&lt;/h2>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="line">&lt;span class="cl">&lt;span class="n">Debug&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Implement the v flag for RegExp in SpiderMonkey</title><link>https://tannal.github.io/p/implement-the-v-flag-for-regexp-in-spidermonkey/</link><pubDate>Sat, 21 Sep 2024 19:23:11 +0000</pubDate><guid>https://tannal.github.io/p/implement-the-v-flag-for-regexp-in-spidermonkey/</guid><description>&lt;h2 id="the-problem">The problem
+&lt;/h2>&lt;p>The &lt;code>RegExp&lt;/code> object in SpiderMonkey does not support the &lt;code>v&lt;/code> flag. The &lt;code>v&lt;/code> flag is a new flag introduced in ECMAScript 2022. The &lt;code>v&lt;/code> flag is used to match vertical whitespace characters. The vertical whitespace characters are the characters that are used to separate lines of text. The vertical whitespace characters include the following characters:&lt;/p>
+&lt;p>The tc39 proposal for the &lt;code>v&lt;/code> flag can be found &lt;a class="link" href="https://github.com/tc39/proposal-regexp-v-flag?tab=readme-ov-file" target="_blank" rel="noopener"
+>here&lt;/a>&lt;/p>
+&lt;p>The proposal is made by Mathias Bynens who was a v8 engineer.&lt;/p>
+&lt;p>See their blog post &lt;a class="link" href="https://v8.dev/features/regexp-v-flag" target="_blank" rel="noopener"
+>here&lt;/a>&lt;/p>
+&lt;h2 id="summary-of-the-v8-post">Summary of the v8 post
+&lt;/h2>&lt;p>The &lt;code>v&lt;/code> flag is typically used to deal with unicode characters appearing in the RegExp.&lt;/p>
+&lt;p>Matching Emoji characters is a good example of where the &lt;code>v&lt;/code> flag is useful.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-js" data-lang="js">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// Unicode defines a character property named “Emoji”.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kr">const&lt;/span> &lt;span class="nx">re&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="sr">/^\p{Emoji}$/u&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// Match an emoji that consists of just 1 code point:
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">re&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">test&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;⚽&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// &amp;#39;\u26BD&amp;#39;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// → true ✅
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// Match an emoji that consists of multiple code points:
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">re&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">test&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;👨🏾‍⚕️&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// &amp;#39;\u{1F468}\u{1F3FE}\u200D\u2695\uFE0F&amp;#39;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// → false ❌
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-js" data-lang="js">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">re&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="err">/^\p{RGI_Emoji}$/v;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// Match an emoji that consists of just 1 code point:
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">re&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">test&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;⚽&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// &amp;#39;\u26BD&amp;#39;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// → true ✅
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// Match an emoji that consists of multiple code points:
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">re&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">test&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;👨🏾‍⚕️&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// &amp;#39;\u{1F468}\u{1F3FE}\u200D\u2695\uFE0F&amp;#39;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// → true ✅
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="the-test">The test
+&lt;/h2>&lt;p>I didn&amp;rsquo;t do this at first, but I should have written a test for this.&lt;/p>
+&lt;p>The v flag is not tested in the test262 testsuite.&lt;/p>
+&lt;p>So I wrote a test for this and contributed back to test262.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-js" data-lang="js">&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="the-regex-v-flag">The Regex v flag
+&lt;/h2>&lt;h2 id="the-implementation-in-spidermonkey">The implementation in Spidermonkey
+&lt;/h2>&lt;p>The regex engine in spidermonkey is implemented using v8&amp;rsquo;s irregex engine.&lt;/p>
+&lt;h2 id="reference">Reference
+&lt;/h2>&lt;p>More on regex engine in spidermonkey.&lt;/p>
+&lt;p>&lt;a class="link" href="https://hacks.mozilla.org/2020/06/a-new-regexp-engine-in-spidermonkey/" target="_blank" rel="noopener"
+>https://hacks.mozilla.org/2020/06/a-new-regexp-engine-in-spidermonkey/&lt;/a>&lt;/p></description></item><item><title>CSS Day 2024</title><link>https://tannal.github.io/p/css-day-2024/</link><pubDate>Sat, 14 Sep 2024 19:23:11 +0000</pubDate><guid>https://tannal.github.io/p/css-day-2024/</guid><description>&lt;script defer src="https://tannal.github.io/youtube.js" type="module">&lt;/script>
+&lt;script defer src="https://tannal.github.io/webgl.js" type="module">&lt;/script>
+&lt;h2 id="how-to-teach-css">How to teach CSS
+&lt;/h2>&lt;p>&lt;youtube-player video-id="ZPTVr2pS0XE">&lt;/youtube-player>&lt;/p>
+&lt;h2 id="start-over-engineering-your-css">Start over-engineering your CSS
+&lt;/h2>&lt;p>&lt;youtube-player video-id="k_3pRxdv-cI">&lt;/youtube-player>&lt;/p>
+&lt;h2 id="web-design-engineering">Web Design Engineering
+&lt;/h2>&lt;p>&lt;youtube-player video-id="su6WA0kUUJE">&lt;/youtube-player>&lt;/p>
+&lt;h2 id="layout-and-reading-order">Layout and Reading Order
+&lt;/h2>&lt;p>&lt;youtube-player video-id="X6azWrtHS-k">&lt;/youtube-player>&lt;/p>
+&lt;h2 id="utility-first-css-isnt-inline-styles--sarah-dayan">Utility First CSS Isn’t Inline Styles | Sarah Dayan
+&lt;/h2>&lt;p>&lt;youtube-player video-id="g6wtyg3O4Fo">&lt;/youtube-player>&lt;/p>
+&lt;h2 id="character-modeling-in-css--julia-miocene">Character Modeling in CSS | Julia Miocene
+&lt;/h2>&lt;p>&lt;youtube-player video-id="l9It4DraRm0">&lt;/youtube-player>&lt;/p>
+&lt;h2 id="problems-solved-by-opentype--roel-nieskens">Problems solved by OpenType | Roel Nieskens
+&lt;/h2>&lt;p>&lt;youtube-player video-id="TreBK-EyACQ">&lt;/youtube-player>&lt;/p>
+&lt;h2 id="standardization-stories--elika-etemad">Standardization Stories | Elika Etemad
+&lt;/h2>&lt;p>&lt;youtube-player video-id="krh_nb9PdVk">&lt;/youtube-player>&lt;/p>
+&lt;h2 id="the-garden-and-the-treadmill--stephen-hay">The Garden and The Treadmill | Stephen Hay
+&lt;/h2>&lt;p>&lt;youtube-player video-id="qckCVuMxBts">&lt;/youtube-player>&lt;/p>
+&lt;!-- &lt;canvas-2d width="800" height="600">
+&lt;line-2d x1="100" y1="100" x2="700" y2="500" color="#000000" width="5">&lt;/line-2d>
+&lt;rect-2d x="50" y="50" width="200" height="100" color="#FF0000">&lt;/rect-2d>
+&lt;circle-2d cx="400" cy="300" radius="50" color="#0000FF">&lt;/circle-2d>
+&lt;/canvas-2d> -->
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="line">&lt;span class="cl">&lt;span class="n">Debug&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;textarea id="input" placeholder="Enter text to tokenize">&lt;/textarea>
+&lt;p>&lt;button id="tokenize" disabled>Tokenize&lt;/button>&lt;/p>
+&lt;div id="output">&lt;/div>
+&lt;script>
+const inputEl = document.getElementById('input');
+const outputEl = document.getElementById('output');
+const tokenizeBtn = document.getElementById('tokenize');
+let wasmModule;
+WebAssembly.instantiateStreaming(fetch("/tokenizer.wasm"), {})
+.then(result => {
+wasmModule = result.instance.exports;
+if (typeof wasmModule.tokenize !== 'function') {
+throw new Error('tokenize function not found in WebAssembly module');
+}
+tokenizeBtn.disabled = false;
+console.log('WebAssembly module loaded successfully');
+})
+.catch(error => {
+console.error('Failed to load WebAssembly module:', error);
+outputEl.textContent = 'Error: Failed to load tokenizer';
+});
+tokenizeBtn.addEventListener('click', () => {
+if (!wasmModule) {
+outputEl.textContent = 'Error: WebAssembly module not loaded';
+return;
+}
+try {
+const input = inputEl.value;
+const tokenizedArray = wasmModule.tokenize(input);
+outputEl.textContent = `Tokenized sequence:\n${tokenizedArray.join(' ')}`;
+} catch (error) {
+console.error('Error during tokenization:', error);
+outputEl.textContent = 'Error: Tokenization failed';
+}
+});
+&lt;/script></description></item><item><title>The Documentries</title><link>https://tannal.github.io/p/the-documentries/</link><pubDate>Sat, 14 Sep 2024 19:23:11 +0000</pubDate><guid>https://tannal.github.io/p/the-documentries/</guid><description>&lt;script defer src="https://tannal.github.io/youtube.js" type="module">&lt;/script>
+&lt;!-- &lt;script defer src="https://www.youtube.com/iframe_api" type="module">&lt;/script> -->
+&lt;h2 id="unix-documentry">UNIX Documentry
+&lt;/h2>&lt;p>&lt;youtube-player video-id="tc4ROCJYbm0">&lt;/youtube-player>&lt;/p>
+&lt;h2 id="gnulinux-documentry">&lt;strong>GNU/Linux Documentry&lt;/strong>
+&lt;/h2>&lt;p>&lt;youtube-player video-id="k0RYQVkQmWU">&lt;/youtube-player>&lt;/p>
+&lt;h2 id="mozillafirefox-documentry">Mozilla/Firefox Documentry
+&lt;/h2>&lt;p>&lt;youtube-player video-id="4Q7FTjhvZ7Y">&lt;/youtube-player>&lt;/p>
+&lt;h2 id="pytorch-documentry">PyTorch Documentry
+&lt;/h2>&lt;p>&lt;youtube-player video-id="rgP_LBtaUEc">&lt;/youtube-player>&lt;/p>
+&lt;h2 id="the-story-of-minecraft">The Story of Minecraft
+&lt;/h2>&lt;p>&lt;youtube-player video-id="6dfncxXtH_o">&lt;/youtube-player>&lt;/p>
+&lt;!-- ## Arduino Documentry
+&lt;youtube-player video-id="18539129">&lt;/youtube-player> -->
+&lt;h2 id="ebpf-documentry">eBPF Documentry
+&lt;/h2>&lt;p>&lt;youtube-player video-id="Wb_vD3XZYOA">&lt;/youtube-player>&lt;/p>
+&lt;h2 id="kubernetes-k8s-documentry">Kubernetes (k8s) Documentry
+&lt;/h2>&lt;p>&lt;youtube-player video-id="BE77h7dmoQU">&lt;/youtube-player>&lt;/p>
+&lt;h2 id="nodejs-documentry">Node.js Documentry
+&lt;/h2>&lt;p>&lt;youtube-player video-id="LB8KwiiUGy0">&lt;/youtube-player>&lt;/p>
+&lt;h2 id="vuejs-documentry">Vue.js Documentry
+&lt;/h2>&lt;p>&lt;youtube-player video-id="2EmYw-O-WLI">&lt;/youtube-player>&lt;/p>
+&lt;h2 id="react-documentry">React Documentry
+&lt;/h2>&lt;p>&lt;youtube-player video-id="8pDqJVdNa44">&lt;/youtube-player>&lt;/p>
+&lt;h2 id="typescript-documentry">TypeScript Documentry
+&lt;/h2>&lt;p>&lt;youtube-player video-id="U6s2pdxebSo">&lt;/youtube-player>&lt;/p>
+&lt;h2 id="kotlin-documentry">Kotlin Documentry
+&lt;/h2>&lt;p>&lt;youtube-player video-id="E8CtE7qTb-Q">&lt;/youtube-player>&lt;/p></description></item><item><title>The Hitchhiker's Guide to Node Contributor</title><link>https://tannal.github.io/p/the-hitchhikers-guide-to-node-contributor/</link><pubDate>Sat, 14 Sep 2024 19:23:11 +0000</pubDate><guid>https://tannal.github.io/p/the-hitchhikers-guide-to-node-contributor/</guid><description>&lt;script defer src="https://tannal.github.io/youtube.js" type="module">&lt;/script>
+&lt;h2 id="nodejs-documentry">&lt;strong>Nodejs Documentry&lt;/strong>
+&lt;/h2>&lt;p>&lt;youtube-player video-id="LB8KwiiUGy0">&lt;/youtube-player>&lt;/p>
+&lt;h2 id="build">Build
+&lt;/h2>&lt;p>First we need to generate ninja.build, the configure script will generate both release and debug build.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">./configure --ninja --debug --v8-with-dchecks -C --node-builtin-modules-path &lt;span class="k">$(&lt;/span>&lt;span class="nb">pwd&lt;/span>&lt;span class="k">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">make -j
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The build process is quite slow beacuse we need to build v8 from source.&lt;/p>
+&lt;p>ccache might speed up build process especially in incremental rebuild.&lt;/p>
+&lt;p>Then the build directory is out/Release and out/Debug.&lt;/p>
+&lt;p>Node typically contains two parts of code, one is C++ code which abstract v8 and the host system, another part is js code which executed by v8.&lt;/p>
+&lt;p>You can run tests with tools/test.py&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">python tools/test.py -p tap --logfile test.tap --mode&lt;span class="o">=&lt;/span>release --flaky-tests&lt;span class="o">=&lt;/span>keep_retrying -p actions --node-args&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;--test-reporter=spec&amp;#39;&lt;/span> --node-args&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;--test-reporter-destination=stdout&amp;#39;&lt;/span> --measure-flakiness &lt;span class="m">9&lt;/span> test/parallel/test-zlib-crc32.js
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>You can lint your code (no auto fix) with &lt;code>make lint-cpp&lt;/code>&lt;/p>
+&lt;h2 id="logging">Logging
+&lt;/h2>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="line">&lt;span class="cl">&lt;span class="n">Debug&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Training an AI for melody creating</title><link>https://tannal.github.io/p/training-an-ai-for-melody-creating/</link><pubDate>Sat, 14 Sep 2024 19:23:11 +0000</pubDate><guid>https://tannal.github.io/p/training-an-ai-for-melody-creating/</guid><description>&lt;script defer src="https://tannal.github.io/youtube.js" type="module">&lt;/script>
+&lt;script defer typse="module" src="https://cdn.jsdelivr.net/combine/npm/tone@14.7.58,npm/@magenta/music@1.23.1/es6/core.js,npm/focus-visible@5,npm/html-midi-player@1.4.0">&lt;/script>
+&lt;p>&lt;midi-visualizer type="piano-roll" id="myVisualizer">&lt;/midi-visualizer>&lt;/p>
+&lt;p>&lt;midi-player
+src="https://tannal.github.io/test.mid"
+sound-font visualizer="#myVisualizer">
+&lt;/midi-player>&lt;/p>
+&lt;script defer src="https://tannal.github.io/bilibili-player.js" type="module">&lt;/script>
+&lt;!-- &lt;bilibili-player bvid="BV1sxtsegEf3">&lt;/bilibili-player>; -->
+&lt;h2 id="music-theory">Music theory
+&lt;/h2>&lt;ul>
+&lt;li>melody&lt;/li>
+&lt;li>harmony&lt;/li>
+&lt;li>rhythm&lt;/li>
+&lt;/ul>
+&lt;h2 id="dataset">Dataset
+&lt;/h2>&lt;ul>
+&lt;li>Lakh MIDI Dataset 包含 17 万多个 MIDI 文件。&lt;/li>
+&lt;/ul>
+&lt;p>&lt;a class="link" href="https://colinraffel.com/projects/lmd/#get" target="_blank" rel="noopener"
+>https://colinraffel.com/projects/lmd/#get&lt;/a>&lt;/p>
+&lt;ul>
+&lt;li>MAESTRO Dataset 古典钢琴音乐数据集。&lt;/li>
+&lt;/ul>
+&lt;p>&lt;a class="link" href="https://magenta.tensorflow.org/datasets/maestro" target="_blank" rel="noopener"
+>https://magenta.tensorflow.org/datasets/maestro&lt;/a>&lt;/p>
+&lt;ul>
+&lt;li>FMA (Free Music Archive) 包含各种流派的音频文件。&lt;/li>
+&lt;/ul>
+&lt;p>&lt;a class="link" href="https://freemusicarchive.org/search/?quicksearch=&amp;amp;search-genre=Classical" target="_blank" rel="noopener"
+>https://freemusicarchive.org/search/?quicksearch=&amp;search-genre=Classical&lt;/a>&lt;/p>
+&lt;ul>
+&lt;li>MusicNet 古典音乐数据集，带有乐器、音高等标注。&lt;/li>
+&lt;li>Million Song Dataset 大规模音乐元数据集。&lt;/li>
+&lt;li>RWC (Real World Computing) Music Database 包含流行音乐、古典音乐等多种类型。&lt;/li>
+&lt;li>NSynth Dataset 由 Google 发布的单音音色数据集。&lt;/li>
+&lt;li>MUSDB18 多轨音乐分离数据集。&lt;/li>
+&lt;li>Nottingham Database 民谣曲调数据集。&lt;/li>
+&lt;li>Bach Chorales Dataset 巴赫合唱曲数据集。&lt;/li>
+&lt;/ul>
+&lt;h2 id="tranditional-music-generation">Tranditional Music Generation
+&lt;/h2>&lt;ul>
+&lt;li>Rule-based&lt;/li>
+&lt;li>Markov Chain&lt;/li>
+&lt;li>Hidden Markov Model&lt;/li>
+&lt;/ul>
+&lt;h2 id="neural-network-music-generation">Neural Network Music Generation
+&lt;/h2>&lt;ul>
+&lt;li>LSTM&lt;/li>
+&lt;li>GRU&lt;/li>
+&lt;li>Transformer&lt;/li>
+&lt;li>VAE&lt;/li>
+&lt;li>GAN&lt;/li>
+&lt;li>RL&lt;/li>
+&lt;/ul>
+&lt;h2 id="music-assistant-tools">Music assistant tools
+&lt;/h2>&lt;h2 id="related-work">Related Work
+&lt;/h2>&lt;ul>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://magenta.tensorflow.org/" target="_blank" rel="noopener"
+>Magenta&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://openai.com/research/jukebox/" target="_blank" rel="noopener"
+>OpenAI Jukebox&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://magenta.tensorflow.org/" target="_blank" rel="noopener"
+>Google Magenta&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://deepj.net/" target="_blank" rel="noopener"
+>DeepJ&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://www.aiva.ai/" target="_blank" rel="noopener"
+>AIVA&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://www.ampermusic.com/" target="_blank" rel="noopener"
+>Amper Music&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://www.jukedeck.com/" target="_blank" rel="noopener"
+>Jukedeck&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://www.flow-machines.com/" target="_blank" rel="noopener"
+>Flow Machines&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://openai.com/research/jukebox/" target="_blank" rel="noopener"
+>MuseNet&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://magenta.tensorflow.org/nsynth" target="_blank" rel="noopener"
+>NSynth&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://magenta.tensorflow.org/music-vae" target="_blank" rel="noopener"
+>MusicVAE&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://magenta.tensorflow.org/ddsp" target="_blank" rel="noopener"
+>DDSP&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://magenta.tensorflow.org/onsets-frames" target="_blank" rel="noopener"
+>Onsets and Frames&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="appendix">Appendix
+&lt;/h2>&lt;h3 id="mixed-precision-training">Mixed precision training
+&lt;/h3>&lt;ul>
+&lt;li>&lt;a class="link" href="https://pytorch.org/docs/stable/notes/amp_examples.html" target="_blank" rel="noopener"
+>Mixed precision training&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>stochastic_rounding is a technique that can be used to improve the accuracy of the model when using mixed precision training. It is a rounding technique that rounds to the nearest even integer, which can help reduce the bias introduced by rounding errors.&lt;/p>
+&lt;p>It is used in Adamw optimizer and encoder in the transformer model.&lt;/p>
+&lt;p>Parameters update in the optimizer is done in FP32, while the model weights are stored in FP16. This can lead to a loss of precision in the model weights, which can affect the accuracy of the model. stochastic_rounding can help reduce this loss of precision by rounding the model weights to the nearest even integer.&lt;/p></description></item><item><title>React Documentry</title><link>https://tannal.github.io/p/react-documentry/</link><pubDate>Sat, 14 Sep 2024 14:23:11 +0000</pubDate><guid>https://tannal.github.io/p/react-documentry/</guid><description>&lt;script defer src="https://tannal.github.io/youtube.js" type="module">&lt;/script>
+&lt;h2 id="react-documentry">&lt;strong>React Documentry&lt;/strong>
+&lt;/h2>&lt;p>&lt;youtube-player video-id="8pDqJVdNa44">&lt;/youtube-player>&lt;/p>
+&lt;p>The Creator of React is Jorden.&lt;/p>
+&lt;h2 id="开源">&lt;strong>开源&lt;/strong>
+&lt;/h2></description></item><item><title>All you need to know about editor</title><link>https://tannal.github.io/p/all-you-need-to-know-about-editor/</link><pubDate>Fri, 13 Sep 2024 14:23:11 +0000</pubDate><guid>https://tannal.github.io/p/all-you-need-to-know-about-editor/</guid><description>&lt;h2 id="history">History
+&lt;/h2></description></item><item><title>All you need to know about memory allocator</title><link>https://tannal.github.io/p/all-you-need-to-know-about-memory-allocator/</link><pubDate>Fri, 13 Sep 2024 14:23:11 +0000</pubDate><guid>https://tannal.github.io/p/all-you-need-to-know-about-memory-allocator/</guid><description>&lt;h2 id="history">History
+&lt;/h2>&lt;h2 id="kernel-space-allocator">Kernel-space allocator
+&lt;/h2>&lt;ul>
+&lt;li>
+&lt;p>buddy allocator - A memory allocator that is used in many operating systems. (Per Brinch Hansen, 1970)&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>slab allocator - A memory allocator that is used in the Linux kernel. (Jeff Bonwick, 1994)&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>jemalloc - A general-purpose memory allocator that is widely used in production systems. (Jason Evans, 2005)&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>tcmalloc - A thread-caching memory allocator that is used in Google&amp;rsquo;s production systems. (Sanjay Ghemawat, 2004)&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="user-space-allocator">User-space allocator
+&lt;/h2>&lt;ul>
+&lt;li>
+&lt;p>jemalloc - A general-purpose memory allocator that is widely used in production systems. (Jason Evans, 2005)&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>tcmalloc - A thread-caching memory allocator that is used in Google&amp;rsquo;s production systems. (Sanjay Ghemawat, 2004)&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>malloc - The standard memory allocator in the C standard library. (Doug Lea, 1979)&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>dlmalloc - A memory allocator that is used in many Unix systems. (Doug Lea, 2001)&lt;/p>
+&lt;/li>
+&lt;/ul></description></item><item><title>All you need to know about networking and internet protocol</title><link>https://tannal.github.io/p/all-you-need-to-know-about-networking-and-internet-protocol/</link><pubDate>Fri, 13 Sep 2024 14:23:11 +0000</pubDate><guid>https://tannal.github.io/p/all-you-need-to-know-about-networking-and-internet-protocol/</guid><description>&lt;h2 id="history">History
+&lt;/h2>&lt;h2 id="kernel-space-networking">Kernel-space networking
+&lt;/h2>&lt;ul>
+&lt;li>
+&lt;p>TCP/IP - The Transmission Control Protocol/Internet Protocol is the foundation of the Internet. (Vint Cerf and Bob Kahn, 1974)&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>UDP - The User Datagram Protocol is a simple, connectionless protocol that is used for real-time applications. (David P. Reed, 1980)&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>IP - The Internet Protocol is the network layer protocol that is used to route packets on the Internet. (Vint Cerf and Bob Kahn, 1974)&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Ethernet - The Ethernet protocol is the most widely used local area network protocol. (Robert Metcalfe and David Boggs, 1973)&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>ARP - The Address Resolution Protocol is used to map IP addresses to MAC addresses. (David C. Plummer, 1982)&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>ICMP - The Internet Control Message Protocol is used to send error messages and control messages on the Internet. (Jon Postel, 1981)&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>DNS - The Domain Name System is used to translate domain names to IP addresses. (Paul Mockapetris, 1983)&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>DHCP - The Dynamic Host Configuration Protocol is used to assign IP addresses to hosts on a network. (Ralph Droms, 1993)&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>NAT - Network Address Translation is used to map private IP addresses to public IP addresses. (Masataka Ohta, 1994)&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>BGP - The Border Gateway Protocol is used to route packets between autonomous systems on the Internet. (Yakov Rekhter and Kirk Lougheed, 1989)&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>OSPF - The Open Shortest Path First protocol is used to route packets within an autonomous system. (John Moy, 1988)&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>RIP - The Routing Information Protocol is a simple routing protocol that is used on small networks. (Charles Hedrick, 1988)&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>IPsec - The Internet Protocol Security protocol is used to secure IP communications. (Steven Bellovin, John Ioannidis, and Aviel Rubin, 1994)&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>SSL/TLS - The Secure Sockets Layer/Transport Layer Security protocol is used to secure web communications. (Netscape Communications, 1994)&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="user-space-networking">User-space networking
+&lt;/h2>&lt;ul>
+&lt;li>
+&lt;p>HTTP - The Hypertext Transfer Protocol is used to transfer web pages on the Internet. (Tim Berners-Lee, 1991)&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>FTP - The File Transfer Protocol is used to transfer files on the Internet. (Abhay Bhushan, 1971)&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>SMTP - The Simple Mail Transfer Protocol is used to send email on the Internet. (Jon Postel, 1982)&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>POP3 - The Post Office Protocol version 3 is used to retrieve email from a server. (Marshall Rose, 1988)&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>IMAP - The Internet Message Access Protocol is used to retrieve email from a server. (Mark Crispin, 1986)&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Telnet - The Telnet protocol is used to access remote computers over a network. (Paul Mockapetris, 1983)&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>SSH - The Secure Shell protocol is used to access remote computers securely. (Tatu Ylönen, 1995)&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>SNMP - The Simple Network Management Protocol is used to manage network devices. (Marshall Rose, 1988)&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>NTP - The Network Time Protocol is used to synchronize the clocks of computers on a network. (David L. Mills, 1985)&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>DHCP - The Dynamic Host Configuration Protocol is used to assign IP addresses to hosts on a network. (Ralph Droms, 1993)&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>DNS - The Domain Name System is used to translate domain names to IP addresses. (Paul Mockapetris, 1983)&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>NAT - Network Address Translation is used to map private IP addresses to public IP addresses. (Masataka Ohta, 1994)&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>BGP - The Border Gateway Protocol is used to route packets between autonomous systems on the Internet. (Yakov Rekhter and Kirk Lougheed, 1989)&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>OSPF - The Open Shortest Path First protocol is used to route packets within an autonomous system. (John Moy, 1988)&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="client-networking">Client networking
+&lt;/h2>&lt;ul>
+&lt;li>
+&lt;p>Web browser - A software application that is used to access web pages on the Internet. (Tim Berners-Lee, 1991)&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Email client - A software application that is used to send and receive email on the Internet. (Jon Postel, 1982)&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>FTP client - A software application that is used to transfer files on the Internet. (Abhay Bhushan, 1971)&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>SSH client - A software application that is used to access remote computers securely. (Tatu Ylönen, 1995)&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Telnet client - A software application that is used to access remote computers over a network. (Paul Mockapetris, 1983)&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="server-networking">Server Networking
+&lt;/h2>&lt;ul>
+&lt;li>
+&lt;p>Web server - A software application that is used to serve web pages on the Internet. (Tim Berners-Lee, 1991)&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Email server - A software application that is used to send and receive email on the Internet. (Jon Postel, 1982)&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>FTP server - A software application that is used to transfer files on the Internet. (Abhay Bhushan, 1971)&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>SSH server - A software application that is used to access remote computers securely. (Tatu Ylönen, 1995)&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Telnet server - A software application that is used to access remote computers over a network. (Paul Mockapetris, 1983)&lt;/p>
+&lt;/li>
+&lt;/ul></description></item><item><title>All you need to know about storage system and DBMS</title><link>https://tannal.github.io/p/all-you-need-to-know-about-storage-system-and-dbms/</link><pubDate>Fri, 13 Sep 2024 14:23:11 +0000</pubDate><guid>https://tannal.github.io/p/all-you-need-to-know-about-storage-system-and-dbms/</guid><description>&lt;h2 id="history">History
+&lt;/h2></description></item><item><title>KTV in 9-11</title><link>https://tannal.github.io/p/ktv-in-9-11/</link><pubDate>Fri, 13 Sep 2024 14:23:11 +0000</pubDate><guid>https://tannal.github.io/p/ktv-in-9-11/</guid><description>&lt;script defer src="https://tannal.github.io/bilibili-player.js" type="module">&lt;/script>
+&lt;p>&lt;bilibili-player bvid="BV1eM4EeeET2">&lt;/bilibili-player>;&lt;/p></description></item><item><title>KTV in 9-11</title><link>https://tannal.github.io/p/ktv-in-9-11/</link><pubDate>Fri, 13 Sep 2024 14:23:11 +0000</pubDate><guid>https://tannal.github.io/p/ktv-in-9-11/</guid><description>&lt;script defer src="https://tannal.github.io/bilibili-player.js" type="module">&lt;/script>
+&lt;p>&lt;bilibili-player bvid="BV1eM4EeeET2">&lt;/bilibili-player>;&lt;/p></description></item><item><title>The phylosophy of AI</title><link>https://tannal.github.io/p/the-phylosophy-of-ai/</link><pubDate>Fri, 06 Sep 2024 10:51:56 +0800</pubDate><guid>https://tannal.github.io/p/the-phylosophy-of-ai/</guid><description>&lt;h2 id="be-concise-and-different">Be concise and different
+&lt;/h2>&lt;p>We must teach ai which part should it keep the same with the data&lt;/p>
+&lt;p>which part should it be flexiable and different with the data&lt;/p>
+&lt;h2 id="human-can-precive-something-exist-that-cannt-be-uniform-defined">Human can precive something exist that cann&amp;rsquo;t be uniform defined.
+&lt;/h2>&lt;p>I know it when I see it.&lt;/p>
+&lt;h2 id="heading">
+&lt;/h2>&lt;h2 id="pytorch版本的gpt2">Pytorch版本的GPT2
+&lt;/h2>&lt;h2 id="gpt2">GPT2
+&lt;/h2>&lt;h3 id="模型实现">模型实现
+&lt;/h3>&lt;h4 id="flash-注意力">Flash 注意力
+&lt;/h4>&lt;h4 id="混合精度">混合精度
+&lt;/h4>&lt;h3 id="前向传播">前向传播
+&lt;/h3>&lt;h3 id="反向传播">反向传播
+&lt;/h3>&lt;h3 id="自动微分">自动微分
+&lt;/h3>&lt;h3 id="梯度更新">梯度更新
+&lt;/h3>&lt;h3 id="内存管理">内存管理
+&lt;/h3>&lt;h3 id="cuda后端">CUDA后端
+&lt;/h3>&lt;h3 id="单机多卡">单机多卡
+&lt;/h3>&lt;h3 id="多机多卡">多机多卡
+&lt;/h3>&lt;h2 id="llama3">LLama3
+&lt;/h2></description></item><item><title/><link>https://tannal.github.io/p/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://tannal.github.io/p/</guid><description/></item></channel></rss>

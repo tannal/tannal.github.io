@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Pages on 谭盟</title><link>https://tannal.github.io/zh-cn/page/</link><description>Recent content in Pages on 谭盟</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sun, 06 Mar 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://tannal.github.io/zh-cn/page/index.xml" rel="self" type="application/rss+xml"/><item><title>关于</title><link>https://tannal.github.io/zh-cn/about/</link><pubDate>Sun, 06 Mar 2022 00:00:00 +0000</pubDate><guid>https://tannal.github.io/zh-cn/about/</guid><description>&lt;p>你好，我是孟祥瑞（Alex Meng）。我是一名热衷于浏览器引擎、Web技术和开源贡献的开发者。&lt;/p>
+&lt;h2 id="主要兴趣">主要兴趣：
+&lt;/h2>&lt;ul>
+&lt;li>浏览器引擎（WebKit、Gecko、Servo）&lt;/li>
+&lt;li>Web标准和规范&lt;/li>
+&lt;li>开源开发&lt;/li>
+&lt;li>系统编程（C++、Rust）&lt;/li>
+&lt;li>性能优化&lt;/li>
+&lt;/ul>
+&lt;h2 id="主要贡献">主要贡献：
+&lt;/h2>&lt;ul>
+&lt;li>WebKit：改进ARM64反汇编器输出，正在开发WebAssembly SIMD支持&lt;/li>
+&lt;li>Mozilla Firefox：实现正则表达式&amp;rsquo;v&amp;rsquo;标志，为Gecko布局引擎做出贡献&lt;/li>
+&lt;li>Servo：重构网络模块以提高性能&lt;/li>
+&lt;li>Node.js：为URL.revokeObjectURL实现V8 Fast API&lt;/li>
+&lt;/ul>
+&lt;p>我一直在寻找新的挑战和机会来提升自己作为开发者的能力。如果你想合作或讨论任何与Web技术和浏览器开发相关的话题，欢迎随时联系我！&lt;/p>
+&lt;p>&lt;a class="link" href="https://github.com/tannal" target="_blank" rel="noopener"
+>GitHub&lt;/a> | &lt;a class="link" href="https://linkedin.com/in/alex-meng-tannal" target="_blank" rel="noopener"
+>LinkedIn&lt;/a> | &lt;a class="link" href="https://tannal.github.io" target="_blank" rel="noopener"
+>Website&lt;/a>&lt;/p></description></item><item><title>归档</title><link>https://tannal.github.io/zh-cn/archives/</link><pubDate>Sun, 06 Mar 2022 00:00:00 +0000</pubDate><guid>https://tannal.github.io/zh-cn/archives/</guid><description/></item><item><title>搜索</title><link>https://tannal.github.io/zh-cn/search/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://tannal.github.io/zh-cn/search/</guid><description/></item></channel></rss>
