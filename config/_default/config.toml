@@ -1,7 +1,8 @@
 # Change baseurl before deploy
 baseurl = "https://tannal.github.io"
 languageCode = "en-US"
-paginate = 5
+[pagination]
+  pagerSize = 5
 title = "tannal"
 
 # Theme i18n support
