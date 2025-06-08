@@ -1,6 +1,6 @@
 # Change baseurl before deploy
 baseurl = "https://tannal.github.io"
-languageCode = "en-US"
+languageCode = "zh-CN"
 [pagination]
   pagerSize = 5
 title = "tannal"

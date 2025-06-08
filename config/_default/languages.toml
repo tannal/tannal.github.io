@@ -11,4 +11,4 @@ languageName = "Chinese"
 languagedirection = "ltr"
 title = "谭盟"
 weight = 2
-contentDir = "content/zh-cn/"
+contentDir = "content/zh-cn"
