@@ -1,13 +1,17 @@
 ---
-title: 计算机和神经网络
-date: 2025-02-07T10:51:56+08:00
+title: 我们不是推理机器，我们是类比机器。
+date: 2025-06-12T10:51:56+08:00
 categories:
     - 计算机
     - 神经网络
 tags:
 ---
 
+<script defer src="/youtube.js" type="module"></script>
+
 ## 重新定义算法
+
+<youtube-player video-id="DDAoEDdw4Y8"></youtube-player>
 
 我们重新定义算法，沿着一个明确的方向单向前进，
 并且在过程中建立起沿方向传递的单调或独立性质的计算机程序
