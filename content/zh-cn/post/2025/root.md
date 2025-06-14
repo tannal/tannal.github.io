@@ -9,6 +9,8 @@ tags:
 
 <script defer src="/youtube.js" type="module"></script>
 
+> 我们不关心真假，我们只关心概率，而且我们只关心非集合论下的概率。
+
 ## 重新定义算法
 
 <youtube-player video-id="DDAoEDdw4Y8"></youtube-player>
