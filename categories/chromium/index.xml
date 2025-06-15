@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Chromium on tannal</title><link>https://tannal.github.io/categories/chromium/</link><description>Recent content in Chromium on tannal</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Wed, 30 Oct 2024 14:23:11 +0000</lastBuildDate><atom:link href="https://tannal.github.io/categories/chromium/index.xml" rel="self" type="application/rss+xml"/><item><title>How browser paint box border</title><link>https://tannal.github.io/p/how-browser-paint-box-border/</link><pubDate>Wed, 30 Oct 2024 14:23:11 +0000</pubDate><guid>https://tannal.github.io/p/how-browser-paint-box-border/</guid><description>&lt;script defer src="https://tannal.github.io/ringbuffer.js" type="module">&lt;/script>
+&lt;script defer src="https://tannal.github.io/newton-pendulum.js" type="module">&lt;/script>
+&lt;style>
+body:not(.wc-loaded) {
+opacity: 0;
+}
+&lt;/style>
+&lt;script type="module">
+(() => {
+Promise.allSettled(
+[...document.querySelectorAll(":not(:defined)")].map((component) =>
+customElements.whenDefined(component.tagName.toLowerCase())
+)
+).then(() => document.body.classList.add("wc-loaded"));
+})();
+&lt;/script>
+&lt;interactive-bar-chart>
+&lt;/interactive-bar-chart>
+&lt;p>&lt;snow-fall>&lt;/snow-fall>&lt;/p>
+&lt;p>&lt;music-score
+clef="treble"
+time-signature="4/4"
+notes="C4/q, D4/q, E4/q, F4/q">
+&lt;/music-score>&lt;/p>
+&lt;p>&lt;piano-keyboard>&lt;/piano-keyboard>&lt;/p>
+&lt;script defer src="https://tannal.github.io/browser-border-paint.js" type="module">&lt;/script>
+&lt;h2 id="chromium">Chromium
+&lt;/h2>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">class BoxBorderPainter &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">private:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> // 边框属性标志
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> bool is_uniform_color_&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> bool is_uniform_style_&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> bool is_uniform_width_&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> bool has_transparency_&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> // 可见边的集合，可能是位掩码
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> unsigned visible_edge_set_&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> static const unsigned &lt;span class="nv">kAllBorderEdges&lt;/span> &lt;span class="o">=&lt;/span> 0xF&lt;span class="p">;&lt;/span> // 推测值
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> // 边框的几何形状
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> RoundedRect outer_&lt;span class="p">;&lt;/span> // 外边框
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> RoundedRect inner_&lt;span class="p">;&lt;/span> // 内边框
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> // 绘制上下文
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> PaintContext context_&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> // 样式相关
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> const ComputedStyle&lt;span class="p">&amp;amp;&lt;/span> style_&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> ElementRole element_role_&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> BleedAvoidance bleed_avoidance_&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">}&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="webkit">Webkit
+&lt;/h2>&lt;h2 id="gecko">Gecko
+&lt;/h2></description></item></channel></rss>

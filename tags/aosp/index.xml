@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>AOSP on tannal</title><link>https://tannal.github.io/tags/aosp/</link><description>Recent content in AOSP on tannal</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Fri, 27 Sep 2024 19:23:11 +0000</lastBuildDate><atom:link href="https://tannal.github.io/tags/aosp/index.xml" rel="self" type="application/rss+xml"/><item><title>Explore the AOSP Project</title><link>https://tannal.github.io/p/explore-the-aosp-project/</link><pubDate>Fri, 27 Sep 2024 19:23:11 +0000</pubDate><guid>https://tannal.github.io/p/explore-the-aosp-project/</guid><description>&lt;h2 id="build-the-aosp-project">Build the AOSP Project
+&lt;/h2>&lt;p>The Android Open Source Project (AOSP) is an open-source software stack for mobile devices, and a corresponding open-source project led by Google. It is the base of the Android operating system. The AOSP code can be found at &lt;a class="link" href="https://android.googlesource.com/" target="_blank" rel="noopener"
+>android.googlesource.com&lt;/a>.&lt;/p>
+&lt;h3 id="install-the-required-packages">Install the required packages
+&lt;/h3>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo apt-get install git-core gnupg flex bison gperf build-essential zip curl zlib1g-dev gcc-multilib g++-multilib libc6-dev-i386 lib32ncurses5-dev x11proto-core-dev libx11-dev lib32z1-dev libgl1-mesa-dev libxml2-utils xsltproc unzip
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="initialize-the-repository">Initialize the repository
+&lt;/h3>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nv">PATH&lt;/span>&lt;span class="o">=&lt;/span>~/bin:&lt;span class="nv">$PATH&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">curl https://storage.googleapis.com/git-repo-downloads/repo &amp;gt; ~/bin/repo
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">chmod a+x ~/bin/repo
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git config --global user.name &lt;span class="s2">&amp;#34;tannal&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git config --global user.email &lt;span class="s2">&amp;#34;tannal2409@gmail.com&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">mkdir aosp
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">repo init -u https://android.googlesource.com/platform/manifest
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">repo sync
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">source&lt;/span> build/envsetup.sh
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="build-the-code">Build the code
+&lt;/h3>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">lunch
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">make -j &lt;span class="m">22&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="android-cuttlefish-emulator">Android Cuttlefish Emulator
+&lt;/h3>&lt;p>The Android Cuttlefish Emulator is a virtual device that runs the Android operating system. It is used for testing and development purposes. The Android Cuttlefish Emulator can be found at &lt;a class="link" href="https://github.com/google/android-cuttlefish.git" target="_blank" rel="noopener"
+>github.com/google/android-cuttlefish&lt;/a>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">git clone https://github.com/google/android-cuttlefish.git
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> android-cuttlefish
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">tools/buildutils/build_packages.sh
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo apt install ./cuttlefish-base_*.deb ./cuttlefish-user_*.deb
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo usermod -aG kvm,cvdnetwork,render &lt;span class="nv">$USER&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo reboot
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cvd create
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cvd start --start_webrtc&lt;span class="o">=&lt;/span>&lt;span class="nb">true&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="a-rooted-phone">A rooted phone
+&lt;/h2>&lt;p>My XiaoMi8&lt;/p>
+&lt;p>Chrome use sqlite3 to store the data, the data is stored in the /data/data/com.android.chrome/databases/ directory. The data is stored in the form of a database file, which can be accessed using the sqlite3 command.&lt;/p>
+&lt;p>E.G. We can search for browsing history using the following command:&lt;/p>
+&lt;p>&lt;img src="https://tannal.github.io/aosp-1.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>The /data/data/&lt;/p>
+&lt;p>&lt;img src="https://tannal.github.io/aosp-2.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://tannal.github.io/aosp-3.png"
+loading="lazy"
+>&lt;/p></description></item></channel></rss>
