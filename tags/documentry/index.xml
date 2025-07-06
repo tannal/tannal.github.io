@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Documentry on tannal</title><link>https://tannal.github.io/tags/documentry/</link><description>Recent content in Documentry on tannal</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sat, 14 Sep 2024 19:23:11 +0000</lastBuildDate><atom:link href="https://tannal.github.io/tags/documentry/index.xml" rel="self" type="application/rss+xml"/><item><title>The Documentries</title><link>https://tannal.github.io/p/the-documentries/</link><pubDate>Sat, 14 Sep 2024 19:23:11 +0000</pubDate><guid>https://tannal.github.io/p/the-documentries/</guid><description>&lt;script defer src="https://tannal.github.io/youtube.js" type="module">&lt;/script>
+&lt;!-- &lt;script defer src="https://www.youtube.com/iframe_api" type="module">&lt;/script> -->
+&lt;h2 id="unix-documentry">UNIX Documentry
+&lt;/h2>&lt;p>&lt;youtube-player video-id="tc4ROCJYbm0">&lt;/youtube-player>&lt;/p>
+&lt;h2 id="gnulinux-documentry">&lt;strong>GNU/Linux Documentry&lt;/strong>
+&lt;/h2>&lt;p>&lt;youtube-player video-id="k0RYQVkQmWU">&lt;/youtube-player>&lt;/p>
+&lt;h2 id="mozillafirefox-documentry">Mozilla/Firefox Documentry
+&lt;/h2>&lt;p>&lt;youtube-player video-id="4Q7FTjhvZ7Y">&lt;/youtube-player>&lt;/p>
+&lt;h2 id="pytorch-documentry">PyTorch Documentry
+&lt;/h2>&lt;p>&lt;youtube-player video-id="rgP_LBtaUEc">&lt;/youtube-player>&lt;/p>
+&lt;h2 id="the-story-of-minecraft">The Story of Minecraft
+&lt;/h2>&lt;p>&lt;youtube-player video-id="6dfncxXtH_o">&lt;/youtube-player>&lt;/p>
+&lt;!-- ## Arduino Documentry
+&lt;youtube-player video-id="18539129">&lt;/youtube-player> -->
+&lt;h2 id="ebpf-documentry">eBPF Documentry
+&lt;/h2>&lt;p>&lt;youtube-player video-id="Wb_vD3XZYOA">&lt;/youtube-player>&lt;/p>
+&lt;h2 id="kubernetes-k8s-documentry">Kubernetes (k8s) Documentry
+&lt;/h2>&lt;p>&lt;youtube-player video-id="BE77h7dmoQU">&lt;/youtube-player>&lt;/p>
+&lt;h2 id="nodejs-documentry">Node.js Documentry
+&lt;/h2>&lt;p>&lt;youtube-player video-id="LB8KwiiUGy0">&lt;/youtube-player>&lt;/p>
+&lt;h2 id="vuejs-documentry">Vue.js Documentry
+&lt;/h2>&lt;p>&lt;youtube-player video-id="2EmYw-O-WLI">&lt;/youtube-player>&lt;/p>
+&lt;h2 id="react-documentry">React Documentry
+&lt;/h2>&lt;p>&lt;youtube-player video-id="8pDqJVdNa44">&lt;/youtube-player>&lt;/p>
+&lt;h2 id="typescript-documentry">TypeScript Documentry
+&lt;/h2>&lt;p>&lt;youtube-player video-id="U6s2pdxebSo">&lt;/youtube-player>&lt;/p>
+&lt;h2 id="kotlin-documentry">Kotlin Documentry
+&lt;/h2>&lt;p>&lt;youtube-player video-id="E8CtE7qTb-Q">&lt;/youtube-player>&lt;/p></description></item><item><title>The Hitchhiker's Guide to Node Contributor</title><link>https://tannal.github.io/p/the-hitchhikers-guide-to-node-contributor/</link><pubDate>Sat, 14 Sep 2024 19:23:11 +0000</pubDate><guid>https://tannal.github.io/p/the-hitchhikers-guide-to-node-contributor/</guid><description>&lt;script defer src="https://tannal.github.io/youtube.js" type="module">&lt;/script>
+&lt;h2 id="nodejs-documentry">&lt;strong>Nodejs Documentry&lt;/strong>
+&lt;/h2>&lt;p>&lt;youtube-player video-id="LB8KwiiUGy0">&lt;/youtube-player>&lt;/p>
+&lt;h2 id="build">Build
+&lt;/h2>&lt;p>First we need to generate ninja.build, the configure script will generate both release and debug build.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">./configure --ninja --debug --v8-with-dchecks -C --node-builtin-modules-path &lt;span class="k">$(&lt;/span>&lt;span class="nb">pwd&lt;/span>&lt;span class="k">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">make -j
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The build process is quite slow beacuse we need to build v8 from source.&lt;/p>
+&lt;p>ccache might speed up build process especially in incremental rebuild.&lt;/p>
+&lt;p>Then the build directory is out/Release and out/Debug.&lt;/p>
+&lt;p>Node typically contains two parts of code, one is C++ code which abstract v8 and the host system, another part is js code which executed by v8.&lt;/p>
+&lt;p>You can run tests with tools/test.py&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">python tools/test.py -p tap --logfile test.tap --mode&lt;span class="o">=&lt;/span>release --flaky-tests&lt;span class="o">=&lt;/span>keep_retrying -p actions --node-args&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;--test-reporter=spec&amp;#39;&lt;/span> --node-args&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;--test-reporter-destination=stdout&amp;#39;&lt;/span> --measure-flakiness &lt;span class="m">9&lt;/span> test/parallel/test-zlib-crc32.js
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>You can lint your code (no auto fix) with &lt;code>make lint-cpp&lt;/code>&lt;/p>
+&lt;h2 id="logging">Logging
+&lt;/h2>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="line">&lt;span class="cl">&lt;span class="n">Debug&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>React Documentry</title><link>https://tannal.github.io/p/react-documentry/</link><pubDate>Sat, 14 Sep 2024 14:23:11 +0000</pubDate><guid>https://tannal.github.io/p/react-documentry/</guid><description>&lt;script defer src="https://tannal.github.io/youtube.js" type="module">&lt;/script>
+&lt;h2 id="react-documentry">&lt;strong>React Documentry&lt;/strong>
+&lt;/h2>&lt;p>&lt;youtube-player video-id="8pDqJVdNa44">&lt;/youtube-player>&lt;/p>
+&lt;p>The Creator of React is Jorden.&lt;/p>
+&lt;h2 id="开源">&lt;strong>开源&lt;/strong>
+&lt;/h2></description></item></channel></rss>

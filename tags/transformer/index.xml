@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Transformer on tannal</title><link>https://tannal.github.io/tags/transformer/</link><description>Recent content in Transformer on tannal</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sat, 14 Sep 2024 19:23:11 +0000</lastBuildDate><atom:link href="https://tannal.github.io/tags/transformer/index.xml" rel="self" type="application/rss+xml"/><item><title>Training an AI for melody creating</title><link>https://tannal.github.io/p/training-an-ai-for-melody-creating/</link><pubDate>Sat, 14 Sep 2024 19:23:11 +0000</pubDate><guid>https://tannal.github.io/p/training-an-ai-for-melody-creating/</guid><description>&lt;script defer src="https://tannal.github.io/youtube.js" type="module">&lt;/script>
+&lt;script defer typse="module" src="https://cdn.jsdelivr.net/combine/npm/tone@14.7.58,npm/@magenta/music@1.23.1/es6/core.js,npm/focus-visible@5,npm/html-midi-player@1.4.0">&lt;/script>
+&lt;p>&lt;midi-visualizer type="piano-roll" id="myVisualizer">&lt;/midi-visualizer>&lt;/p>
+&lt;p>&lt;midi-player
+src="https://tannal.github.io/test.mid"
+sound-font visualizer="#myVisualizer">
+&lt;/midi-player>&lt;/p>
+&lt;script defer src="https://tannal.github.io/bilibili-player.js" type="module">&lt;/script>
+&lt;!-- &lt;bilibili-player bvid="BV1sxtsegEf3">&lt;/bilibili-player>; -->
+&lt;h2 id="music-theory">Music theory
+&lt;/h2>&lt;ul>
+&lt;li>melody&lt;/li>
+&lt;li>harmony&lt;/li>
+&lt;li>rhythm&lt;/li>
+&lt;/ul>
+&lt;h2 id="dataset">Dataset
+&lt;/h2>&lt;ul>
+&lt;li>Lakh MIDI Dataset 包含 17 万多个 MIDI 文件。&lt;/li>
+&lt;/ul>
+&lt;p>&lt;a class="link" href="https://colinraffel.com/projects/lmd/#get" target="_blank" rel="noopener"
+>https://colinraffel.com/projects/lmd/#get&lt;/a>&lt;/p>
+&lt;ul>
+&lt;li>MAESTRO Dataset 古典钢琴音乐数据集。&lt;/li>
+&lt;/ul>
+&lt;p>&lt;a class="link" href="https://magenta.tensorflow.org/datasets/maestro" target="_blank" rel="noopener"
+>https://magenta.tensorflow.org/datasets/maestro&lt;/a>&lt;/p>
+&lt;ul>
+&lt;li>FMA (Free Music Archive) 包含各种流派的音频文件。&lt;/li>
+&lt;/ul>
+&lt;p>&lt;a class="link" href="https://freemusicarchive.org/search/?quicksearch=&amp;amp;search-genre=Classical" target="_blank" rel="noopener"
+>https://freemusicarchive.org/search/?quicksearch=&amp;search-genre=Classical&lt;/a>&lt;/p>
+&lt;ul>
+&lt;li>MusicNet 古典音乐数据集，带有乐器、音高等标注。&lt;/li>
+&lt;li>Million Song Dataset 大规模音乐元数据集。&lt;/li>
+&lt;li>RWC (Real World Computing) Music Database 包含流行音乐、古典音乐等多种类型。&lt;/li>
+&lt;li>NSynth Dataset 由 Google 发布的单音音色数据集。&lt;/li>
+&lt;li>MUSDB18 多轨音乐分离数据集。&lt;/li>
+&lt;li>Nottingham Database 民谣曲调数据集。&lt;/li>
+&lt;li>Bach Chorales Dataset 巴赫合唱曲数据集。&lt;/li>
+&lt;/ul>
+&lt;h2 id="tranditional-music-generation">Tranditional Music Generation
+&lt;/h2>&lt;ul>
+&lt;li>Rule-based&lt;/li>
+&lt;li>Markov Chain&lt;/li>
+&lt;li>Hidden Markov Model&lt;/li>
+&lt;/ul>
+&lt;h2 id="neural-network-music-generation">Neural Network Music Generation
+&lt;/h2>&lt;ul>
+&lt;li>LSTM&lt;/li>
+&lt;li>GRU&lt;/li>
+&lt;li>Transformer&lt;/li>
+&lt;li>VAE&lt;/li>
+&lt;li>GAN&lt;/li>
+&lt;li>RL&lt;/li>
+&lt;/ul>
+&lt;h2 id="music-assistant-tools">Music assistant tools
+&lt;/h2>&lt;h2 id="related-work">Related Work
+&lt;/h2>&lt;ul>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://magenta.tensorflow.org/" target="_blank" rel="noopener"
+>Magenta&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://openai.com/research/jukebox/" target="_blank" rel="noopener"
+>OpenAI Jukebox&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://magenta.tensorflow.org/" target="_blank" rel="noopener"
+>Google Magenta&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://deepj.net/" target="_blank" rel="noopener"
+>DeepJ&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://www.aiva.ai/" target="_blank" rel="noopener"
+>AIVA&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://www.ampermusic.com/" target="_blank" rel="noopener"
+>Amper Music&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://www.jukedeck.com/" target="_blank" rel="noopener"
+>Jukedeck&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://www.flow-machines.com/" target="_blank" rel="noopener"
+>Flow Machines&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://openai.com/research/jukebox/" target="_blank" rel="noopener"
+>MuseNet&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://magenta.tensorflow.org/nsynth" target="_blank" rel="noopener"
+>NSynth&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://magenta.tensorflow.org/music-vae" target="_blank" rel="noopener"
+>MusicVAE&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://magenta.tensorflow.org/ddsp" target="_blank" rel="noopener"
+>DDSP&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://magenta.tensorflow.org/onsets-frames" target="_blank" rel="noopener"
+>Onsets and Frames&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="appendix">Appendix
+&lt;/h2>&lt;h3 id="mixed-precision-training">Mixed precision training
+&lt;/h3>&lt;ul>
+&lt;li>&lt;a class="link" href="https://pytorch.org/docs/stable/notes/amp_examples.html" target="_blank" rel="noopener"
+>Mixed precision training&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>stochastic_rounding is a technique that can be used to improve the accuracy of the model when using mixed precision training. It is a rounding technique that rounds to the nearest even integer, which can help reduce the bias introduced by rounding errors.&lt;/p>
+&lt;p>It is used in Adamw optimizer and encoder in the transformer model.&lt;/p>
+&lt;p>Parameters update in the optimizer is done in FP32, while the model weights are stored in FP16. This can lead to a loss of precision in the model weights, which can affect the accuracy of the model. stochastic_rounding can help reduce this loss of precision by rounding the model weights to the nearest even integer.&lt;/p></description></item></channel></rss>
