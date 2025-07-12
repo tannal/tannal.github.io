@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Transformer on 谭盟</title><link>https://tannal.github.io/zh-cn/tags/transformer/</link><description>Recent content in Transformer on 谭盟</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Fri, 11 Oct 2024 19:23:11 +0000</lastBuildDate><atom:link href="https://tannal.github.io/zh-cn/tags/transformer/index.xml" rel="self" type="application/rss+xml"/><item><title>大模型音乐创作和生成</title><link>https://tannal.github.io/zh-cn/p/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E9%9F%B3%E4%B9%90%E5%88%9B%E4%BD%9C%E5%92%8C%E7%94%9F%E6%88%90/</link><pubDate>Fri, 11 Oct 2024 19:23:11 +0000</pubDate><guid>https://tannal.github.io/zh-cn/p/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E9%9F%B3%E4%B9%90%E5%88%9B%E4%BD%9C%E5%92%8C%E7%94%9F%E6%88%90/</guid><description>&lt;script defer src="https://tannal.github.io/youtube.js" type="module">&lt;/script>
+&lt;script defer typse="module" src="https://cdn.jsdelivr.net/combine/npm/tone@14.7.58,npm/@magenta/music@1.23.1/es6/core.js,npm/focus-visible@5,npm/html-midi-player@1.4.0">&lt;/script>
+&lt;p>&lt;midi-visualizer type="piano-roll" id="myVisualizer">&lt;/midi-visualizer>&lt;/p>
+&lt;p>&lt;midi-player
+src="https://tannal.github.io/test.mid"
+sound-font visualizer="#myVisualizer">
+&lt;/midi-player>&lt;/p>
+&lt;script defer src="https://tannal.github.io/bilibili-player.js" type="module">&lt;/script>
+&lt;h2 id="辅助作曲">辅助作曲
+&lt;/h2>&lt;p>第一，商业公司：&lt;/p>
+&lt;ol>
+&lt;li>OpenAI (Jukebox)&lt;/li>
+&lt;li>Google (MusicLM)&lt;/li>
+&lt;li>Meta (AudioCraft)&lt;/li>
+&lt;li>Spotify (AI DJ)&lt;/li>
+&lt;li>AIVA Technologies&lt;/li>
+&lt;li>Amper Music (now part of Shutterstock)&lt;/li>
+&lt;li>Endel&lt;/li>
+&lt;li>Boomy&lt;/li>
+&lt;li>Soundraw&lt;/li>
+&lt;li>MuseNet (OpenAI)&lt;/li>
+&lt;/ol>
+&lt;p>第二，开源项目：&lt;/p>
+&lt;ol>
+&lt;li>Magenta (Google)&lt;/li>
+&lt;li>AudioLDM&lt;/li>
+&lt;li>Riffusion&lt;/li>
+&lt;li>DiffSinger&lt;/li>
+&lt;li>RAVE (Realtime Audio Variational autoEncoder)&lt;/li>
+&lt;li>Mubert&lt;/li>
+&lt;li>Audiocraft (Meta&amp;rsquo;s open-source audio generation tools)&lt;/li>
+&lt;/ol>
+&lt;p>第三，高校实验室研究所：&lt;/p>
+&lt;ol>
+&lt;li>Center for Computer Research in Music and Acoustics (CCRMA) at Stanford University&lt;/li>
+&lt;li>Music and Audio Research Lab (MARL) at NYU&lt;/li>
+&lt;li>Music Technology Group at Universitat Pompeu Fabra&lt;/li>
+&lt;li>Institute for Music Informatics and Musicology at University of Music Karlsruhe&lt;/li>
+&lt;li>Center for Music Technology at Georgia Tech&lt;/li>
+&lt;/ol>
+&lt;p>第四，社区项目：&lt;/p>
+&lt;ol>
+&lt;li>MuseTree&lt;/li>
+&lt;li>AI Music Generation Challenge on Kaggle&lt;/li>
+&lt;li>AI Song Contest&lt;/li>
+&lt;li>OpenAI Whisper (while primarily for speech recognition, it has potential music applications)&lt;/li>
+&lt;/ol>
+&lt;h2 id="编曲">编曲
+&lt;/h2>&lt;p>第一，商业公司：&lt;/p>
+&lt;ol>
+&lt;li>Amper Music (现为Shutterstock的一部分) - 提供AI辅助作曲和编曲服务&lt;/li>
+&lt;li>AIVA Technologies - 专注于AI辅助作曲&lt;/li>
+&lt;li>Splice - 提供AI驱动的音乐创作工具&lt;/li>
+&lt;li>Landr - 提供AI辅助编曲和制作服务&lt;/li>
+&lt;li>Izotope (Neutron, Ozone) - 提供智能混音和母带制作工具&lt;/li>
+&lt;li>Native Instruments - 开发了一些AI辅助音乐创作工具&lt;/li>
+&lt;li>Accusonus - 提供AI驱动的音频修复和编辑工具&lt;/li>
+&lt;li>Melodrive - 专注于自适应和交互式音乐生成&lt;/li>
+&lt;/ol>
+&lt;p>第二，开源项目：&lt;/p>
+&lt;ol>
+&lt;li>Magenta (Google) - 提供多种音乐生成和编辑工具&lt;/li>
+&lt;li>DDSP (Differentiable Digital Signal Processing) - 可用于音色合成和转换&lt;/li>
+&lt;li>MuseNet (OpenAI) - 可用于生成音乐创意&lt;/li>
+&lt;li>Audiocraft (Meta) - 包含音乐生成和编辑工具&lt;/li>
+&lt;/ol>
+&lt;p>第三，高校实验室研究所：&lt;/p>
+&lt;ol>
+&lt;li>Center for Computer Research in Music and Acoustics (CCRMA) at Stanford University&lt;/li>
+&lt;li>Music and Audio Research Lab (MARL) at NYU&lt;/li>
+&lt;li>Music Technology Group at Universitat Pompeu Fabra&lt;/li>
+&lt;li>Institute for Computational Perception at Johannes Kepler University Linz&lt;/li>
+&lt;li>Music Informatics Research Group at City University of London&lt;/li>
+&lt;/ol>
+&lt;p>第四，社区项目：&lt;/p>
+&lt;ol>
+&lt;li>MuseScore (虽然主要是乐谱软件，但正在集成AI功能)&lt;/li>
+&lt;li>LMMS (Linux MultiMedia Studio) - 开源DAW，有潜力集成AI功能&lt;/li>
+&lt;li>Ardour - 另一个开源DAW，可能会集成AI辅助功能&lt;/li>
+&lt;li>AI Music Composition Challenge on Kaggle - 可能产生相关工具和算法&lt;/li>
+&lt;/ol>
+&lt;p>需要注意的是：&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>许多传统的DAW（数字音频工作站）软件公司，如Ableton、FL Studio、Logic Pro等，也在逐步整合AI功能来辅助创作和编曲过程。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>一些大型科技公司（如Google、Apple、Amazon）虽然目前可能没有直接的竞争产品，但他们在AI和音乐技术方面的研究可能随时转化为竞争产品。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>音乐创作辅助和AI编曲是一个快速发展的领域，新的项目和工具可能会不断出现。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>如果您认为还有其他重要的竞争对手或项目被遗漏了，请告诉我，我会很乐意补充和更新这个列表。&lt;/p>
+&lt;!-- &lt;bilibili-player bvid="BV1sxtsegEf3">&lt;/bilibili-player>; -->
+&lt;h2 id="music-theory">Music theory
+&lt;/h2>&lt;ul>
+&lt;li>melody&lt;/li>
+&lt;li>harmony&lt;/li>
+&lt;li>rhythm&lt;/li>
+&lt;/ul>
+&lt;h2 id="">
+&lt;/h2>&lt;h2 id="dataset">Dataset
+&lt;/h2>&lt;ul>
+&lt;li>Lakh MIDI Dataset 包含 17 万多个 MIDI 文件。&lt;/li>
+&lt;/ul>
+&lt;p>&lt;a class="link" href="https://colinraffel.com/projects/lmd/#get" target="_blank" rel="noopener"
+>https://colinraffel.com/projects/lmd/#get&lt;/a>&lt;/p>
+&lt;ul>
+&lt;li>MAESTRO Dataset 古典钢琴音乐数据集。&lt;/li>
+&lt;/ul>
+&lt;p>&lt;a class="link" href="https://magenta.tensorflow.org/datasets/maestro" target="_blank" rel="noopener"
+>https://magenta.tensorflow.org/datasets/maestro&lt;/a>&lt;/p>
+&lt;ul>
+&lt;li>FMA (Free Music Archive) 包含各种流派的音频文件。&lt;/li>
+&lt;/ul>
+&lt;p>&lt;a class="link" href="https://freemusicarchive.org/search/?quicksearch=&amp;amp;search-genre=Classical" target="_blank" rel="noopener"
+>https://freemusicarchive.org/search/?quicksearch=&amp;search-genre=Classical&lt;/a>&lt;/p>
+&lt;ul>
+&lt;li>MusicNet 古典音乐数据集，带有乐器、音高等标注。&lt;/li>
+&lt;li>Million Song Dataset 大规模音乐元数据集。&lt;/li>
+&lt;li>RWC (Real World Computing) Music Database 包含流行音乐、古典音乐等多种类型。&lt;/li>
+&lt;li>NSynth Dataset 由 Google 发布的单音音色数据集。&lt;/li>
+&lt;li>MUSDB18 多轨音乐分离数据集。&lt;/li>
+&lt;li>Nottingham Database 民谣曲调数据集。&lt;/li>
+&lt;li>Bach Chorales Dataset 巴赫合唱曲数据集。&lt;/li>
+&lt;/ul>
+&lt;h2 id="tranditional-music-generation">Tranditional Music Generation
+&lt;/h2>&lt;ul>
+&lt;li>Rule-based&lt;/li>
+&lt;li>Markov Chain&lt;/li>
+&lt;li>Hidden Markov Model&lt;/li>
+&lt;/ul>
+&lt;h2 id="neural-network-music-generation">Neural Network Music Generation
+&lt;/h2>&lt;ul>
+&lt;li>LSTM&lt;/li>
+&lt;li>GRU&lt;/li>
+&lt;li>Transformer&lt;/li>
+&lt;li>VAE&lt;/li>
+&lt;li>GAN&lt;/li>
+&lt;li>RL&lt;/li>
+&lt;/ul>
+&lt;h2 id="music-assistant-tools">Music assistant tools
+&lt;/h2>&lt;h2 id="related-work">Related Work
+&lt;/h2>&lt;ul>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://magenta.tensorflow.org/" target="_blank" rel="noopener"
+>Magenta&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://openai.com/research/jukebox/" target="_blank" rel="noopener"
+>OpenAI Jukebox&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://magenta.tensorflow.org/" target="_blank" rel="noopener"
+>Google Magenta&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://deepj.net/" target="_blank" rel="noopener"
+>DeepJ&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://www.aiva.ai/" target="_blank" rel="noopener"
+>AIVA&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://www.ampermusic.com/" target="_blank" rel="noopener"
+>Amper Music&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://www.jukedeck.com/" target="_blank" rel="noopener"
+>Jukedeck&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://www.flow-machines.com/" target="_blank" rel="noopener"
+>Flow Machines&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://openai.com/research/jukebox/" target="_blank" rel="noopener"
+>MuseNet&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://magenta.tensorflow.org/nsynth" target="_blank" rel="noopener"
+>NSynth&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://magenta.tensorflow.org/music-vae" target="_blank" rel="noopener"
+>MusicVAE&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://magenta.tensorflow.org/ddsp" target="_blank" rel="noopener"
+>DDSP&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://magenta.tensorflow.org/onsets-frames" target="_blank" rel="noopener"
+>Onsets and Frames&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="appendix">Appendix
+&lt;/h2>&lt;h3 id="mixed-precision-training">Mixed precision training
+&lt;/h3>&lt;ul>
+&lt;li>&lt;a class="link" href="https://pytorch.org/docs/stable/notes/amp_examples.html" target="_blank" rel="noopener"
+>Mixed precision training&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>stochastic_rounding is a technique that can be used to improve the accuracy of the model when using mixed precision training. It is a rounding technique that rounds to the nearest even integer, which can help reduce the bias introduced by rounding errors.&lt;/p>
+&lt;p>It is used in Adamw optimizer and encoder in the transformer model.&lt;/p>
+&lt;p>Parameters update in the optimizer is done in FP32, while the model weights are stored in FP16. This can lead to a loss of precision in the model weights, which can affect the accuracy of the model. stochastic_rounding can help reduce this loss of precision by rounding the model weights to the nearest even integer.&lt;/p></description></item></channel></rss>

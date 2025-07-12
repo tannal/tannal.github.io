@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Spidermonkey on tannal</title><link>https://tannal.github.io/categories/spidermonkey/</link><description>Recent content in Spidermonkey on tannal</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sat, 21 Sep 2024 19:23:11 +0000</lastBuildDate><atom:link href="https://tannal.github.io/categories/spidermonkey/index.xml" rel="self" type="application/rss+xml"/><item><title>Implement the v flag for RegExp in SpiderMonkey</title><link>https://tannal.github.io/p/implement-the-v-flag-for-regexp-in-spidermonkey/</link><pubDate>Sat, 21 Sep 2024 19:23:11 +0000</pubDate><guid>https://tannal.github.io/p/implement-the-v-flag-for-regexp-in-spidermonkey/</guid><description>&lt;h2 id="the-problem">The problem
+&lt;/h2>&lt;p>The &lt;code>RegExp&lt;/code> object in SpiderMonkey does not support the &lt;code>v&lt;/code> flag. The &lt;code>v&lt;/code> flag is a new flag introduced in ECMAScript 2022. The &lt;code>v&lt;/code> flag is used to match vertical whitespace characters. The vertical whitespace characters are the characters that are used to separate lines of text. The vertical whitespace characters include the following characters:&lt;/p>
+&lt;p>The tc39 proposal for the &lt;code>v&lt;/code> flag can be found &lt;a class="link" href="https://github.com/tc39/proposal-regexp-v-flag?tab=readme-ov-file" target="_blank" rel="noopener"
+>here&lt;/a>&lt;/p>
+&lt;p>The proposal is made by Mathias Bynens who was a v8 engineer.&lt;/p>
+&lt;p>See their blog post &lt;a class="link" href="https://v8.dev/features/regexp-v-flag" target="_blank" rel="noopener"
+>here&lt;/a>&lt;/p>
+&lt;h2 id="summary-of-the-v8-post">Summary of the v8 post
+&lt;/h2>&lt;p>The &lt;code>v&lt;/code> flag is typically used to deal with unicode characters appearing in the RegExp.&lt;/p>
+&lt;p>Matching Emoji characters is a good example of where the &lt;code>v&lt;/code> flag is useful.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-js" data-lang="js">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// Unicode defines a character property named “Emoji”.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kr">const&lt;/span> &lt;span class="nx">re&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="sr">/^\p{Emoji}$/u&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// Match an emoji that consists of just 1 code point:
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">re&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">test&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;⚽&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// &amp;#39;\u26BD&amp;#39;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// → true ✅
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// Match an emoji that consists of multiple code points:
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">re&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">test&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;👨🏾‍⚕️&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// &amp;#39;\u{1F468}\u{1F3FE}\u200D\u2695\uFE0F&amp;#39;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// → false ❌
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-js" data-lang="js">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">re&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="err">/^\p{RGI_Emoji}$/v;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// Match an emoji that consists of just 1 code point:
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">re&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">test&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;⚽&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// &amp;#39;\u26BD&amp;#39;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// → true ✅
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// Match an emoji that consists of multiple code points:
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">re&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">test&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;👨🏾‍⚕️&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// &amp;#39;\u{1F468}\u{1F3FE}\u200D\u2695\uFE0F&amp;#39;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// → true ✅
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="the-test">The test
+&lt;/h2>&lt;p>I didn&amp;rsquo;t do this at first, but I should have written a test for this.&lt;/p>
+&lt;p>The v flag is not tested in the test262 testsuite.&lt;/p>
+&lt;p>So I wrote a test for this and contributed back to test262.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-js" data-lang="js">&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="the-regex-v-flag">The Regex v flag
+&lt;/h2>&lt;h2 id="the-implementation-in-spidermonkey">The implementation in Spidermonkey
+&lt;/h2>&lt;p>The regex engine in spidermonkey is implemented using v8&amp;rsquo;s irregex engine.&lt;/p>
+&lt;h2 id="reference">Reference
+&lt;/h2>&lt;p>More on regex engine in spidermonkey.&lt;/p>
+&lt;p>&lt;a class="link" href="https://hacks.mozilla.org/2020/06/a-new-regexp-engine-in-spidermonkey/" target="_blank" rel="noopener"
+>https://hacks.mozilla.org/2020/06/a-new-regexp-engine-in-spidermonkey/&lt;/a>&lt;/p></description></item></channel></rss>
