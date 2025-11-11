@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Chromium on tannal</title><link>https://tannal.github.io/categories/chromium/</link><description>Recent content in Chromium on tannal</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Wed, 30 Oct 2024 14:23:11 +0000</lastBuildDate><atom:link href="https://tannal.github.io/categories/chromium/index.xml" rel="self" type="application/rss+xml"/><item><title>How browser paint box border</title><link>https://tannal.github.io/p/how-browser-paint-box-border/</link><pubDate>Wed, 30 Oct 2024 14:23:11 +0000</pubDate><guid>https://tannal.github.io/p/how-browser-paint-box-border/</guid><description>&lt;script defer src="https://tannal.github.io/ringbuffer.js" type="module"&gt;&lt;/script&gt;
+&lt;script defer src="https://tannal.github.io/newton-pendulum.js" type="module"&gt;&lt;/script&gt;
+&lt;style&gt;
+body:not(.wc-loaded) {
+opacity: 0;
+}
+&lt;/style&gt;
+&lt;script type="module"&gt;
+(() =&gt; {
+Promise.allSettled(
+[...document.querySelectorAll(":not(:defined)")].map((component) =&gt;
+customElements.whenDefined(component.tagName.toLowerCase())
+)
+).then(() =&gt; document.body.classList.add("wc-loaded"));
+})();
+&lt;/script&gt;
+&lt;interactive-bar-chart&gt;
+&lt;/interactive-bar-chart&gt;
+&lt;p&gt;&lt;snow-fall&gt;&lt;/snow-fall&gt;&lt;/p&gt;
+&lt;p&gt;&lt;music-score
+clef="treble"
+time-signature="4/4"
+notes="C4/q, D4/q, E4/q, F4/q"&gt;
+&lt;/music-score&gt;&lt;/p&gt;
+&lt;p&gt;&lt;piano-keyboard&gt;&lt;/piano-keyboard&gt;&lt;/p&gt;
+&lt;script defer src="https://tannal.github.io/browser-border-paint.js" type="module"&gt;&lt;/script&gt;
+&lt;h2 id="chromium"&gt;Chromium
+&lt;/h2&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;class BoxBorderPainter &lt;span class="o"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;private:
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; // 边框属性标志
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; bool is_uniform_color_&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; bool is_uniform_style_&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; bool is_uniform_width_&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; bool has_transparency_&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; // 可见边的集合，可能是位掩码
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; unsigned visible_edge_set_&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; static const unsigned &lt;span class="nv"&gt;kAllBorderEdges&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; 0xF&lt;span class="p"&gt;;&lt;/span&gt; // 推测值
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; // 边框的几何形状
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; RoundedRect outer_&lt;span class="p"&gt;;&lt;/span&gt; // 外边框
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; RoundedRect inner_&lt;span class="p"&gt;;&lt;/span&gt; // 内边框
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; // 绘制上下文
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; PaintContext context_&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; // 样式相关
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; const ComputedStyle&lt;span class="p"&gt;&amp;amp;&lt;/span&gt; style_&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; ElementRole element_role_&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; BleedAvoidance bleed_avoidance_&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="o"&gt;}&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="webkit"&gt;Webkit
+&lt;/h2&gt;&lt;h2 id="gecko"&gt;Gecko
+&lt;/h2&gt;</description></item></channel></rss>

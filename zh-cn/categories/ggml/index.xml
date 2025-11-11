@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>GGML on 谭盟</title><link>https://tannal.github.io/zh-cn/categories/ggml/</link><description>Recent content in GGML on 谭盟</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Thu, 29 Aug 2024 10:51:56 +0800</lastBuildDate><atom:link href="https://tannal.github.io/zh-cn/categories/ggml/index.xml" rel="self" type="application/rss+xml"/><item><title>深度学习实战</title><link>https://tannal.github.io/zh-cn/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%AE%9E%E6%88%98/</link><pubDate>Thu, 29 Aug 2024 10:51:56 +0800</pubDate><guid>https://tannal.github.io/zh-cn/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%AE%9E%E6%88%98/</guid><description>&lt;script src="https://tannal.github.io/test.js" type="module"&gt;&lt;/script&gt;
+&lt;script src="https://tannal.github.io/pacman.js" type="module"&gt;&lt;/script&gt;
+&lt;script src="https://tannal.github.io/youtube.js" type="module"&gt;&lt;/script&gt;
+&lt;script src="https://tannal.github.io/twitter.js" type="module"&gt;&lt;/script&gt;
+&lt;script src="https://tannal.github.io/codepen.js" type="module"&gt;&lt;/script&gt;
+&lt;script src="https://tannal.github.io/bilibili-player.js" type="module"&gt;&lt;/script&gt;
+&lt;script src="https://tannal.github.io/douyin-player.js" type="module"&gt;&lt;/script&gt;
+&lt;script src="https://tannal.github.io/live-editor.js" type="module"&gt;&lt;/script&gt;
+&lt;script src="https://tannal.github.io/live-document-editor.js" type="module"&gt;&lt;/script&gt;
+&lt;p&gt;&lt;live-document-editor&gt;&lt;/live-document-editor&gt;&lt;/p&gt;
+&lt;p&gt;&lt;pac-man-game&gt;&lt;/pac-man-game&gt;&lt;/p&gt;
+&lt;p&gt;ohly&lt;/p&gt;
+&lt;live-editor&gt;
+&lt;/live-editor&gt;
+&lt;p&gt;&lt;twitter-embed tweet-id="1616207740275200013"&gt;&lt;/twitter-embed&gt;;&lt;/p&gt;
+&lt;p&gt;&lt;codepen-embed pen-id="NWZMBPy" user="gmltA"&gt;&lt;/codepen-embed&gt;;&lt;/p&gt;
+&lt;p&gt;本深度学习教程从数据集，预训练，微调，推理，从后往前讲述。&lt;/p&gt;
+&lt;p&gt;&lt;youtube-player video-id="dQw4w9WgXcQ"&gt;&lt;/youtube-player&gt;;&lt;/p&gt;
+&lt;p&gt;123&lt;/p&gt;
+&lt;p&gt;&lt;bilibili-player bvid="BV1ncHve1EZt"&gt;&lt;/bilibili-player&gt;;&lt;/p&gt;
+&lt;p&gt;13213&lt;/p&gt;
+&lt;p&gt;首先是推理，神经网络的推理是一个forward函数，&lt;/p&gt;
+&lt;p&gt;部署 vllm
+推理 tinygrad ggml
+微调 RAG LORA
+训练 llm.c&lt;/p&gt;
+&lt;my-counter&gt;
+&lt;/my-counter&gt;
+&lt;p&gt;312312&lt;/p&gt;
+&lt;my-animation&gt;
+&lt;/my-animation&gt;
+&lt;p&gt;Game of Life&lt;/p&gt;
+&lt;p&gt;// A iframe to &lt;a class="link" href="https://www.youtube.com/watch?v=K9ldnxwBwOQ&amp;amp;list=RDK9ldnxwBwOQ&amp;amp;start_radio=1" target="_blank" rel="noopener"
+&gt;https://www.youtube.com/watch?v=K9ldnxwBwOQ&amp;list=RDK9ldnxwBwOQ&amp;start_radio=1&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;google-youtube
+video-id="K9ldnxwBwOQ"
+height="270px"
+width="480px"
+rel="0"
+start="5"
+autoplay="1"&gt;
+&lt;/google-youtube&gt;&lt;/p&gt;
+&lt;p&gt;&lt;pac-man-game&gt;&lt;/pac-man-game&gt;&lt;/p&gt;
+&lt;game-of-life&gt;
+&lt;/game-of-life&gt;
+&lt;p&gt;课程详情，以及如何购买，都在飞书云文档中，复制下面的链接打开即可：&lt;/p&gt;
+&lt;p&gt;&lt;a class="link" href="https://w02agegxg3.feishu.cn/docx/OxwGdeM30oss7vxEG5AcUn4unEc" target="_blank" rel="noopener"
+&gt;https://w02agegxg3.feishu.cn/docx/OxwGdeM30oss7vxEG5AcUn4unEc&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;下面是课程内容的详细介绍：&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;本课程将会使用 &lt;strong&gt;Rust&lt;/strong&gt; 从零实现一个完整的 SQL 数据库系统，将会由浅到深、由易到难，循序渐进的带着大家去实现，从第一行代码开始，均有完整的代码实现演示。&lt;/p&gt;
+&lt;p&gt;无论你是后端研发，中间件开发，基础架构开发，甚至是 DBA，能够手写一个完整的 SQL 数据库系统，都是你突破技术发展瓶颈的有效途径。&lt;/p&gt;
+&lt;p&gt;本课程将会详细介绍架构设计 ，原理剖析，再到源码实现，让你深度掌握数据库底层，具备解决大量生产级数据库问题的能力，助力成为高端技术人才！&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;学习完本课程，你至少可以收获：&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;入门 Rust 语言，课程针对 Rust 零基础的同学上手，专门讲解了 Rust 中最常用的基础语法，能够应对大多数开发需求&lt;/li&gt;
+&lt;li&gt;巩固 Rust 语法基础，并且可以使用 Rust 搭建一个完整的、超级硬核的实战项目&lt;/li&gt;
+&lt;li&gt;锻炼编程基本功，数据库是基础软件领域最为复杂，工程细节极为考究的项目，可以从中学习到数据库内核构造，完全掌握一个数据库的整体执行流程&lt;/li&gt;
+&lt;li&gt;简历上的一个硬核项目，一个脱颖而出的亮点，和别人拉开差距，帮助你在职场上获得更大的突破&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="课程作者"&gt;&lt;strong&gt;课程作者&lt;/strong&gt;
+&lt;/h2&gt;&lt;p&gt;我的网名叫 roseduan，是开源项目&lt;code&gt;rosedb、lotusdb&lt;/code&gt; 的作者，目前总共超过 6k star，目前担任数据库内核研发的职位，主要研究 Postgres 数据库，在数据库内核开发方面有丰富的经验。&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://pic2.zhimg.com/80/v2-27787ea09948519a07b7a5d86551de21_1440w.webp"
+loading="lazy"
+alt="img"
+&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;我的 Github 主页：https://github.com/roseduan&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;我也开源过一些 Rust 项目，&lt;strong&gt;并且上过 Github 全球 Trending 榜单&lt;/strong&gt;，在 Rust 方面也有多年的开发经验。&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://pica.zhimg.com/80/v2-20a56382b7000887b56bfb0cb8f934ae_1440w.webp"
+loading="lazy"
+alt="img"
+&gt;&lt;/p&gt;
+&lt;p&gt;同时，我也是**《从零实现 KV 存储》和《从零实现分布式 KV》**这两门课程的作者，在教学方面也有很多的心得，能够帮助大家梳理知识重点，理清前后脉络，用最快的速度，最稳的节奏帮助你学懂、学透全部知识点。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;对这两门课程感兴趣的同学，也可以点这里查看对应的课程详情
+&lt;a class="link" href="https://w02agegxg3.feishu.cn/docx/Ktp3dBGl9oHdbOxbjUWcGdSnn3g" target="_blank" rel="noopener"
+&gt;0 从零实现 KV 存储—关于本课程&lt;/a&gt;
+&lt;a class="link" href="https://av6huf2e1k.feishu.cn/docx/JCssdlgF4oRADcxxLqncPpRCn5b" target="_blank" rel="noopener"
+&gt;0. 从零实现分布式 KV—关于课程&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id="课程形式"&gt;&lt;strong&gt;课程形式&lt;/strong&gt;
+&lt;/h2&gt;&lt;p&gt;课程内容是&lt;strong&gt;文档+视频&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;文档是一小节内容的概述，主要描述这一小节内容学什么。&lt;/p&gt;
+&lt;p&gt;视频是详细的理论讲解+代码实现。&lt;/p&gt;
+&lt;h2 id="课程目录"&gt;&lt;strong&gt;课程目录&lt;/strong&gt;
+&lt;/h2&gt;&lt;p&gt;第一部分售价 400&lt;/p&gt;
+&lt;p&gt;第二部分售价 400&lt;/p&gt;
+&lt;p&gt;可以单独购买第一部分，觉得不错，再购买第二部分&lt;/p&gt;
+&lt;p&gt;也可以两部分一起购买，更快解锁全部内容，第二部分内容后面会陆续发布，敬请期待。&lt;/p&gt;
+&lt;h3 id="第一部分"&gt;&lt;strong&gt;第一部分&lt;/strong&gt;
+&lt;/h3&gt;&lt;p&gt;第一部分售价 400，代码量在 3000 行左右，包含内容：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Rust 基础回顾，主要讲解 Rust 常用基础语法和最重要的所有权、引用等概念，Rust 零基础也可以上手！&lt;/li&gt;
+&lt;li&gt;使用最常见的 SQL 语句搭建项目的代码结构&lt;/li&gt;
+&lt;li&gt;磁盘存储引擎&lt;/li&gt;
+&lt;li&gt;MVCC 事务完整实现&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;完整目录如下：&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://picx.zhimg.com/80/v2-fa4c6848596c34735770f916448e0c45_1440w.webp"
+loading="lazy"
+alt="img"
+&gt;&lt;/p&gt;
+&lt;h3 id="第二部分"&gt;&lt;strong&gt;第二部分&lt;/strong&gt;
+&lt;/h3&gt;&lt;p&gt;第二部分售价 400，陆续更新中，大致目录如下&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://pic3.zhimg.com/80/v2-ba6357ba2b94dbe084f91a7a7ecc711e_1440w.webp"
+loading="lazy"
+alt="img"
+&gt;&lt;/p&gt;
+&lt;h2 id="适用人群"&gt;&lt;strong&gt;适用人群&lt;/strong&gt;
+&lt;/h2&gt;&lt;p&gt;这个课程对以下同学应该都非常的合适，包括但不限于：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;入门并巩固 Rust 基础&lt;/strong&gt;，课程内容几乎涵盖了 Rust 大多数常用基础，例如数据类型，match 表达式匹配，函数，闭包，结构体，泛型，Trait，所有权，借用，生命周期，错误处理，智能指针等等&lt;/li&gt;
+&lt;li&gt;增加 &lt;strong&gt;Rust 项目经验&lt;/strong&gt;的同学，如果学习了一些 Rust 的基础知识，但是苦于没有项目经验，想要进一步巩固自己的知识，自己写一个数据库是一个很合适的实战项目&lt;/li&gt;
+&lt;li&gt;想要&lt;strong&gt;巩固基本功&lt;/strong&gt;的同学，基本功对一个程序员来说非常重要，数据库是任何开发者必学的基本技能之一。自己写一个数据库，更加深入理解一个复杂的系统，是你和别人拉开差距的关键&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;想要深入学习数据库的内部构造&lt;/strong&gt;，彻底搞懂数据库系统基本原理，包括 SQL 解析、查询执行、存储引擎、事务等&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;突破职业瓶颈&lt;/strong&gt;，理解一个复杂系统的设计与实现，提升自己的技术能力，架构设计能力&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="前置知识"&gt;&lt;strong&gt;前置知识&lt;/strong&gt;
+&lt;/h2&gt;&lt;p&gt;学习本课程，不需要任何其他前置知识（当然了解一些 SQL 和 Rust 的基础更好）。&lt;/p&gt;
+&lt;p&gt;课程当中涉及到的一些内容，例如 Rust 零基础入门，数据库基础知识等，我将会详细的为大家讲解，前期先跟着视频中敲代码，是完全可以学会的。&lt;/p&gt;
+&lt;h2 id="是否可以试看"&gt;&lt;strong&gt;是否可以试看&lt;/strong&gt;
+&lt;/h2&gt;&lt;p&gt;可以，课程的第四节和第七节内容可以试看&lt;/p&gt;
+&lt;p&gt;&lt;a class="link" href="https://link.zhihu.com/?target=https%3A//w02agegxg3.feishu.cn/docx/JVamdr1IQo83rlxpdk5cjzoCnsf%3Ffrom%3Dfrom_copylink" target="_blank" rel="noopener"
+&gt;04 从零实现 SQL 数据库—数据库架构&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class="link" href="https://link.zhihu.com/?target=https%3A//w02agegxg3.feishu.cn/docx/KCitdNW7GoKV8VxwvZpcjTSZn1e%3Ffrom%3Dfrom_copylink" target="_blank" rel="noopener"
+&gt;07 从零实现 SQL 数据库—Planner 实现&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;如果没有完整上下文的话，试看的具体内容细节你可能并不会特别明白。
+试看主要是让同学们了解课程的大致结构，和我的讲课风格等等。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id="课程目前的进度"&gt;&lt;strong&gt;课程目前的进度&lt;/strong&gt;
+&lt;/h2&gt;&lt;p&gt;课程目前第一部分内容已经更新完毕，目前可单独购买第一部分！&lt;/p&gt;
+&lt;p&gt;第二部分预计 2024 年底更新完毕，准备好了我会发布。&lt;/p&gt;
+&lt;h2 id="课程评价"&gt;&lt;strong&gt;&lt;a class="link" href="https://zhida.zhihu.com/search?q=%e8%af%be%e7%a8%8b%e8%af%84%e4%bb%b7&amp;amp;zhida_source=entity&amp;amp;is_preview=1" target="_blank" rel="noopener"
+&gt;课程评价&lt;/a&gt;&lt;/strong&gt;
+&lt;/h2&gt;&lt;p&gt;我之前已经发布过两门课程，课程受到了很多好评。&lt;/p&gt;
+&lt;p&gt;有的同学，根据课程内容，自己写开源项目，获得了上千 star！&lt;/p&gt;
+&lt;p&gt;有的同学在面试中使用课程项目，毕业即获得年薪 30w+ offer！&lt;/p&gt;
+&lt;p&gt;可以在这两篇文章中了解详情：&lt;/p&gt;
+&lt;p&gt;&lt;a class="link" href="https://link.zhihu.com/?target=https%3A//mp.weixin.qq.com/s/m_ynoo-e-N0pbK_6CnD0EA" target="_blank" rel="noopener"
+&gt;从零实现 KV 存储—捷报频传&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class="link" href="https://link.zhihu.com/?target=https%3A//mp.weixin.qq.com/s/7BQOOeK1Y2VlpZ5CjHeYJA" target="_blank" rel="noopener"
+&gt;课程学员故事—介绍两个开源项目&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;从零实现 SQL 数据库这个课程更加硬核，会比之前的项目更具含金量！&lt;/p&gt;
+&lt;h2 id="如何购买"&gt;&lt;strong&gt;如何购买&lt;/strong&gt;
+&lt;/h2&gt;&lt;p&gt;&lt;a class="link" href="https://w02agegxg3.feishu.cn/docx/OxwGdeM30oss7vxEG5AcUn4unEc" target="_blank" rel="noopener"
+&gt;https://w02agegxg3.feishu.cn/docx/OxwGdeM30oss7vxEG5AcUn4unEc&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id="咨询服务"&gt;&lt;strong&gt;咨询服务&lt;/strong&gt;
+&lt;/h2&gt;&lt;p&gt;购买后，我会拉你进课程用户专属的飞书群，我会亲自为你解答学习过程中的疑难杂症，保证你肯定能够完全学会课程中的内容！&lt;/p&gt;
+&lt;h2 id="其他-qa"&gt;&lt;strong&gt;其他 Q&amp;amp;A&lt;/strong&gt;
+&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;购买后在什么平台学习？&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;课程内容都在飞书云文档，购买成功后，为你开启对应的权限，然后可以在线观看&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;课程时长？代码量？&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;课程的视频总时长大概在 15 小时左右，代码量大概在 3000 行&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;只学了第一部分，能把项目写到简历上吗？&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;当然可以，其实到第十一节，就已经是能够独立运行，比较迷你的数据库了，只是功能比较单一，也可以写到简历上&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;如何获取项目中的代码？&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;购买成功后，可以到课程专属飞书用户群公告中下载&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;没有任何数据库或者&lt;/strong&gt; &lt;strong&gt;Rust&lt;/strong&gt; &lt;strong&gt;基础，能学会吗？&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;当然可以，本课程首先就针对 Rust 零基础的同学，讲解了 Rust 大多数基础语法。对数据库的内容也会在每一个小节进行讲解，并且有代码实现，完全可以学会。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;购买后是否有有效期？&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;没有，购买后永久持有，无限次观看。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;可以退款吗&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;虚拟内容服务，一经购买，概不退款，多谢支持与理解。&lt;/p&gt;
+&lt;/blockquote&gt;</description></item></channel></rss>

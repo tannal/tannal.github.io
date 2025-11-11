@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Nodejs on tannal</title><link>https://tannal.github.io/categories/nodejs/</link><description>Recent content in Nodejs on tannal</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sat, 14 Sep 2024 19:23:11 +0000</lastBuildDate><atom:link href="https://tannal.github.io/categories/nodejs/index.xml" rel="self" type="application/rss+xml"/><item><title>The Hitchhiker's Guide to Node Contributor</title><link>https://tannal.github.io/p/the-hitchhikers-guide-to-node-contributor/</link><pubDate>Sat, 14 Sep 2024 19:23:11 +0000</pubDate><guid>https://tannal.github.io/p/the-hitchhikers-guide-to-node-contributor/</guid><description>&lt;script defer src="https://tannal.github.io/youtube.js" type="module"&gt;&lt;/script&gt;
+&lt;h2 id="nodejs-documentry"&gt;&lt;strong&gt;Nodejs Documentry&lt;/strong&gt;
+&lt;/h2&gt;&lt;p&gt;&lt;youtube-player video-id="LB8KwiiUGy0"&gt;&lt;/youtube-player&gt;&lt;/p&gt;
+&lt;h2 id="build"&gt;Build
+&lt;/h2&gt;&lt;p&gt;First we need to generate ninja.build, the configure script will generate both release and debug build.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;./configure --ninja --debug --v8-with-dchecks -C --node-builtin-modules-path &lt;span class="k"&gt;$(&lt;/span&gt;&lt;span class="nb"&gt;pwd&lt;/span&gt;&lt;span class="k"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;make -j
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The build process is quite slow beacuse we need to build v8 from source.&lt;/p&gt;
+&lt;p&gt;ccache might speed up build process especially in incremental rebuild.&lt;/p&gt;
+&lt;p&gt;Then the build directory is out/Release and out/Debug.&lt;/p&gt;
+&lt;p&gt;Node typically contains two parts of code, one is C++ code which abstract v8 and the host system, another part is js code which executed by v8.&lt;/p&gt;
+&lt;p&gt;You can run tests with tools/test.py&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;python tools/test.py -p tap --logfile test.tap --mode&lt;span class="o"&gt;=&lt;/span&gt;release --flaky-tests&lt;span class="o"&gt;=&lt;/span&gt;keep_retrying -p actions --node-args&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;--test-reporter=spec&amp;#39;&lt;/span&gt; --node-args&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;--test-reporter-destination=stdout&amp;#39;&lt;/span&gt; --measure-flakiness &lt;span class="m"&gt;9&lt;/span&gt; test/parallel/test-zlib-crc32.js
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;You can lint your code (no auto fix) with &lt;code&gt;make lint-cpp&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id="logging"&gt;Logging
+&lt;/h2&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-cpp" data-lang="cpp"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;Debug&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description></item></channel></rss>

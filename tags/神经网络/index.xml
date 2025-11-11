@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>神经网络 on tannal</title><link>https://tannal.github.io/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/</link><description>Recent content in 神经网络 on tannal</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Fri, 06 Sep 2024 10:51:56 +0800</lastBuildDate><atom:link href="https://tannal.github.io/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/index.xml" rel="self" type="application/rss+xml"/><item><title>The phylosophy of AI</title><link>https://tannal.github.io/p/the-phylosophy-of-ai/</link><pubDate>Fri, 06 Sep 2024 10:51:56 +0800</pubDate><guid>https://tannal.github.io/p/the-phylosophy-of-ai/</guid><description>&lt;h2 id="be-concise-and-different"&gt;Be concise and different
+&lt;/h2&gt;&lt;p&gt;We must teach ai which part should it keep the same with the data&lt;/p&gt;
+&lt;p&gt;which part should it be flexiable and different with the data&lt;/p&gt;
+&lt;h2 id="human-can-precive-something-exist-that-cannt-be-uniform-defined"&gt;Human can precive something exist that cann&amp;rsquo;t be uniform defined.
+&lt;/h2&gt;&lt;p&gt;I know it when I see it.&lt;/p&gt;
+&lt;h2 id=""&gt;
+&lt;/h2&gt;&lt;h2 id="pytorch版本的gpt2"&gt;Pytorch版本的GPT2
+&lt;/h2&gt;&lt;h2 id="gpt2"&gt;GPT2
+&lt;/h2&gt;&lt;h3 id="模型实现"&gt;模型实现
+&lt;/h3&gt;&lt;h4 id="flash-注意力"&gt;Flash 注意力
+&lt;/h4&gt;&lt;h4 id="混合精度"&gt;混合精度
+&lt;/h4&gt;&lt;h3 id="前向传播"&gt;前向传播
+&lt;/h3&gt;&lt;h3 id="反向传播"&gt;反向传播
+&lt;/h3&gt;&lt;h3 id="自动微分"&gt;自动微分
+&lt;/h3&gt;&lt;h3 id="梯度更新"&gt;梯度更新
+&lt;/h3&gt;&lt;h3 id="内存管理"&gt;内存管理
+&lt;/h3&gt;&lt;h3 id="cuda后端"&gt;CUDA后端
+&lt;/h3&gt;&lt;h3 id="单机多卡"&gt;单机多卡
+&lt;/h3&gt;&lt;h3 id="多机多卡"&gt;多机多卡
+&lt;/h3&gt;&lt;h2 id="llama3"&gt;LLama3
+&lt;/h2&gt;</description></item></channel></rss>

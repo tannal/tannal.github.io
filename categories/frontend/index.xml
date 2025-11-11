@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Frontend on tannal</title><link>https://tannal.github.io/categories/frontend/</link><description>Recent content in Frontend on tannal</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sat, 14 Sep 2024 19:23:11 +0000</lastBuildDate><atom:link href="https://tannal.github.io/categories/frontend/index.xml" rel="self" type="application/rss+xml"/><item><title>CSS Day 2024</title><link>https://tannal.github.io/p/css-day-2024/</link><pubDate>Sat, 14 Sep 2024 19:23:11 +0000</pubDate><guid>https://tannal.github.io/p/css-day-2024/</guid><description>&lt;script defer src="https://tannal.github.io/youtube.js" type="module"&gt;&lt;/script&gt;
+&lt;script defer src="https://tannal.github.io/webgl.js" type="module"&gt;&lt;/script&gt;
+&lt;h2 id="how-to-teach-css"&gt;How to teach CSS
+&lt;/h2&gt;&lt;p&gt;&lt;youtube-player video-id="ZPTVr2pS0XE"&gt;&lt;/youtube-player&gt;&lt;/p&gt;
+&lt;h2 id="start-over-engineering-your-css"&gt;Start over-engineering your CSS
+&lt;/h2&gt;&lt;p&gt;&lt;youtube-player video-id="k_3pRxdv-cI"&gt;&lt;/youtube-player&gt;&lt;/p&gt;
+&lt;h2 id="web-design-engineering"&gt;Web Design Engineering
+&lt;/h2&gt;&lt;p&gt;&lt;youtube-player video-id="su6WA0kUUJE"&gt;&lt;/youtube-player&gt;&lt;/p&gt;
+&lt;h2 id="layout-and-reading-order"&gt;Layout and Reading Order
+&lt;/h2&gt;&lt;p&gt;&lt;youtube-player video-id="X6azWrtHS-k"&gt;&lt;/youtube-player&gt;&lt;/p&gt;
+&lt;h2 id="utility-first-css-isnt-inline-styles--sarah-dayan"&gt;Utility First CSS Isn’t Inline Styles | Sarah Dayan
+&lt;/h2&gt;&lt;p&gt;&lt;youtube-player video-id="g6wtyg3O4Fo"&gt;&lt;/youtube-player&gt;&lt;/p&gt;
+&lt;h2 id="character-modeling-in-css--julia-miocene"&gt;Character Modeling in CSS | Julia Miocene
+&lt;/h2&gt;&lt;p&gt;&lt;youtube-player video-id="l9It4DraRm0"&gt;&lt;/youtube-player&gt;&lt;/p&gt;
+&lt;h2 id="problems-solved-by-opentype--roel-nieskens"&gt;Problems solved by OpenType | Roel Nieskens
+&lt;/h2&gt;&lt;p&gt;&lt;youtube-player video-id="TreBK-EyACQ"&gt;&lt;/youtube-player&gt;&lt;/p&gt;
+&lt;h2 id="standardization-stories--elika-etemad"&gt;Standardization Stories | Elika Etemad
+&lt;/h2&gt;&lt;p&gt;&lt;youtube-player video-id="krh_nb9PdVk"&gt;&lt;/youtube-player&gt;&lt;/p&gt;
+&lt;h2 id="the-garden-and-the-treadmill--stephen-hay"&gt;The Garden and The Treadmill | Stephen Hay
+&lt;/h2&gt;&lt;p&gt;&lt;youtube-player video-id="qckCVuMxBts"&gt;&lt;/youtube-player&gt;&lt;/p&gt;
+&lt;!-- &lt;canvas-2d width="800" height="600"&gt;
+&lt;line-2d x1="100" y1="100" x2="700" y2="500" color="#000000" width="5"&gt;&lt;/line-2d&gt;
+&lt;rect-2d x="50" y="50" width="200" height="100" color="#FF0000"&gt;&lt;/rect-2d&gt;
+&lt;circle-2d cx="400" cy="300" radius="50" color="#0000FF"&gt;&lt;/circle-2d&gt;
+&lt;/canvas-2d&gt; --&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-cpp" data-lang="cpp"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;Debug&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;textarea id="input" placeholder="Enter text to tokenize"&gt;&lt;/textarea&gt;
+&lt;p&gt;&lt;button id="tokenize" disabled&gt;Tokenize&lt;/button&gt;&lt;/p&gt;
+&lt;div id="output"&gt;&lt;/div&gt;
+&lt;script&gt;
+const inputEl = document.getElementById('input');
+const outputEl = document.getElementById('output');
+const tokenizeBtn = document.getElementById('tokenize');
+let wasmModule;
+WebAssembly.instantiateStreaming(fetch("/tokenizer.wasm"), {})
+.then(result =&gt; {
+wasmModule = result.instance.exports;
+if (typeof wasmModule.tokenize !== 'function') {
+throw new Error('tokenize function not found in WebAssembly module');
+}
+tokenizeBtn.disabled = false;
+console.log('WebAssembly module loaded successfully');
+})
+.catch(error =&gt; {
+console.error('Failed to load WebAssembly module:', error);
+outputEl.textContent = 'Error: Failed to load tokenizer';
+});
+tokenizeBtn.addEventListener('click', () =&gt; {
+if (!wasmModule) {
+outputEl.textContent = 'Error: WebAssembly module not loaded';
+return;
+}
+try {
+const input = inputEl.value;
+const tokenizedArray = wasmModule.tokenize(input);
+outputEl.textContent = `Tokenized sequence:\n${tokenizedArray.join(' ')}`;
+} catch (error) {
+console.error('Error during tokenization:', error);
+outputEl.textContent = 'Error: Tokenization failed';
+}
+});
+&lt;/script&gt;</description></item></channel></rss>

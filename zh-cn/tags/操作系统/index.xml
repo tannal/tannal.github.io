@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>操作系统 on 谭盟</title><link>https://tannal.github.io/zh-cn/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/</link><description>Recent content in 操作系统 on 谭盟</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sat, 12 Oct 2024 10:51:56 +0800</lastBuildDate><atom:link href="https://tannal.github.io/zh-cn/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/index.xml" rel="self" type="application/rss+xml"/><item><title>Blink中的line-clamp和断行机制</title><link>https://tannal.github.io/zh-cn/p/blink%E4%B8%AD%E7%9A%84line-clamp%E5%92%8C%E6%96%AD%E8%A1%8C%E6%9C%BA%E5%88%B6/</link><pubDate>Sat, 12 Oct 2024 10:51:56 +0800</pubDate><guid>https://tannal.github.io/zh-cn/p/blink%E4%B8%AD%E7%9A%84line-clamp%E5%92%8C%E6%96%AD%E8%A1%8C%E6%9C%BA%E5%88%B6/</guid><description>&lt;h2 id=""&gt;
+&lt;/h2&gt;&lt;p&gt;Xerox PARC（Palo Alto Research Center）是施乐公司旗下的研究中心，成立于 1970 年代初。它是计算机科技史上最重要的研究机构之一，为现代计算机技术的发展做出了巨大贡献。本文将介绍 Xerox PARC 的历史、研究成果和对计算机科技的影响。&lt;/p&gt;
+&lt;h2 id="调用栈"&gt;调用栈
+&lt;/h2&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;BlockLayoutAlgorithm::Layout&lt;span class="o"&gt;()&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;|&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;|&lt;/span&gt;--&amp;gt; BlockLayoutAlgorithm::LayoutInlineChild&lt;span class="o"&gt;()&lt;/span&gt; // 处理行内子元素
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;|&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;|&lt;/span&gt;--&amp;gt; BlockLayoutAlgorithm::Layout&lt;span class="o"&gt;(&lt;/span&gt;InlineChildLayoutContext*&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;|&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;|&lt;/span&gt;--&amp;gt; BlockLayoutAlgorithm::HandleInflow&lt;span class="o"&gt;()&lt;/span&gt; // 处理流内元素
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;|&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;|&lt;/span&gt;--&amp;gt; LayoutInflow&lt;span class="o"&gt;()&lt;/span&gt; // 布局流内元素
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;|&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;|&lt;/span&gt;--&amp;gt; InlineNode::Layout&lt;span class="o"&gt;()&lt;/span&gt; // 行内节点布局
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;|&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;|&lt;/span&gt;--&amp;gt; InlineLayoutAlgorithm::Layout&lt;span class="o"&gt;()&lt;/span&gt; // 行内布局算法
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;|&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;|&lt;/span&gt;--&amp;gt; LineBreaker::NextLine&lt;span class="o"&gt;()&lt;/span&gt; // 获取下一行
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;|&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;|&lt;/span&gt;--&amp;gt; LineBreaker::BreakLine&lt;span class="o"&gt;()&lt;/span&gt; // 断行
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="3-研究成果"&gt;3. 研究成果
+&lt;/h2&gt;&lt;p&gt;Xerox PARC 的研究成果涉及多个领域，其中最著名的包括：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;图形用户界面（GUI）&lt;/strong&gt;：Xerox PARC 开发了世界上第一个图形用户界面系统 Alto，包括窗口、图标、菜单等元素，为后来的 Macintosh 和 Windows 系统奠定了基础。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;鼠标&lt;/strong&gt;：Xerox PARC 发明了鼠标这一现代计算机输入设备，使用户可以通过移动鼠标来控制屏幕上的光标，实现更加直观的交互。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;以太网&lt;/strong&gt;：Xerox PARC 开发了以太网技术，实现了计算机之间的局域网连接，为互联网的发展奠定了基础。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;面向对象编程&lt;/strong&gt;：Xerox PARC 提出了面向对象编程的概念，将数据和操作封装在对象中，提高了软件的可维护性和复用性。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id="4-对计算机科技的影响"&gt;4. 对计算机科技的影响
+&lt;/h2&gt;&lt;p&gt;Xerox PARC 的研究成果对计算机科技的发展产生了深远影响，其中最重要的包括：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;图形用户界面的普及&lt;/strong&gt;：Xerox PARC 的 GUI 技术被后来的 Macintosh 和 Windows 系统借鉴，成为现代计算机界面的标准。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;鼠标的普及&lt;/strong&gt;：鼠标的发明使得计算机操作更加直观和便捷，成为现代计算机的标配。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;以太网的发展&lt;/strong&gt;：以太网技术的发明促进了计算机网络的普及和互联网的发展，改变了人们的生活和工作方式。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;面向对象编程的影响&lt;/strong&gt;：面向对象编程的思想影响了后来的编程语言和软件开发方法，成为现代软件开发的主流范式。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;总的来说，Xerox PARC 的研究成果为计算机科技的发展开辟了新的道路，影响深远，至今仍在继续发挥作用。我不允许任何一个计算机的人不知道它的贡献。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-fallback" data-lang="fallback"&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description></item><item><title>Xerox PARC 我不允许任何一个计算机人不知道施乐研究中心</title><link>https://tannal.github.io/zh-cn/p/xerox-parc-%E6%88%91%E4%B8%8D%E5%85%81%E8%AE%B8%E4%BB%BB%E4%BD%95%E4%B8%80%E4%B8%AA%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BA%BA%E4%B8%8D%E7%9F%A5%E9%81%93%E6%96%BD%E4%B9%90%E7%A0%94%E7%A9%B6%E4%B8%AD%E5%BF%83/</link><pubDate>Sat, 12 Oct 2024 10:51:56 +0800</pubDate><guid>https://tannal.github.io/zh-cn/p/xerox-parc-%E6%88%91%E4%B8%8D%E5%85%81%E8%AE%B8%E4%BB%BB%E4%BD%95%E4%B8%80%E4%B8%AA%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BA%BA%E4%B8%8D%E7%9F%A5%E9%81%93%E6%96%BD%E4%B9%90%E7%A0%94%E7%A9%B6%E4%B8%AD%E5%BF%83/</guid><description>&lt;h1 id="xerox-parc计算机科技的先驱"&gt;Xerox PARC：计算机科技的先驱
+&lt;/h1&gt;&lt;h2 id="1-引言"&gt;1. 引言
+&lt;/h2&gt;&lt;p&gt;Xerox PARC（Palo Alto Research Center）是施乐公司旗下的研究中心，成立于 1970 年代初。它是计算机科技史上最重要的研究机构之一，为现代计算机技术的发展做出了巨大贡献。本文将介绍 Xerox PARC 的历史、研究成果和对计算机科技的影响。&lt;/p&gt;
+&lt;h2 id="2-历史背景"&gt;2. 历史背景
+&lt;/h2&gt;&lt;p&gt;Xerox PARC 成立于 1970 年代初，当时施乐公司希望通过研究计算机技术来拓展业务领域。施乐公司聘请了一批优秀的科学家和工程师，组建了 Xerox PARC 研究团队。这个团队在计算机图形学、人机交互、网络技术等领域取得了一系列重要的研究成果。&lt;/p&gt;
+&lt;h2 id="3-研究成果"&gt;3. 研究成果
+&lt;/h2&gt;&lt;p&gt;Xerox PARC 的研究成果涉及多个领域，其中最著名的包括：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;图形用户界面（GUI）&lt;/strong&gt;：Xerox PARC 开发了世界上第一个图形用户界面系统 Alto，包括窗口、图标、菜单等元素，为后来的 Macintosh 和 Windows 系统奠定了基础。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;鼠标&lt;/strong&gt;：Xerox PARC 发明了鼠标这一现代计算机输入设备，使用户可以通过移动鼠标来控制屏幕上的光标，实现更加直观的交互。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;以太网&lt;/strong&gt;：Xerox PARC 开发了以太网技术，实现了计算机之间的局域网连接，为互联网的发展奠定了基础。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;面向对象编程&lt;/strong&gt;：Xerox PARC 提出了面向对象编程的概念，将数据和操作封装在对象中，提高了软件的可维护性和复用性。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id="4-对计算机科技的影响"&gt;4. 对计算机科技的影响
+&lt;/h2&gt;&lt;p&gt;Xerox PARC 的研究成果对计算机科技的发展产生了深远影响，其中最重要的包括：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;图形用户界面的普及&lt;/strong&gt;：Xerox PARC 的 GUI 技术被后来的 Macintosh 和 Windows 系统借鉴，成为现代计算机界面的标准。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;鼠标的普及&lt;/strong&gt;：鼠标的发明使得计算机操作更加直观和便捷，成为现代计算机的标配。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;以太网的发展&lt;/strong&gt;：以太网技术的发明促进了计算机网络的普及和互联网的发展，改变了人们的生活和工作方式。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;面向对象编程的影响&lt;/strong&gt;：面向对象编程的思想影响了后来的编程语言和软件开发方法，成为现代软件开发的主流范式。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;总的来说，Xerox PARC 的研究成果为计算机科技的发展开辟了新的道路，影响深远，至今仍在继续发挥作用。我不允许任何一个计算机的人不知道它的贡献。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-fallback" data-lang="fallback"&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description></item><item><title>从内核到桌面系统</title><link>https://tannal.github.io/zh-cn/p/%E4%BB%8E%E5%86%85%E6%A0%B8%E5%88%B0%E6%A1%8C%E9%9D%A2%E7%B3%BB%E7%BB%9F/</link><pubDate>Sat, 12 Oct 2024 10:51:56 +0800</pubDate><guid>https://tannal.github.io/zh-cn/p/%E4%BB%8E%E5%86%85%E6%A0%B8%E5%88%B0%E6%A1%8C%E9%9D%A2%E7%B3%BB%E7%BB%9F/</guid><description>&lt;h1 id="从内核到桌面系统现代操作系统的演进与比较"&gt;从内核到桌面系统：现代操作系统的演进与比较
+&lt;/h1&gt;&lt;h2 id="1-引言"&gt;1. 引言
+&lt;/h2&gt;&lt;p&gt;在计算机科技的发展历程中，操作系统扮演着至关重要的角色。它是连接硬件和应用软件的桥梁，为用户提供了与计算机交互的接口。本文将深入探讨三大主流操作系统：Windows NT、Linux 和 Darwin（macOS 的基础），从其内核架构到桌面环境，全面剖析它们的发展历程、技术特点和对现代计算的影响。&lt;/p&gt;
+&lt;h2 id="2-操作系统的基本概念"&gt;2. 操作系统的基本概念
+&lt;/h2&gt;&lt;p&gt;在深入探讨具体的操作系统之前，我们先来了解一些基本概念。&lt;/p&gt;
+&lt;h3 id="21-什么是操作系统"&gt;2.1 什么是操作系统？
+&lt;/h3&gt;&lt;p&gt;操作系统是管理计算机硬件和软件资源的系统软件。它为其他应用程序提供通用的服务，管理硬件设备（如 CPU、内存、硬盘等），并为用户提供操作界面。&lt;/p&gt;
+&lt;h3 id="22-内核的概念和作用"&gt;2.2 内核的概念和作用
+&lt;/h3&gt;&lt;p&gt;内核是操作系统的核心部分，负责管理系统资源、调度任务和提供硬件抽象。它是连接硬件和应用软件的桥梁，保证系统的稳定性和安全性。&lt;/p&gt;
+&lt;h3 id="23-用户空间与内核空间"&gt;2.3 用户空间与内核空间
+&lt;/h3&gt;&lt;p&gt;现代操作系统通常分为用户空间和内核空间。用户空间运行普通应用程序，内核空间运行操作系统内核代码。这种分离增强了系统的安全性和稳定性。&lt;/p&gt;
+&lt;h2 id="3-windows-nt"&gt;3. Windows NT
+&lt;/h2&gt;&lt;h3 id="31-历史背景"&gt;3.1 历史背景
+&lt;/h3&gt;&lt;p&gt;Windows NT（New Technology）是微软公司开发的一系列操作系统，最初由 David Cutler 领导开发，于 1993 年首次发布。&lt;/p&gt;
+&lt;h3 id="32-内核架构"&gt;3.2 内核架构
+&lt;/h3&gt;&lt;p&gt;Windows NT 采用了微内核设计理念，但实际实现更接近混合内核。其主要组成部分包括：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;硬件抽象层（HAL）&lt;/li&gt;
+&lt;li&gt;内核&lt;/li&gt;
+&lt;li&gt;执行体&lt;/li&gt;
+&lt;li&gt;子系统&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id="33-主要特性"&gt;3.3 主要特性
+&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;多用户和多任务支持&lt;/strong&gt;：支持多个用户同时使用系统，并能同时运行多个程序。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;可移植性&lt;/strong&gt;：最初设计支持多种处理器架构。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;安全性&lt;/strong&gt;：集成了访问控制列表（ACL）和其他安全特性。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;网络支持&lt;/strong&gt;：内置强大的网络功能。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;NTFS 文件系统&lt;/strong&gt;：支持大容量存储、文件加密等高级功能。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id="34-发展历程"&gt;3.4 发展历程
+&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;Windows NT 3.1 (1993)&lt;/li&gt;
+&lt;li&gt;Windows NT 4.0 (1996)&lt;/li&gt;
+&lt;li&gt;Windows 2000 (2000)&lt;/li&gt;
+&lt;li&gt;Windows XP (2001)&lt;/li&gt;
+&lt;li&gt;Windows Vista (2007)&lt;/li&gt;
+&lt;li&gt;Windows 7 (2009)&lt;/li&gt;
+&lt;li&gt;Windows 8/8.1 (2012/2013)&lt;/li&gt;
+&lt;li&gt;Windows 10 (2015)&lt;/li&gt;
+&lt;li&gt;Windows 11 (2021)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id="35-windows-nt-的桌面环境"&gt;3.5 Windows NT 的桌面环境
+&lt;/h3&gt;&lt;p&gt;Windows NT 的桌面环境经历了多次重大变革：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Program Manager&lt;/strong&gt;：早期 Windows NT 版本使用的界面。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Explorer Shell&lt;/strong&gt;：从 Windows NT 4.0 开始引入，沿用至今。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Aero&lt;/strong&gt;：Windows Vista 和 Windows 7 中引入的半透明视觉效果。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Metro UI&lt;/strong&gt;：Windows 8 中引入的平面化设计。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Fluent Design&lt;/strong&gt;：Windows 10 和 11 中采用的新设计语言。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id="4-linux"&gt;4. Linux
+&lt;/h2&gt;&lt;h3 id="41-历史背景"&gt;4.1 历史背景
+&lt;/h3&gt;&lt;p&gt;Linux 是一个开源的类 Unix 操作系统内核，由 Linus Torvalds 于 1991 年首次发布。它通常与 GNU 工具和库一起使用，形成完整的操作系统。&lt;/p&gt;
+&lt;h3 id="42-内核架构"&gt;4.2 内核架构
+&lt;/h3&gt;&lt;p&gt;Linux 采用单内核设计，但通过模块化实现了许多微内核的优点。主要组成部分包括：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;进程调度器&lt;/li&gt;
+&lt;li&gt;内存管理&lt;/li&gt;
+&lt;li&gt;虚拟文件系统&lt;/li&gt;
+&lt;li&gt;网络栈&lt;/li&gt;
+&lt;li&gt;设备驱动程序&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id="43-主要特性"&gt;4.3 主要特性
+&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;开源&lt;/strong&gt;：源代码公开，允许自由修改和分发。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;可移植性&lt;/strong&gt;：支持多种硬件架构。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;稳定性&lt;/strong&gt;：以稳定性和可靠性著称。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;多用户和多任务&lt;/strong&gt;：支持多用户同时操作和多任务处理。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;丰富的文件系统支持&lt;/strong&gt;：支持多种文件系统，如 ext4、XFS、Btrfs 等。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id="44-发展历程"&gt;4.4 发展历程
+&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;0.01 版本 (1991)&lt;/li&gt;
+&lt;li&gt;1.0 版本 (1994)&lt;/li&gt;
+&lt;li&gt;2.0 版本 (1996)&lt;/li&gt;
+&lt;li&gt;2.6 版本 (2003)&lt;/li&gt;
+&lt;li&gt;3.0 版本 (2011)&lt;/li&gt;
+&lt;li&gt;4.0 版本 (2015)&lt;/li&gt;
+&lt;li&gt;5.0 版本 (2019)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id="45-linux-的桌面环境"&gt;4.5 Linux 的桌面环境
+&lt;/h3&gt;&lt;p&gt;Linux 拥有多种桌面环境选择，主要包括：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;GNOME&lt;/strong&gt;：强调简洁和易用性。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;KDE&lt;/strong&gt;：功能丰富，高度可定制。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Xfce&lt;/strong&gt;：轻量级桌面环境，适合老旧硬件。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;LXDE/LXQt&lt;/strong&gt;：更加轻量，资源占用少。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Cinnamon&lt;/strong&gt;：由 Linux Mint 开发，类似传统 Windows 界面。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;MATE&lt;/strong&gt;：GNOME 2 的继续开发版本。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id="5-darwinmacos-的基础"&gt;5. Darwin（macOS 的基础）
+&lt;/h2&gt;&lt;h3 id="51-历史背景"&gt;5.1 历史背景
+&lt;/h3&gt;&lt;p&gt;Darwin 是苹果公司开发的开源操作系统内核，基于 NextSTEP、FreeBSD 和 Mach 微内核。它是 macOS（以前称为 OS X）和 iOS 的基础。&lt;/p&gt;
+&lt;h3 id="52-内核架构"&gt;5.2 内核架构
+&lt;/h3&gt;&lt;p&gt;Darwin 采用混合内核设计，结合了单内核和微内核的特点。主要组成部分包括：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;XNU 内核（整合了 Mach 微内核和 BSD 子系统）&lt;/li&gt;
+&lt;li&gt;I/O Kit（设备驱动框架）&lt;/li&gt;
+&lt;li&gt;Darwin BSD 子系统&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id="53-主要特性"&gt;5.3 主要特性
+&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Unix 基础&lt;/strong&gt;：兼容 POSIX 标准。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;开源核心&lt;/strong&gt;：核心组件开源，但许多 Apple 专有组件并不开源。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;安全性&lt;/strong&gt;：集成了多项安全特性，如 SIP（System Integrity Protection）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;电源管理&lt;/strong&gt;：优秀的电源管理能力，尤其在笔记本电脑上表现突出。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;图形系统&lt;/strong&gt;：集成了强大的 Quartz 图形引擎。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id="54-发展历程"&gt;5.4 发展历程
+&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;Mac OS X Server 1.0 (1999)&lt;/li&gt;
+&lt;li&gt;Mac OS X 10.0 &amp;ldquo;Cheetah&amp;rdquo; (2001)&lt;/li&gt;
+&lt;li&gt;OS X 10.9 &amp;ldquo;Mavericks&amp;rdquo; (2013)&lt;/li&gt;
+&lt;li&gt;macOS 10.12 &amp;ldquo;Sierra&amp;rdquo; (2016)&lt;/li&gt;
+&lt;li&gt;macOS 11 &amp;ldquo;Big Sur&amp;rdquo; (2020)&lt;/li&gt;
+&lt;li&gt;macOS 12 &amp;ldquo;Monterey&amp;rdquo; (2021)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id="55-macos-的桌面环境"&gt;5.5 macOS 的桌面环境
+&lt;/h3&gt;&lt;p&gt;macOS 使用专有的 Aqua 用户界面，其特点包括：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Dock&lt;/strong&gt;：应用程序启动器和任务栏的结合。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Finder&lt;/strong&gt;：文件管理器。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Mission Control&lt;/strong&gt;：窗口管理和虚拟桌面。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Spotlight&lt;/strong&gt;：全系统搜索工具。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Time Machine&lt;/strong&gt;：内置备份系统。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id="6-三大系统的比较"&gt;6. 三大系统的比较
+&lt;/h2&gt;&lt;h3 id="61-市场份额"&gt;6.1 市场份额
+&lt;/h3&gt;&lt;p&gt;截至 2024 年，桌面操作系统市场份额大致如下：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Windows：约 75%&lt;/li&gt;
+&lt;li&gt;macOS：约 15%&lt;/li&gt;
+&lt;li&gt;Linux：约 2%
+（注：具体数字可能有所变动）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="62-适用场景"&gt;6.2 适用场景
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Windows&lt;/strong&gt;：广泛用于个人电脑、企业办公环境，游戏兼容性最佳。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;macOS&lt;/strong&gt;：常见于创意行业，如设计、音视频制作等。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Linux&lt;/strong&gt;：在服务器市场占有重要地位，也适用于开发人员和技术爱好者。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="63-开源与专有"&gt;6.3 开源与专有
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Windows&lt;/strong&gt;：主要为专有软件，但近年来也开始拥抱开源社区。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Linux&lt;/strong&gt;：完全开源，有大量社区贡献。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Darwin&lt;/strong&gt;：核心组件开源，但 macOS 的许多部分是专有的。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="64-安全性"&gt;6.4 安全性
+&lt;/h3&gt;&lt;p&gt;所有系统都重视安全性，但实现方式不同：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Windows&lt;/strong&gt;：通过定期更新和 Windows Defender 等工具提供安全保护。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Linux&lt;/strong&gt;：开源特性有助于快速发现和修复漏洞，但不同发行版安全性可能有差异。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;macOS&lt;/strong&gt;：封闭生态系统和严格的应用审核有助于提高安全性。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="65-用户界面和体验"&gt;6.5 用户界面和体验
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Windows&lt;/strong&gt;：提供丰富的定制选项，但不同版本之间的一致性有时不足。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;macOS&lt;/strong&gt;：以一致性和流畅度著称，但定制选项相对较少。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Linux&lt;/strong&gt;：提供多种桌面环境选择，定制性最强，但可能需要较多技术知识。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="7-未来趋势"&gt;7. 未来趋势
+&lt;/h2&gt;&lt;h3 id="71-云计算和虚拟化"&gt;7.1 云计算和虚拟化
+&lt;/h3&gt;&lt;p&gt;所有三大系统都在积极拥抱云计算和虚拟化技术。Windows 推出了 Azure 云服务，macOS 与 iCloud 深度集成，而 Linux 在服务器虚拟化方面一直处于领先地位。&lt;/p&gt;
+&lt;h3 id="72-人工智能集成"&gt;7.2 人工智能集成
+&lt;/h3&gt;&lt;p&gt;操作系统正在越来越多地集成 AI 功能。Microsoft 在 Windows 中集成了 Cortana，Apple 有 Siri，而各种 Linux 发行版也在探索 AI 助手的可能性。&lt;/p&gt;
+&lt;h3 id="73-跨平台兼容性"&gt;7.3 跨平台兼容性
+&lt;/h3&gt;&lt;p&gt;随着 Web 技术的发展和容器技术的普及，操作系统间的界限正在变得模糊。Microsoft 的 WSL（Windows Subsystem for Linux）允许在 Windows 上运行 Linux 程序，而 Apple 的 Rosetta 2 则实现了在 ARM 架构上运行 x86 应用。&lt;/p&gt;
+&lt;h3 id="74-安全性和隐私"&gt;7.4 安全性和隐私
+&lt;/h3&gt;&lt;p&gt;随着网络威胁的增加，所有操作系统都在加强安全措施。预计未来会看到更多的加密、安全启动和隐私保护功能。&lt;/p&gt;
+&lt;h3 id="75-物联网iot和嵌入式系统"&gt;7.5 物联网（IoT）和嵌入式系统
+&lt;/h3&gt;&lt;p&gt;操作系统正在向更小的设备扩展。Windows IoT、Linux 的各种嵌入式版本，以及 Apple 的 watchOS 和 tvOS 都是这一趋势的体现。&lt;/p&gt;
+&lt;h2 id="8-结论"&gt;8. 结论
+&lt;/h2&gt;&lt;p&gt;Windows NT、Linux 和 Darwin（macOS）代表了现代操作系统的三个主要流派。每个系统都有其独特的优势和应用场景。Windows 以其广泛的兼容性和普及度著称；Linux 以其开放性、灵活性和在服务器市场的优势而闻名；而 macOS 则以其流畅的用户体验和创意行业的优化而备受青睐。&lt;/p&gt;
+&lt;p&gt;随着技术的不断发展，这些操作系统正在变得越来越复杂和功能丰富。它们不仅要管理传统的计算任务，还需要应对云计算、人工智能、物联网等新兴技术带来的挑战。同时，它们也在相互借鉴和融合，如 Windows 引入 Linux 子系统，macOS 转向 ARM 架构等。&lt;/p&gt;
+&lt;p&gt;未来，操作系统的发展可能会更加注重安全性、隐私保护、跨平台兼容性和人工智能集成。无论是个人用户还是企业，选择合适的操作系统将继续是提高生产力和实现特定目标的关键因素。&lt;/p&gt;
+&lt;p&gt;作为技术爱好者和专业人士，持续关注这些操作系统的发展趋势，了解它们的优缺点和适用场景，将有助于我们在快速变化的技术环境中做出明智的选择和决策。&lt;/p&gt;</description></item><item><title>从内核到桌面系统</title><link>https://tannal.github.io/zh-cn/p/%E4%BB%8E%E5%86%85%E6%A0%B8%E5%88%B0%E6%A1%8C%E9%9D%A2%E7%B3%BB%E7%BB%9F/</link><pubDate>Sat, 12 Oct 2024 10:51:56 +0800</pubDate><guid>https://tannal.github.io/zh-cn/p/%E4%BB%8E%E5%86%85%E6%A0%B8%E5%88%B0%E6%A1%8C%E9%9D%A2%E7%B3%BB%E7%BB%9F/</guid><description>&lt;h2 id="mksnapshotcc"&gt;mksnapshot.cc
+&lt;/h2&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-cpp" data-lang="cpp"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;SnapshotFileWriter&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="c1"&gt;// 核心功能:
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="err"&gt;生成快照文件&lt;/span&gt;&lt;span class="p"&gt;(.&lt;/span&gt;&lt;span class="n"&gt;cpp&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="err"&gt;和二进制&lt;/span&gt;&lt;span class="n"&gt;blob文件&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="err"&gt;写入快照数据的&lt;/span&gt;&lt;span class="n"&gt;C&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="err"&gt;代码&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="err"&gt;处理文件写入错误&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;WriteSnapshot&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;v8&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;StartupData&lt;/span&gt; &lt;span class="n"&gt;blob&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="c1"&gt;// 写入快照数据到文件
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;&lt;/span&gt; &lt;span class="n"&gt;MaybeWriteSnapshotFile&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;blob_vector&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;MaybeWriteStartupBlob&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;blob_vector&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-cpp" data-lang="cpp"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="c1"&gt;// 1. 初始化环境
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;&lt;/span&gt; &lt;span class="n"&gt;v8&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;V8&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;Initialize&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="c1"&gt;// 2. 创建快照
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="c1"&gt;// 设置文件写入器
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;&lt;/span&gt; &lt;span class="n"&gt;SnapshotFileWriter&lt;/span&gt; &lt;span class="n"&gt;snapshot_writer&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="c1"&gt;// 加载额外代码
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;&lt;/span&gt; &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;unique_ptr&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;char&lt;/span&gt;&lt;span class="p"&gt;[]&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;embed_script&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;GetExtraCode&lt;/span&gt;&lt;span class="p"&gt;(...);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;unique_ptr&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;char&lt;/span&gt;&lt;span class="p"&gt;[]&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;warmup_script&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;GetExtraCode&lt;/span&gt;&lt;span class="p"&gt;(...);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="c1"&gt;// 创建快照数据
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;&lt;/span&gt; &lt;span class="n"&gt;v8&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;StartupData&lt;/span&gt; &lt;span class="n"&gt;blob&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;v8&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;Isolate&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;isolate&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;v8&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;Isolate&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;Allocate&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;v8&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;SnapshotCreator&lt;/span&gt; &lt;span class="n"&gt;creator&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;isolate&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;blob&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;CreateSnapshotDataBlob&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;creator&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;embed_script&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt;&lt;span class="p"&gt;());&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="c1"&gt;// 3. 预热快照(可选)
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;&lt;/span&gt; &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;warmup_script&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;blob&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;WarmUpSnapshotDataBlob&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;cold&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;warmup_script&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt;&lt;span class="p"&gt;());&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="c1"&gt;// 4. 写入快照文件
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;&lt;/span&gt; &lt;span class="n"&gt;snapshot_writer&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;WriteSnapshot&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;blob&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;生成两种格式的快照:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;C++源文件(.cpp)包含序列化的快照数据&lt;/li&gt;
+&lt;li&gt;二进制blob文件&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;支持预热:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;可以通过warmup脚本预热快照&lt;/li&gt;
+&lt;li&gt;有助于提升启动性能&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;安全性考虑:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;处理文件写入错误&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;验证数据完整性
+性能监控:&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;支持生成和预热时间统计&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;支持代码计数器&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这个工具对V8的启动性能优化非常重要,因为它可以将V8的初始状态序列化,从而加快后续启动&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-cpp" data-lang="cpp"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;// 快照布局:
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="n"&gt;number&lt;/span&gt; &lt;span class="n"&gt;of&lt;/span&gt; &lt;span class="n"&gt;contexts&lt;/span&gt; &lt;span class="n"&gt;N&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="n"&gt;rehashability&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="n"&gt;checksum&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="n"&gt;read&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;only&lt;/span&gt; &lt;span class="n"&gt;snapshot&lt;/span&gt; &lt;span class="n"&gt;checksum&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="n"&gt;version&lt;/span&gt; &lt;span class="n"&gt;string&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;64&lt;/span&gt; &lt;span class="n"&gt;bytes&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="n"&gt;offset&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;readonly&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;6&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="n"&gt;offset&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;shared&lt;/span&gt; &lt;span class="n"&gt;heap&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;7&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="n"&gt;offset&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;context&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;8&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="n"&gt;offset&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;context&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;...&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;N&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="n"&gt;offset&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;context&lt;/span&gt; &lt;span class="n"&gt;N&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;...&lt;/span&gt; &lt;span class="n"&gt;startup&lt;/span&gt; &lt;span class="n"&gt;snapshot&lt;/span&gt; &lt;span class="n"&gt;data&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;...&lt;/span&gt; &lt;span class="n"&gt;read&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;only&lt;/span&gt; &lt;span class="n"&gt;snapshot&lt;/span&gt; &lt;span class="n"&gt;data&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;...&lt;/span&gt; &lt;span class="n"&gt;shared&lt;/span&gt; &lt;span class="n"&gt;heap&lt;/span&gt; &lt;span class="n"&gt;snapshot&lt;/span&gt; &lt;span class="n"&gt;data&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;...&lt;/span&gt; &lt;span class="n"&gt;context&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="n"&gt;snapshot&lt;/span&gt; &lt;span class="n"&gt;data&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;...&lt;/span&gt; &lt;span class="n"&gt;context&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="n"&gt;snapshot&lt;/span&gt; &lt;span class="n"&gt;data&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description></item></channel></rss>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Life on tannal</title><link>https://tannal.github.io/tags/life/</link><description>Recent content in Life on tannal</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Mon, 28 Oct 2024 14:23:11 +0000</lastBuildDate><atom:link href="https://tannal.github.io/tags/life/index.xml" rel="self" type="application/rss+xml"/><item><title>All you need to know about regex engine</title><link>https://tannal.github.io/p/all-you-need-to-know-about-regex-engine/</link><pubDate>Mon, 28 Oct 2024 14:23:11 +0000</pubDate><guid>https://tannal.github.io/p/all-you-need-to-know-about-regex-engine/</guid><description>&lt;h2 id="history"&gt;History
+&lt;/h2&gt;&lt;p&gt;Stephen Kleene introduced regular expressions in the 1950s. They are used in many text processing tasks, such as search, find, and replace. Regular expressions are widely used in programming languages, text editors, and command-line utilities.&lt;/p&gt;
+&lt;p&gt;Ken Thompson implemented the first regular expression engine in the QED text editor in the 1960s. Later, he improved the engine and integrated it into the Unix operating system. The engine was written in assembly language and used a backtracking algorithm.&lt;/p&gt;
+&lt;h2 id="interface"&gt;Interface
+&lt;/h2&gt;&lt;p&gt;A regular expression engine provides an interface for matching patterns in text. The engine takes a regular expression and a text string as input and returns the positions of the matches in the text. The engine can also replace the matches with a replacement string.&lt;/p&gt;
+&lt;h2 id="implementations"&gt;Implementations
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;ed - The original Unix text editor, which includes a regular expression engine. (Ken Thompson, 1971)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;grep - A command-line utility for searching text files using regular expressions. (Ken Thompson, 1973)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;sed - A stream editor for filtering and transforming text using regular expressions. (Lee E. McMahon, 1974)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;awk - A programming language for processing text files using regular expressions. (Alfred Aho, Peter Weinberger, and Brian Kernighan, 1977)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Perl - A programming language that includes a powerful regular expression engine. (Larry Wall, 1987)&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="thompson-nfa-algorithm-most-common"&gt;Thompson NFA algorithm (most common)
+&lt;/h3&gt;&lt;p&gt;Ken Thompson introduced the Nondeterministic Finite Automaton (NFA) algorithm for regular expression matching. The algorithm uses a state machine to match patterns in text. The NFA algorithm is efficient and easy to implement.&lt;/p&gt;
+&lt;h3 id="dfa-algorithm-aho-corasick-algorithm"&gt;DFA algorithm (Aho-Corasick algorithm)
+&lt;/h3&gt;&lt;p&gt;The Deterministic Finite Automaton (DFA) algorithm is an alternative to the NFA algorithm. The DFA algorithm uses a deterministic state machine to match patterns in text. The DFA algorithm is more efficient than the NFA algorithm but harder to implement.&lt;/p&gt;
+&lt;h3 id="backtracking-algorithm-perl"&gt;Backtracking algorithm (Perl)
+&lt;/h3&gt;&lt;p&gt;The backtracking algorithm is a general algorithm for regular expression matching. The algorithm uses recursion to explore all possible matches in the text. The backtracking algorithm is simple to implement but can be slow for complex patterns.&lt;/p&gt;
+&lt;h3 id="modern-and-popular-implementations"&gt;Modern and popular implementations
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Golang - The standard library includes a regular expression package that implements the Thompson NFA algorithm.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Python - The re module provides regular expression support using the Thompson NFA algorithm.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Java - The java.util.regex package provides regular expression support using the DFA algorithm.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;V8 (JavaScript) - The V8 engine includes a regular expression engine that uses the Thompson NFA algorithm.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Spidermonkey (JavaScript) - The Spidermonkey engine includes a regular expression engine that uses the Thompson NFA algorithm.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;JavaScriptCore (JavaScript) - The JavaScriptCore engine includes a regular expression engine that uses the Thompson NFA algorithm.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;ICU (C/C++) - The International Components for Unicode library includes a regular expression engine that uses the DFA algorithm.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Ripgrep - A command-line utility for searching text files using regular expressions. (Andrew Gallant, 2016)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Rust - The regex crate provides regular expression support using the Thompson NFA algorithm.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;PCRE - The Perl Compatible Regular Expressions library provides regular expression support using the backtracking algorithm.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Ruby - The Onigmo library provides regular expression support using the backtracking algorithm.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;LLVM - The LLVM project includes a regular expression engine that uses the DFA algorithm.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;GCC - The GNU Compiler Collection includes a regular expression engine that uses the DFA algorithm.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;.NET - The System.Text.RegularExpressions namespace provides regular expression support using the DFA algorithm.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</description></item><item><title>KTV in 9-11</title><link>https://tannal.github.io/p/ktv-in-9-11/</link><pubDate>Fri, 13 Sep 2024 14:23:11 +0000</pubDate><guid>https://tannal.github.io/p/ktv-in-9-11/</guid><description>&lt;script defer src="https://tannal.github.io/bilibili-player.js" type="module"&gt;&lt;/script&gt;
+&lt;p&gt;&lt;bilibili-player bvid="BV1eM4EeeET2"&gt;&lt;/bilibili-player&gt;;&lt;/p&gt;</description></item></channel></rss>

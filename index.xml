@@ -1,0 +1,783 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>tannal</title><link>https://tannal.github.io/</link><description>Recent content on tannal</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Wed, 30 Oct 2024 14:23:11 +0000</lastBuildDate><atom:link href="https://tannal.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>How browser paint box border</title><link>https://tannal.github.io/p/how-browser-paint-box-border/</link><pubDate>Wed, 30 Oct 2024 14:23:11 +0000</pubDate><guid>https://tannal.github.io/p/how-browser-paint-box-border/</guid><description>&lt;script defer src="https://tannal.github.io/ringbuffer.js" type="module"&gt;&lt;/script&gt;
+&lt;script defer src="https://tannal.github.io/newton-pendulum.js" type="module"&gt;&lt;/script&gt;
+&lt;style&gt;
+body:not(.wc-loaded) {
+opacity: 0;
+}
+&lt;/style&gt;
+&lt;script type="module"&gt;
+(() =&gt; {
+Promise.allSettled(
+[...document.querySelectorAll(":not(:defined)")].map((component) =&gt;
+customElements.whenDefined(component.tagName.toLowerCase())
+)
+).then(() =&gt; document.body.classList.add("wc-loaded"));
+})();
+&lt;/script&gt;
+&lt;interactive-bar-chart&gt;
+&lt;/interactive-bar-chart&gt;
+&lt;p&gt;&lt;snow-fall&gt;&lt;/snow-fall&gt;&lt;/p&gt;
+&lt;p&gt;&lt;music-score
+clef="treble"
+time-signature="4/4"
+notes="C4/q, D4/q, E4/q, F4/q"&gt;
+&lt;/music-score&gt;&lt;/p&gt;
+&lt;p&gt;&lt;piano-keyboard&gt;&lt;/piano-keyboard&gt;&lt;/p&gt;
+&lt;script defer src="https://tannal.github.io/browser-border-paint.js" type="module"&gt;&lt;/script&gt;
+&lt;h2 id="chromium"&gt;Chromium
+&lt;/h2&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;class BoxBorderPainter &lt;span class="o"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;private:
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; // 边框属性标志
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; bool is_uniform_color_&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; bool is_uniform_style_&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; bool is_uniform_width_&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; bool has_transparency_&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; // 可见边的集合，可能是位掩码
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; unsigned visible_edge_set_&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; static const unsigned &lt;span class="nv"&gt;kAllBorderEdges&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; 0xF&lt;span class="p"&gt;;&lt;/span&gt; // 推测值
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; // 边框的几何形状
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; RoundedRect outer_&lt;span class="p"&gt;;&lt;/span&gt; // 外边框
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; RoundedRect inner_&lt;span class="p"&gt;;&lt;/span&gt; // 内边框
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; // 绘制上下文
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; PaintContext context_&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; // 样式相关
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; const ComputedStyle&lt;span class="p"&gt;&amp;amp;&lt;/span&gt; style_&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; ElementRole element_role_&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; BleedAvoidance bleed_avoidance_&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="o"&gt;}&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="webkit"&gt;Webkit
+&lt;/h2&gt;&lt;h2 id="gecko"&gt;Gecko
+&lt;/h2&gt;</description></item><item><title>All you need to know about regex engine</title><link>https://tannal.github.io/p/all-you-need-to-know-about-regex-engine/</link><pubDate>Mon, 28 Oct 2024 14:23:11 +0000</pubDate><guid>https://tannal.github.io/p/all-you-need-to-know-about-regex-engine/</guid><description>&lt;h2 id="history"&gt;History
+&lt;/h2&gt;&lt;p&gt;Stephen Kleene introduced regular expressions in the 1950s. They are used in many text processing tasks, such as search, find, and replace. Regular expressions are widely used in programming languages, text editors, and command-line utilities.&lt;/p&gt;
+&lt;p&gt;Ken Thompson implemented the first regular expression engine in the QED text editor in the 1960s. Later, he improved the engine and integrated it into the Unix operating system. The engine was written in assembly language and used a backtracking algorithm.&lt;/p&gt;
+&lt;h2 id="interface"&gt;Interface
+&lt;/h2&gt;&lt;p&gt;A regular expression engine provides an interface for matching patterns in text. The engine takes a regular expression and a text string as input and returns the positions of the matches in the text. The engine can also replace the matches with a replacement string.&lt;/p&gt;
+&lt;h2 id="implementations"&gt;Implementations
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;ed - The original Unix text editor, which includes a regular expression engine. (Ken Thompson, 1971)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;grep - A command-line utility for searching text files using regular expressions. (Ken Thompson, 1973)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;sed - A stream editor for filtering and transforming text using regular expressions. (Lee E. McMahon, 1974)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;awk - A programming language for processing text files using regular expressions. (Alfred Aho, Peter Weinberger, and Brian Kernighan, 1977)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Perl - A programming language that includes a powerful regular expression engine. (Larry Wall, 1987)&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="thompson-nfa-algorithm-most-common"&gt;Thompson NFA algorithm (most common)
+&lt;/h3&gt;&lt;p&gt;Ken Thompson introduced the Nondeterministic Finite Automaton (NFA) algorithm for regular expression matching. The algorithm uses a state machine to match patterns in text. The NFA algorithm is efficient and easy to implement.&lt;/p&gt;
+&lt;h3 id="dfa-algorithm-aho-corasick-algorithm"&gt;DFA algorithm (Aho-Corasick algorithm)
+&lt;/h3&gt;&lt;p&gt;The Deterministic Finite Automaton (DFA) algorithm is an alternative to the NFA algorithm. The DFA algorithm uses a deterministic state machine to match patterns in text. The DFA algorithm is more efficient than the NFA algorithm but harder to implement.&lt;/p&gt;
+&lt;h3 id="backtracking-algorithm-perl"&gt;Backtracking algorithm (Perl)
+&lt;/h3&gt;&lt;p&gt;The backtracking algorithm is a general algorithm for regular expression matching. The algorithm uses recursion to explore all possible matches in the text. The backtracking algorithm is simple to implement but can be slow for complex patterns.&lt;/p&gt;
+&lt;h3 id="modern-and-popular-implementations"&gt;Modern and popular implementations
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Golang - The standard library includes a regular expression package that implements the Thompson NFA algorithm.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Python - The re module provides regular expression support using the Thompson NFA algorithm.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Java - The java.util.regex package provides regular expression support using the DFA algorithm.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;V8 (JavaScript) - The V8 engine includes a regular expression engine that uses the Thompson NFA algorithm.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Spidermonkey (JavaScript) - The Spidermonkey engine includes a regular expression engine that uses the Thompson NFA algorithm.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;JavaScriptCore (JavaScript) - The JavaScriptCore engine includes a regular expression engine that uses the Thompson NFA algorithm.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;ICU (C/C++) - The International Components for Unicode library includes a regular expression engine that uses the DFA algorithm.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Ripgrep - A command-line utility for searching text files using regular expressions. (Andrew Gallant, 2016)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Rust - The regex crate provides regular expression support using the Thompson NFA algorithm.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;PCRE - The Perl Compatible Regular Expressions library provides regular expression support using the backtracking algorithm.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Ruby - The Onigmo library provides regular expression support using the backtracking algorithm.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;LLVM - The LLVM project includes a regular expression engine that uses the DFA algorithm.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;GCC - The GNU Compiler Collection includes a regular expression engine that uses the DFA algorithm.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;.NET - The System.Text.RegularExpressions namespace provides regular expression support using the DFA algorithm.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</description></item><item><title>CSS Table in Servo</title><link>https://tannal.github.io/p/css-table-in-servo/</link><pubDate>Fri, 27 Sep 2024 19:23:11 +0000</pubDate><guid>https://tannal.github.io/p/css-table-in-servo/</guid><description>&lt;h2 id="some-call-stack"&gt;Some call stack
+&lt;/h2&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-rust" data-lang="rust"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;&lt;/span&gt;#&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;layout_2020&lt;/span&gt;::&lt;span class="n"&gt;table&lt;/span&gt;::&lt;span class="n"&gt;layout&lt;/span&gt;::&lt;span class="n"&gt;TableLayout&lt;/span&gt;::&lt;span class="n"&gt;compute_grid_min_max&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mh"&gt;0x7fff863616c0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;layout_context&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mh"&gt;0x7ffe4ffec1d8&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;writing_mode&lt;/span&gt;&lt;span class="o"&gt;=..&lt;/span&gt;&lt;span class="p"&gt;.)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;at&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;components&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;layout_2020&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;table&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;layout&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;rs&lt;/span&gt;:&lt;span class="mi"&gt;739&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;&lt;/span&gt;#&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mh"&gt;0x000055555b503ad0&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;in&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;layout_2020&lt;/span&gt;::&lt;span class="n"&gt;table&lt;/span&gt;::&lt;span class="n"&gt;layout&lt;/span&gt;::&lt;span class="n"&gt;TableLayout&lt;/span&gt;::&lt;span class="n"&gt;layout&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;=..&lt;/span&gt;&lt;span class="p"&gt;.,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;layout_context&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mh"&gt;0x7ffe4ffec1d8&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;positioning_context&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mh"&gt;0x7fff863625f8&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;containing_block_for_children&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mh"&gt;0x7fff86361968&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;containing_block_for_table&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mh"&gt;0x7ffe4ffe61c0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;at&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;components&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;layout_2020&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;table&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;layout&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;rs&lt;/span&gt;:&lt;span class="mi"&gt;1686&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;&lt;/span&gt;#&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mh"&gt;0x000055555b4dbd58&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;in&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;layout_2020&lt;/span&gt;::&lt;span class="n"&gt;table&lt;/span&gt;::&lt;span class="n"&gt;Table&lt;/span&gt;::&lt;span class="n"&gt;layout&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mh"&gt;0x7ffe25835178&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;layout_context&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mh"&gt;0x7ffe4ffec1d8&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;positioning_context&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mh"&gt;0x7fff863625f8&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;containing_block_for_children&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mh"&gt;0x7fff86361968&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;containing_block_for_table&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mh"&gt;0x7ffe4ffe61c0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;at&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;components&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;layout_2020&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;table&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;layout&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;rs&lt;/span&gt;:&lt;span class="mi"&gt;2750&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;&lt;/span&gt;#&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mh"&gt;0x000055555b553f31&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;in&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;layout_2020&lt;/span&gt;::&lt;span class="n"&gt;formatting_contexts&lt;/span&gt;::&lt;span class="n"&gt;NonReplacedFormattingContext&lt;/span&gt;::&lt;span class="n"&gt;layout&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mh"&gt;0x7ffe25835160&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;layout_context&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mh"&gt;0x7ffe4ffec1d8&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;positioning_context&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mh"&gt;0x7fff863625f8&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;containing_block_for_children&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mh"&gt;0x7fff86361968&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;containing_block&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mh"&gt;0x7ffe4ffe61c0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;at&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;components&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;layout_2020&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;formatting_contexts&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;rs&lt;/span&gt;:&lt;span class="mi"&gt;260&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;&lt;/span&gt;#&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mh"&gt;0x000055555b552497&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;in&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;layout_2020&lt;/span&gt;::&lt;span class="n"&gt;formatting_contexts&lt;/span&gt;::&lt;span class="n"&gt;NonReplacedFormattingContext&lt;/span&gt;::&lt;span class="n"&gt;layout_in_flow_block_level&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mh"&gt;0x7ffe25835160&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;layout_context&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mh"&gt;0x7ffe4ffec1d8&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;positioning_context&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mh"&gt;0x7fff863625f8&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;containing_block&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mh"&gt;0x7ffe4ffe61c0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;sequential_layout_state&lt;/span&gt;&lt;span class="o"&gt;=..&lt;/span&gt;&lt;span class="p"&gt;.)&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;at&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;components&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;layout_2020&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;flow&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="k"&gt;mod&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;rs&lt;/span&gt;:&lt;span class="mi"&gt;987&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;&lt;/span&gt;#&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mh"&gt;0x000055555b5fc59b&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;in&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;layout_2020&lt;/span&gt;::&lt;span class="n"&gt;flow&lt;/span&gt;::&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="k"&gt;impl&lt;/span&gt;#&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;::&lt;span class="n"&gt;layout&lt;/span&gt;::&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="n"&gt;closure&lt;/span&gt;#&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;positioning_context&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mh"&gt;0x7fff863625f8&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;at&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;components&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;layout_2020&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;flow&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="k"&gt;mod&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;rs&lt;/span&gt;:&lt;span class="mi"&gt;696&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;&lt;/span&gt;#&lt;span class="mi"&gt;6&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mh"&gt;0x000055555b67d4d0&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;in&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;layout_2020&lt;/span&gt;::&lt;span class="n"&gt;positioned&lt;/span&gt;::&lt;span class="n"&gt;PositioningContext&lt;/span&gt;::&lt;span class="n"&gt;layout_maybe_position_relative_fragment&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;layout_2020&lt;/span&gt;::&lt;span class="n"&gt;flow&lt;/span&gt;::&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="k"&gt;impl&lt;/span&gt;#&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;::&lt;span class="n"&gt;layout&lt;/span&gt;::&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="n"&gt;closure_env&lt;/span&gt;#&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mh"&gt;0x7fff863625f8&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;layout_context&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mh"&gt;0x7ffe4ffec1d8&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;containing_block&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mh"&gt;0x7ffe4ffe61c0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;style&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mh"&gt;0x7ffe4f84c970&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;fragment_layout_fn&lt;/span&gt;&lt;span class="o"&gt;=..&lt;/span&gt;&lt;span class="p"&gt;.)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;at&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;components&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;layout_2020&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;positioned&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;rs&lt;/span&gt;:&lt;span class="mi"&gt;205&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;&lt;/span&gt;#&lt;span class="mi"&gt;7&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mh"&gt;0x000055555b635587&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;in&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;layout_2020&lt;/span&gt;::&lt;span class="n"&gt;flow&lt;/span&gt;::&lt;span class="n"&gt;BlockLevelBox&lt;/span&gt;::&lt;span class="n"&gt;layout&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mh"&gt;0x7ffe25835158&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;layout_context&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mh"&gt;0x7ffe4ffec1d8&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;positioning_context&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mh"&gt;0x7fff863625f8&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;containing_block&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mh"&gt;0x7ffe4ffe61c0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;sequential_layout_state&lt;/span&gt;&lt;span class="o"&gt;=..&lt;/span&gt;&lt;span class="p"&gt;.,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;collapsible_with_parent_start_margin&lt;/span&gt;&lt;span class="o"&gt;=..&lt;/span&gt;&lt;span class="p"&gt;.)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;at&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;components&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;layout_2020&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;flow&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="k"&gt;mod&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;rs&lt;/span&gt;:&lt;span class="mi"&gt;691&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description></item><item><title>Explore the AOSP Project</title><link>https://tannal.github.io/p/explore-the-aosp-project/</link><pubDate>Fri, 27 Sep 2024 19:23:11 +0000</pubDate><guid>https://tannal.github.io/p/explore-the-aosp-project/</guid><description>&lt;h1 id="zed-editor"&gt;Zed editor
+&lt;/h1&gt;&lt;p&gt;Writeen in rust&lt;/p&gt;</description></item><item><title>Explore the AOSP Project</title><link>https://tannal.github.io/p/explore-the-aosp-project/</link><pubDate>Fri, 27 Sep 2024 19:23:11 +0000</pubDate><guid>https://tannal.github.io/p/explore-the-aosp-project/</guid><description>&lt;h2 id="build-the-aosp-project"&gt;Build the AOSP Project
+&lt;/h2&gt;&lt;p&gt;The Android Open Source Project (AOSP) is an open-source software stack for mobile devices, and a corresponding open-source project led by Google. It is the base of the Android operating system. The AOSP code can be found at &lt;a class="link" href="https://android.googlesource.com/" target="_blank" rel="noopener"
+&gt;android.googlesource.com&lt;/a&gt;.&lt;/p&gt;
+&lt;h3 id="install-the-required-packages"&gt;Install the required packages
+&lt;/h3&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;sudo apt-get install git-core gnupg flex bison gperf build-essential zip curl zlib1g-dev gcc-multilib g++-multilib libc6-dev-i386 lib32ncurses5-dev x11proto-core-dev libx11-dev lib32z1-dev libgl1-mesa-dev libxml2-utils xsltproc unzip
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id="initialize-the-repository"&gt;Initialize the repository
+&lt;/h3&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nv"&gt;PATH&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;~/bin:&lt;span class="nv"&gt;$PATH&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;curl https://storage.googleapis.com/git-repo-downloads/repo &amp;gt; ~/bin/repo
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;chmod a+x ~/bin/repo
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;git config --global user.name &lt;span class="s2"&gt;&amp;#34;tannal&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;git config --global user.email &lt;span class="s2"&gt;&amp;#34;tannal2409@gmail.com&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;mkdir aosp
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;repo init -u https://android.googlesource.com/platform/manifest
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;repo sync
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;source&lt;/span&gt; build/envsetup.sh
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id="build-the-code"&gt;Build the code
+&lt;/h3&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;lunch
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;make -j &lt;span class="m"&gt;22&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id="android-cuttlefish-emulator"&gt;Android Cuttlefish Emulator
+&lt;/h3&gt;&lt;p&gt;The Android Cuttlefish Emulator is a virtual device that runs the Android operating system. It is used for testing and development purposes. The Android Cuttlefish Emulator can be found at &lt;a class="link" href="https://github.com/google/android-cuttlefish.git" target="_blank" rel="noopener"
+&gt;github.com/google/android-cuttlefish&lt;/a&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;git clone https://github.com/google/android-cuttlefish.git
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;cd&lt;/span&gt; android-cuttlefish
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;tools/buildutils/build_packages.sh
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;sudo apt install ./cuttlefish-base_*.deb ./cuttlefish-user_*.deb
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;sudo usermod -aG kvm,cvdnetwork,render &lt;span class="nv"&gt;$USER&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;sudo reboot
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;cvd create
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;cvd start --start_webrtc&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nb"&gt;true&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="a-rooted-phone"&gt;A rooted phone
+&lt;/h2&gt;&lt;p&gt;My XiaoMi8&lt;/p&gt;
+&lt;p&gt;Chrome use sqlite3 to store the data, the data is stored in the /data/data/com.android.chrome/databases/ directory. The data is stored in the form of a database file, which can be accessed using the sqlite3 command.&lt;/p&gt;
+&lt;p&gt;E.G. We can search for browsing history using the following command:&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://tannal.github.io/aosp-1.png"
+loading="lazy"
+&gt;&lt;/p&gt;
+&lt;p&gt;The /data/data/&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://tannal.github.io/aosp-2.png"
+loading="lazy"
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://tannal.github.io/aosp-3.png"
+loading="lazy"
+&gt;&lt;/p&gt;</description></item><item><title>The Hitchhiker's Guide to Firefox Contributor</title><link>https://tannal.github.io/p/the-hitchhikers-guide-to-firefox-contributor/</link><pubDate>Tue, 24 Sep 2024 19:23:11 +0000</pubDate><guid>https://tannal.github.io/p/the-hitchhikers-guide-to-firefox-contributor/</guid><description>&lt;script defer src="https://tannal.github.io/youtube.js" type="module"&gt;&lt;/script&gt;
+&lt;h2 id="mozilla--firefox-documentry"&gt;&lt;strong&gt;Mozilla &amp;amp; Firefox Documentry&lt;/strong&gt;
+&lt;/h2&gt;&lt;p&gt;&lt;youtube-player video-id="4Q7FTjhvZ7Y"&gt;&lt;/youtube-player&gt;&lt;/p&gt;
+&lt;h2 id="build"&gt;Build
+&lt;/h2&gt;&lt;p&gt;You need to install rust to use cargo.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;curl --proto &lt;span class="s1"&gt;&amp;#39;=https&amp;#39;&lt;/span&gt; --tlsv1.2 -sSf https://sh.rustup.rs &lt;span class="p"&gt;|&lt;/span&gt; sh
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Setup git and get the codebase.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;cargo install --git https://github.com/glandium/git-cinnabar
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;git cinnabar setup
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;git clone hg::https://hg.mozilla.org/mozilla-unified gecko &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="nb"&gt;cd&lt;/span&gt; gecko
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;git config fetch.prune &lt;span class="nb"&gt;true&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;git cinnabar fetch --tags
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;mv .git/hooks/fsmonitor-watchman.sample .git/hooks/query-watchman
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;git config core.fsmonitor .git/hooks/query-watchman
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Then you can actually build it.&lt;/p&gt;
+&lt;p&gt;Many projects use custom python scripts for building and testing.&lt;/p&gt;
+&lt;p&gt;The one that firefox codebase using is called mach.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;./mach bootstrap
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;./mach run
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The bootstrap process will ask you what target do you want to build?&lt;/p&gt;
+&lt;p&gt;Normally you will choose the desktop firefox browser to build.&lt;/p&gt;
+&lt;p&gt;In practice, you can manually set the config into a file.&lt;/p&gt;
+&lt;p&gt;For example, build SpiderMonkey under the firefox codebase.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nv"&gt;MOZCONFIG&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;mozconfig.jsshell ./mach build
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# For jsshell mozconfig.jsshell&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ac_add_options --enable-application&lt;span class="o"&gt;=&lt;/span&gt;js
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;mk_add_options &lt;span class="nv"&gt;MOZ_OBJDIR&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;@TOPSRCDIR@/obj-@CONFIG_GUESS@-jsshell
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# For full browser&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# echo &amp;#34;ac_add_options --enable-application=browser&amp;#34; &amp;gt; mozconfig.browser&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="how-to-add-a-new-web-platform-test"&gt;How to add a new web platform test
+&lt;/h2&gt;&lt;p&gt;The web platform tests are located in the &lt;code&gt;testing/web-platform/tests&lt;/code&gt; directory.&lt;/p&gt;
+&lt;p&gt;Take the zoom animation discrete test as an example.&lt;/p&gt;
+&lt;p&gt;Create a testing/web-platform/tests/css/css-viewport/zoom/discrete-animation.html file.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-html" data-lang="html"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="cp"&gt;&amp;lt;!DOCTYPE html&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;meta&lt;/span&gt; &lt;span class="na"&gt;charset&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;utf-8&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;title&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;CSS Zoom: animation and transition tests&lt;span class="p"&gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;title&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;link&lt;/span&gt; &lt;span class="na"&gt;rel&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;help&amp;#34;&lt;/span&gt; &lt;span class="na"&gt;href&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;https://drafts.csswg.org/css-transform-2/#propdef-zoom&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;script&lt;/span&gt; &lt;span class="na"&gt;src&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;/resources/testharness.js&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;script&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;script&lt;/span&gt; &lt;span class="na"&gt;src&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;/resources/testharnessreport.js&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;script&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;script&lt;/span&gt; &lt;span class="na"&gt;src&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;/css/support/interpolation-testcommon.js&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;script&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;body&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;script&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;test_no_interpolation&lt;/span&gt;&lt;span class="p"&gt;({&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nx"&gt;property&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;zoom&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nx"&gt;from&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;1&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nx"&gt;to&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;2&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;});&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;script&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Update the test manifest file by running the following command.&lt;/p&gt;
+&lt;p&gt;Then you can run the test.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-sh" data-lang="sh"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;./mach wpt-manifest-update
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;./mach wpt css/css-viewport/zoom/zoom-animation-discrete.html
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The WPT (Web Platform Tests) framework indeed provides many useful helper functions, especially when testing CSS properties and animations.&lt;/p&gt;
+&lt;p&gt;In addition to &lt;code&gt;test_no_interpolation&lt;/code&gt;, there are several other commonly used helper functions. Here are some important examples:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;test_interpolation&lt;/code&gt;: Tests if a property interpolates correctly.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;test_composition&lt;/code&gt;: Tests the combined effect of multiple animations or transitions.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;test_computed_value&lt;/code&gt;: Tests if the computed value matches the expected value.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;test_valid_value&lt;/code&gt;: Tests if a value is valid for a specific property.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;test_invalid_value&lt;/code&gt;: Tests if a value is invalid for a specific property.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;test_property_values&lt;/code&gt;: Tests a set of values for validity or invalidity.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;test_discrete_values&lt;/code&gt;: Tests the behavior of discrete values.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;test_addition&lt;/code&gt;: Tests addition operations, such as stacking transforms.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;test_multiplication&lt;/code&gt;: Tests multiplication operations, such as scaling.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;create_test_element&lt;/code&gt;: Creates an element for testing purposes.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;assert_equals_rounded&lt;/code&gt;: Compares approximately equal numerical values.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Most of these functions are defined in various support files under the &lt;code&gt;/css/support/&lt;/code&gt; directory, such as &lt;code&gt;interpolation-testcommon.js&lt;/code&gt;, &lt;code&gt;computed-testcommon.js&lt;/code&gt;, and so on.&lt;/p&gt;
+&lt;p&gt;Using these helper functions can greatly simplify your test code, improve readability, and maintainability. They encapsulate many common testing patterns and complex setup processes, making it easier to write comprehensive and precise CSS tests.&lt;/p&gt;
+&lt;p&gt;When writing WPT tests, it is recommended to first explore the relevant support files to understand the available helper functions. This helps avoid duplicating existing functionality and ensures that your tests align with the existing style and quality of tests.&lt;/p&gt;
+&lt;p&gt;There is another example of a test for input element vertical alignment.&lt;/p&gt;
+&lt;p&gt;It&amp;rsquo;s a little bit different because it has reference files.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-html" data-lang="html"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="cp"&gt;&amp;lt;!DOCTYPE html&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;meta&lt;/span&gt; &lt;span class="na"&gt;charset&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;utf-8&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;title&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;Input type=range baseline alignment&lt;span class="p"&gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;title&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;link&lt;/span&gt; &lt;span class="na"&gt;rel&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;match&amp;#34;&lt;/span&gt; &lt;span class="na"&gt;href&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;range-baseline-ref.html&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;link&lt;/span&gt; &lt;span class="na"&gt;rel&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;help&amp;#34;&lt;/span&gt; &lt;span class="na"&gt;href&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;https://html.spec.whatwg.org/multipage/input.html#range-state-(type=range)&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;style&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nc"&gt;range-input&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;margin&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;20&lt;/span&gt;&lt;span class="kt"&gt;px&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;padding&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="kt"&gt;px&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;outline&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;20&lt;/span&gt;&lt;span class="kt"&gt;px&lt;/span&gt; &lt;span class="kc"&gt;solid&lt;/span&gt; &lt;span class="kc"&gt;blue&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;visibility&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kc"&gt;hidden&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;style&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;div&lt;/span&gt; &lt;span class="na"&gt;class&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;text-wrapper&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; Baseline text
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;input&lt;/span&gt; &lt;span class="na"&gt;type&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;range&amp;#34;&lt;/span&gt; &lt;span class="na"&gt;class&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;range-input&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; More baseline text
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;div&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-html" data-lang="html"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="cp"&gt;&amp;lt;!DOCTYPE html&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;meta&lt;/span&gt; &lt;span class="na"&gt;charset&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;utf-8&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;title&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;Reference for Input type=range baseline alignment&lt;span class="p"&gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;title&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;style&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nc"&gt;range-placeholder&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;display&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kc"&gt;inline-block&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;margin-top&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;20&lt;/span&gt;&lt;span class="kt"&gt;px&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;margin-left&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;20&lt;/span&gt;&lt;span class="kt"&gt;px&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;margin-right&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;20&lt;/span&gt;&lt;span class="kt"&gt;px&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;padding&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="kt"&gt;px&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;outline&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;20&lt;/span&gt;&lt;span class="kt"&gt;px&lt;/span&gt; &lt;span class="kc"&gt;solid&lt;/span&gt; &lt;span class="kc"&gt;transparent&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;width&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;160&lt;/span&gt;&lt;span class="kt"&gt;px&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;height&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;20&lt;/span&gt;&lt;span class="kt"&gt;px&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;style&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;div&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; Baseline text
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;span&lt;/span&gt; &lt;span class="na"&gt;class&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;range-placeholder&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;span&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; More baseline text
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;div&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="logging"&gt;Logging
+&lt;/h2&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-cpp" data-lang="cpp"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;Debug&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description></item><item><title>Implement the v flag for RegExp in SpiderMonkey</title><link>https://tannal.github.io/p/implement-the-v-flag-for-regexp-in-spidermonkey/</link><pubDate>Sat, 21 Sep 2024 19:23:11 +0000</pubDate><guid>https://tannal.github.io/p/implement-the-v-flag-for-regexp-in-spidermonkey/</guid><description>&lt;h2 id="the-problem"&gt;The problem
+&lt;/h2&gt;&lt;p&gt;The &lt;code&gt;RegExp&lt;/code&gt; object in SpiderMonkey does not support the &lt;code&gt;v&lt;/code&gt; flag. The &lt;code&gt;v&lt;/code&gt; flag is a new flag introduced in ECMAScript 2022. The &lt;code&gt;v&lt;/code&gt; flag is used to match vertical whitespace characters. The vertical whitespace characters are the characters that are used to separate lines of text. The vertical whitespace characters include the following characters:&lt;/p&gt;
+&lt;p&gt;The tc39 proposal for the &lt;code&gt;v&lt;/code&gt; flag can be found &lt;a class="link" href="https://github.com/tc39/proposal-regexp-v-flag?tab=readme-ov-file" target="_blank" rel="noopener"
+&gt;here&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;The proposal is made by Mathias Bynens who was a v8 engineer.&lt;/p&gt;
+&lt;p&gt;See their blog post &lt;a class="link" href="https://v8.dev/features/regexp-v-flag" target="_blank" rel="noopener"
+&gt;here&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id="summary-of-the-v8-post"&gt;Summary of the v8 post
+&lt;/h2&gt;&lt;p&gt;The &lt;code&gt;v&lt;/code&gt; flag is typically used to deal with unicode characters appearing in the RegExp.&lt;/p&gt;
+&lt;p&gt;Matching Emoji characters is a good example of where the &lt;code&gt;v&lt;/code&gt; flag is useful.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-js" data-lang="js"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;// Unicode defines a character property named “Emoji”.
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;&lt;/span&gt;&lt;span class="kr"&gt;const&lt;/span&gt; &lt;span class="nx"&gt;re&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="sr"&gt;/^\p{Emoji}$/u&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;// Match an emoji that consists of just 1 code point:
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;&lt;/span&gt;&lt;span class="nx"&gt;re&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;test&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;⚽&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt; &lt;span class="c1"&gt;// &amp;#39;\u26BD&amp;#39;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;// → true ✅
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;// Match an emoji that consists of multiple code points:
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;&lt;/span&gt;&lt;span class="nx"&gt;re&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;test&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;👨🏾‍⚕️&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt; &lt;span class="c1"&gt;// &amp;#39;\u{1F468}\u{1F3FE}\u200D\u2695\uFE0F&amp;#39;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;// → false ❌
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-js" data-lang="js"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kr"&gt;const&lt;/span&gt; &lt;span class="nx"&gt;re&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="err"&gt;/^\p{RGI_Emoji}$/v;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;// Match an emoji that consists of just 1 code point:
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;&lt;/span&gt;&lt;span class="nx"&gt;re&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;test&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;⚽&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt; &lt;span class="c1"&gt;// &amp;#39;\u26BD&amp;#39;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;// → true ✅
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;// Match an emoji that consists of multiple code points:
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;&lt;/span&gt;&lt;span class="nx"&gt;re&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;test&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;👨🏾‍⚕️&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt; &lt;span class="c1"&gt;// &amp;#39;\u{1F468}\u{1F3FE}\u200D\u2695\uFE0F&amp;#39;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;// → true ✅
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="the-test"&gt;The test
+&lt;/h2&gt;&lt;p&gt;I didn&amp;rsquo;t do this at first, but I should have written a test for this.&lt;/p&gt;
+&lt;p&gt;The v flag is not tested in the test262 testsuite.&lt;/p&gt;
+&lt;p&gt;So I wrote a test for this and contributed back to test262.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-js" data-lang="js"&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="the-regex-v-flag"&gt;The Regex v flag
+&lt;/h2&gt;&lt;h2 id="the-implementation-in-spidermonkey"&gt;The implementation in Spidermonkey
+&lt;/h2&gt;&lt;p&gt;The regex engine in spidermonkey is implemented using v8&amp;rsquo;s irregex engine.&lt;/p&gt;
+&lt;h2 id="reference"&gt;Reference
+&lt;/h2&gt;&lt;p&gt;More on regex engine in spidermonkey.&lt;/p&gt;
+&lt;p&gt;&lt;a class="link" href="https://hacks.mozilla.org/2020/06/a-new-regexp-engine-in-spidermonkey/" target="_blank" rel="noopener"
+&gt;https://hacks.mozilla.org/2020/06/a-new-regexp-engine-in-spidermonkey/&lt;/a&gt;&lt;/p&gt;</description></item><item><title>CSS Day 2024</title><link>https://tannal.github.io/p/css-day-2024/</link><pubDate>Sat, 14 Sep 2024 19:23:11 +0000</pubDate><guid>https://tannal.github.io/p/css-day-2024/</guid><description>&lt;script defer src="https://tannal.github.io/youtube.js" type="module"&gt;&lt;/script&gt;
+&lt;script defer src="https://tannal.github.io/webgl.js" type="module"&gt;&lt;/script&gt;
+&lt;h2 id="how-to-teach-css"&gt;How to teach CSS
+&lt;/h2&gt;&lt;p&gt;&lt;youtube-player video-id="ZPTVr2pS0XE"&gt;&lt;/youtube-player&gt;&lt;/p&gt;
+&lt;h2 id="start-over-engineering-your-css"&gt;Start over-engineering your CSS
+&lt;/h2&gt;&lt;p&gt;&lt;youtube-player video-id="k_3pRxdv-cI"&gt;&lt;/youtube-player&gt;&lt;/p&gt;
+&lt;h2 id="web-design-engineering"&gt;Web Design Engineering
+&lt;/h2&gt;&lt;p&gt;&lt;youtube-player video-id="su6WA0kUUJE"&gt;&lt;/youtube-player&gt;&lt;/p&gt;
+&lt;h2 id="layout-and-reading-order"&gt;Layout and Reading Order
+&lt;/h2&gt;&lt;p&gt;&lt;youtube-player video-id="X6azWrtHS-k"&gt;&lt;/youtube-player&gt;&lt;/p&gt;
+&lt;h2 id="utility-first-css-isnt-inline-styles--sarah-dayan"&gt;Utility First CSS Isn’t Inline Styles | Sarah Dayan
+&lt;/h2&gt;&lt;p&gt;&lt;youtube-player video-id="g6wtyg3O4Fo"&gt;&lt;/youtube-player&gt;&lt;/p&gt;
+&lt;h2 id="character-modeling-in-css--julia-miocene"&gt;Character Modeling in CSS | Julia Miocene
+&lt;/h2&gt;&lt;p&gt;&lt;youtube-player video-id="l9It4DraRm0"&gt;&lt;/youtube-player&gt;&lt;/p&gt;
+&lt;h2 id="problems-solved-by-opentype--roel-nieskens"&gt;Problems solved by OpenType | Roel Nieskens
+&lt;/h2&gt;&lt;p&gt;&lt;youtube-player video-id="TreBK-EyACQ"&gt;&lt;/youtube-player&gt;&lt;/p&gt;
+&lt;h2 id="standardization-stories--elika-etemad"&gt;Standardization Stories | Elika Etemad
+&lt;/h2&gt;&lt;p&gt;&lt;youtube-player video-id="krh_nb9PdVk"&gt;&lt;/youtube-player&gt;&lt;/p&gt;
+&lt;h2 id="the-garden-and-the-treadmill--stephen-hay"&gt;The Garden and The Treadmill | Stephen Hay
+&lt;/h2&gt;&lt;p&gt;&lt;youtube-player video-id="qckCVuMxBts"&gt;&lt;/youtube-player&gt;&lt;/p&gt;
+&lt;!-- &lt;canvas-2d width="800" height="600"&gt;
+&lt;line-2d x1="100" y1="100" x2="700" y2="500" color="#000000" width="5"&gt;&lt;/line-2d&gt;
+&lt;rect-2d x="50" y="50" width="200" height="100" color="#FF0000"&gt;&lt;/rect-2d&gt;
+&lt;circle-2d cx="400" cy="300" radius="50" color="#0000FF"&gt;&lt;/circle-2d&gt;
+&lt;/canvas-2d&gt; --&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-cpp" data-lang="cpp"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;Debug&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;textarea id="input" placeholder="Enter text to tokenize"&gt;&lt;/textarea&gt;
+&lt;p&gt;&lt;button id="tokenize" disabled&gt;Tokenize&lt;/button&gt;&lt;/p&gt;
+&lt;div id="output"&gt;&lt;/div&gt;
+&lt;script&gt;
+const inputEl = document.getElementById('input');
+const outputEl = document.getElementById('output');
+const tokenizeBtn = document.getElementById('tokenize');
+let wasmModule;
+WebAssembly.instantiateStreaming(fetch("/tokenizer.wasm"), {})
+.then(result =&gt; {
+wasmModule = result.instance.exports;
+if (typeof wasmModule.tokenize !== 'function') {
+throw new Error('tokenize function not found in WebAssembly module');
+}
+tokenizeBtn.disabled = false;
+console.log('WebAssembly module loaded successfully');
+})
+.catch(error =&gt; {
+console.error('Failed to load WebAssembly module:', error);
+outputEl.textContent = 'Error: Failed to load tokenizer';
+});
+tokenizeBtn.addEventListener('click', () =&gt; {
+if (!wasmModule) {
+outputEl.textContent = 'Error: WebAssembly module not loaded';
+return;
+}
+try {
+const input = inputEl.value;
+const tokenizedArray = wasmModule.tokenize(input);
+outputEl.textContent = `Tokenized sequence:\n${tokenizedArray.join(' ')}`;
+} catch (error) {
+console.error('Error during tokenization:', error);
+outputEl.textContent = 'Error: Tokenization failed';
+}
+});
+&lt;/script&gt;</description></item><item><title>The Documentries</title><link>https://tannal.github.io/p/the-documentries/</link><pubDate>Sat, 14 Sep 2024 19:23:11 +0000</pubDate><guid>https://tannal.github.io/p/the-documentries/</guid><description>&lt;script defer src="https://tannal.github.io/youtube.js" type="module"&gt;&lt;/script&gt;
+&lt;!-- &lt;script defer src="https://www.youtube.com/iframe_api" type="module"&gt;&lt;/script&gt; --&gt;
+&lt;h2 id="unix-documentry"&gt;UNIX Documentry
+&lt;/h2&gt;&lt;p&gt;&lt;youtube-player video-id="tc4ROCJYbm0"&gt;&lt;/youtube-player&gt;&lt;/p&gt;
+&lt;h2 id="gnulinux-documentry"&gt;&lt;strong&gt;GNU/Linux Documentry&lt;/strong&gt;
+&lt;/h2&gt;&lt;p&gt;&lt;youtube-player video-id="k0RYQVkQmWU"&gt;&lt;/youtube-player&gt;&lt;/p&gt;
+&lt;h2 id="mozillafirefox-documentry"&gt;Mozilla/Firefox Documentry
+&lt;/h2&gt;&lt;p&gt;&lt;youtube-player video-id="4Q7FTjhvZ7Y"&gt;&lt;/youtube-player&gt;&lt;/p&gt;
+&lt;h2 id="pytorch-documentry"&gt;PyTorch Documentry
+&lt;/h2&gt;&lt;p&gt;&lt;youtube-player video-id="rgP_LBtaUEc"&gt;&lt;/youtube-player&gt;&lt;/p&gt;
+&lt;h2 id="the-story-of-minecraft"&gt;The Story of Minecraft
+&lt;/h2&gt;&lt;p&gt;&lt;youtube-player video-id="6dfncxXtH_o"&gt;&lt;/youtube-player&gt;&lt;/p&gt;
+&lt;!-- ## Arduino Documentry
+&lt;youtube-player video-id="18539129"&gt;&lt;/youtube-player&gt; --&gt;
+&lt;h2 id="ebpf-documentry"&gt;eBPF Documentry
+&lt;/h2&gt;&lt;p&gt;&lt;youtube-player video-id="Wb_vD3XZYOA"&gt;&lt;/youtube-player&gt;&lt;/p&gt;
+&lt;h2 id="kubernetes-k8s-documentry"&gt;Kubernetes (k8s) Documentry
+&lt;/h2&gt;&lt;p&gt;&lt;youtube-player video-id="BE77h7dmoQU"&gt;&lt;/youtube-player&gt;&lt;/p&gt;
+&lt;h2 id="nodejs-documentry"&gt;Node.js Documentry
+&lt;/h2&gt;&lt;p&gt;&lt;youtube-player video-id="LB8KwiiUGy0"&gt;&lt;/youtube-player&gt;&lt;/p&gt;
+&lt;h2 id="vuejs-documentry"&gt;Vue.js Documentry
+&lt;/h2&gt;&lt;p&gt;&lt;youtube-player video-id="2EmYw-O-WLI"&gt;&lt;/youtube-player&gt;&lt;/p&gt;
+&lt;h2 id="react-documentry"&gt;React Documentry
+&lt;/h2&gt;&lt;p&gt;&lt;youtube-player video-id="8pDqJVdNa44"&gt;&lt;/youtube-player&gt;&lt;/p&gt;
+&lt;h2 id="typescript-documentry"&gt;TypeScript Documentry
+&lt;/h2&gt;&lt;p&gt;&lt;youtube-player video-id="U6s2pdxebSo"&gt;&lt;/youtube-player&gt;&lt;/p&gt;
+&lt;h2 id="kotlin-documentry"&gt;Kotlin Documentry
+&lt;/h2&gt;&lt;p&gt;&lt;youtube-player video-id="E8CtE7qTb-Q"&gt;&lt;/youtube-player&gt;&lt;/p&gt;</description></item><item><title>The Hitchhiker's Guide to Node Contributor</title><link>https://tannal.github.io/p/the-hitchhikers-guide-to-node-contributor/</link><pubDate>Sat, 14 Sep 2024 19:23:11 +0000</pubDate><guid>https://tannal.github.io/p/the-hitchhikers-guide-to-node-contributor/</guid><description>&lt;script defer src="https://tannal.github.io/youtube.js" type="module"&gt;&lt;/script&gt;
+&lt;h2 id="nodejs-documentry"&gt;&lt;strong&gt;Nodejs Documentry&lt;/strong&gt;
+&lt;/h2&gt;&lt;p&gt;&lt;youtube-player video-id="LB8KwiiUGy0"&gt;&lt;/youtube-player&gt;&lt;/p&gt;
+&lt;h2 id="build"&gt;Build
+&lt;/h2&gt;&lt;p&gt;First we need to generate ninja.build, the configure script will generate both release and debug build.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;./configure --ninja --debug --v8-with-dchecks -C --node-builtin-modules-path &lt;span class="k"&gt;$(&lt;/span&gt;&lt;span class="nb"&gt;pwd&lt;/span&gt;&lt;span class="k"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;make -j
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The build process is quite slow beacuse we need to build v8 from source.&lt;/p&gt;
+&lt;p&gt;ccache might speed up build process especially in incremental rebuild.&lt;/p&gt;
+&lt;p&gt;Then the build directory is out/Release and out/Debug.&lt;/p&gt;
+&lt;p&gt;Node typically contains two parts of code, one is C++ code which abstract v8 and the host system, another part is js code which executed by v8.&lt;/p&gt;
+&lt;p&gt;You can run tests with tools/test.py&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;python tools/test.py -p tap --logfile test.tap --mode&lt;span class="o"&gt;=&lt;/span&gt;release --flaky-tests&lt;span class="o"&gt;=&lt;/span&gt;keep_retrying -p actions --node-args&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;--test-reporter=spec&amp;#39;&lt;/span&gt; --node-args&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;--test-reporter-destination=stdout&amp;#39;&lt;/span&gt; --measure-flakiness &lt;span class="m"&gt;9&lt;/span&gt; test/parallel/test-zlib-crc32.js
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;You can lint your code (no auto fix) with &lt;code&gt;make lint-cpp&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id="logging"&gt;Logging
+&lt;/h2&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-cpp" data-lang="cpp"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;Debug&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description></item><item><title>Training an AI for melody creating</title><link>https://tannal.github.io/p/training-an-ai-for-melody-creating/</link><pubDate>Sat, 14 Sep 2024 19:23:11 +0000</pubDate><guid>https://tannal.github.io/p/training-an-ai-for-melody-creating/</guid><description>&lt;script defer src="https://tannal.github.io/youtube.js" type="module"&gt;&lt;/script&gt;
+&lt;script defer typse="module" src="https://cdn.jsdelivr.net/combine/npm/tone@14.7.58,npm/@magenta/music@1.23.1/es6/core.js,npm/focus-visible@5,npm/html-midi-player@1.4.0"&gt;&lt;/script&gt;
+&lt;p&gt;&lt;midi-visualizer type="piano-roll" id="myVisualizer"&gt;&lt;/midi-visualizer&gt;&lt;/p&gt;
+&lt;p&gt;&lt;midi-player
+src="https://tannal.github.io/test.mid"
+sound-font visualizer="#myVisualizer"&gt;
+&lt;/midi-player&gt;&lt;/p&gt;
+&lt;script defer src="https://tannal.github.io/bilibili-player.js" type="module"&gt;&lt;/script&gt;
+&lt;!-- &lt;bilibili-player bvid="BV1sxtsegEf3"&gt;&lt;/bilibili-player&gt;; --&gt;
+&lt;h2 id="music-theory"&gt;Music theory
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;melody&lt;/li&gt;
+&lt;li&gt;harmony&lt;/li&gt;
+&lt;li&gt;rhythm&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="dataset"&gt;Dataset
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;Lakh MIDI Dataset 包含 17 万多个 MIDI 文件。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a class="link" href="https://colinraffel.com/projects/lmd/#get" target="_blank" rel="noopener"
+&gt;https://colinraffel.com/projects/lmd/#get&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;MAESTRO Dataset 古典钢琴音乐数据集。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a class="link" href="https://magenta.tensorflow.org/datasets/maestro" target="_blank" rel="noopener"
+&gt;https://magenta.tensorflow.org/datasets/maestro&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;FMA (Free Music Archive) 包含各种流派的音频文件。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a class="link" href="https://freemusicarchive.org/search/?quicksearch=&amp;amp;search-genre=Classical" target="_blank" rel="noopener"
+&gt;https://freemusicarchive.org/search/?quicksearch=&amp;search-genre=Classical&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;MusicNet 古典音乐数据集，带有乐器、音高等标注。&lt;/li&gt;
+&lt;li&gt;Million Song Dataset 大规模音乐元数据集。&lt;/li&gt;
+&lt;li&gt;RWC (Real World Computing) Music Database 包含流行音乐、古典音乐等多种类型。&lt;/li&gt;
+&lt;li&gt;NSynth Dataset 由 Google 发布的单音音色数据集。&lt;/li&gt;
+&lt;li&gt;MUSDB18 多轨音乐分离数据集。&lt;/li&gt;
+&lt;li&gt;Nottingham Database 民谣曲调数据集。&lt;/li&gt;
+&lt;li&gt;Bach Chorales Dataset 巴赫合唱曲数据集。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="tranditional-music-generation"&gt;Tranditional Music Generation
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;Rule-based&lt;/li&gt;
+&lt;li&gt;Markov Chain&lt;/li&gt;
+&lt;li&gt;Hidden Markov Model&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="neural-network-music-generation"&gt;Neural Network Music Generation
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;LSTM&lt;/li&gt;
+&lt;li&gt;GRU&lt;/li&gt;
+&lt;li&gt;Transformer&lt;/li&gt;
+&lt;li&gt;VAE&lt;/li&gt;
+&lt;li&gt;GAN&lt;/li&gt;
+&lt;li&gt;RL&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="music-assistant-tools"&gt;Music assistant tools
+&lt;/h2&gt;&lt;h2 id="related-work"&gt;Related Work
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a class="link" href="https://magenta.tensorflow.org/" target="_blank" rel="noopener"
+&gt;Magenta&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a class="link" href="https://openai.com/research/jukebox/" target="_blank" rel="noopener"
+&gt;OpenAI Jukebox&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a class="link" href="https://magenta.tensorflow.org/" target="_blank" rel="noopener"
+&gt;Google Magenta&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a class="link" href="https://deepj.net/" target="_blank" rel="noopener"
+&gt;DeepJ&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a class="link" href="https://www.aiva.ai/" target="_blank" rel="noopener"
+&gt;AIVA&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a class="link" href="https://www.ampermusic.com/" target="_blank" rel="noopener"
+&gt;Amper Music&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a class="link" href="https://www.jukedeck.com/" target="_blank" rel="noopener"
+&gt;Jukedeck&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a class="link" href="https://www.flow-machines.com/" target="_blank" rel="noopener"
+&gt;Flow Machines&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a class="link" href="https://openai.com/research/jukebox/" target="_blank" rel="noopener"
+&gt;MuseNet&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a class="link" href="https://magenta.tensorflow.org/nsynth" target="_blank" rel="noopener"
+&gt;NSynth&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a class="link" href="https://magenta.tensorflow.org/music-vae" target="_blank" rel="noopener"
+&gt;MusicVAE&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a class="link" href="https://magenta.tensorflow.org/ddsp" target="_blank" rel="noopener"
+&gt;DDSP&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a class="link" href="https://magenta.tensorflow.org/onsets-frames" target="_blank" rel="noopener"
+&gt;Onsets and Frames&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="appendix"&gt;Appendix
+&lt;/h2&gt;&lt;h3 id="mixed-precision-training"&gt;Mixed precision training
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a class="link" href="https://pytorch.org/docs/stable/notes/amp_examples.html" target="_blank" rel="noopener"
+&gt;Mixed precision training&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;stochastic_rounding is a technique that can be used to improve the accuracy of the model when using mixed precision training. It is a rounding technique that rounds to the nearest even integer, which can help reduce the bias introduced by rounding errors.&lt;/p&gt;
+&lt;p&gt;It is used in Adamw optimizer and encoder in the transformer model.&lt;/p&gt;
+&lt;p&gt;Parameters update in the optimizer is done in FP32, while the model weights are stored in FP16. This can lead to a loss of precision in the model weights, which can affect the accuracy of the model. stochastic_rounding can help reduce this loss of precision by rounding the model weights to the nearest even integer.&lt;/p&gt;</description></item><item><title>React Documentry</title><link>https://tannal.github.io/p/react-documentry/</link><pubDate>Sat, 14 Sep 2024 14:23:11 +0000</pubDate><guid>https://tannal.github.io/p/react-documentry/</guid><description>&lt;script defer src="https://tannal.github.io/youtube.js" type="module"&gt;&lt;/script&gt;
+&lt;h2 id="react-documentry"&gt;&lt;strong&gt;React Documentry&lt;/strong&gt;
+&lt;/h2&gt;&lt;p&gt;&lt;youtube-player video-id="8pDqJVdNa44"&gt;&lt;/youtube-player&gt;&lt;/p&gt;
+&lt;p&gt;The Creator of React is Jorden.&lt;/p&gt;
+&lt;h2 id="开源"&gt;&lt;strong&gt;开源&lt;/strong&gt;
+&lt;/h2&gt;</description></item><item><title>All you need to know about editor</title><link>https://tannal.github.io/p/all-you-need-to-know-about-editor/</link><pubDate>Fri, 13 Sep 2024 14:23:11 +0000</pubDate><guid>https://tannal.github.io/p/all-you-need-to-know-about-editor/</guid><description>&lt;h2 id="history"&gt;History
+&lt;/h2&gt;</description></item><item><title>All you need to know about memory allocator</title><link>https://tannal.github.io/p/all-you-need-to-know-about-memory-allocator/</link><pubDate>Fri, 13 Sep 2024 14:23:11 +0000</pubDate><guid>https://tannal.github.io/p/all-you-need-to-know-about-memory-allocator/</guid><description>&lt;h2 id="history"&gt;History
+&lt;/h2&gt;&lt;h2 id="kernel-space-allocator"&gt;Kernel-space allocator
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;buddy allocator - A memory allocator that is used in many operating systems. (Per Brinch Hansen, 1970)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;slab allocator - A memory allocator that is used in the Linux kernel. (Jeff Bonwick, 1994)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;jemalloc - A general-purpose memory allocator that is widely used in production systems. (Jason Evans, 2005)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;tcmalloc - A thread-caching memory allocator that is used in Google&amp;rsquo;s production systems. (Sanjay Ghemawat, 2004)&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="user-space-allocator"&gt;User-space allocator
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;jemalloc - A general-purpose memory allocator that is widely used in production systems. (Jason Evans, 2005)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;tcmalloc - A thread-caching memory allocator that is used in Google&amp;rsquo;s production systems. (Sanjay Ghemawat, 2004)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;malloc - The standard memory allocator in the C standard library. (Doug Lea, 1979)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;dlmalloc - A memory allocator that is used in many Unix systems. (Doug Lea, 2001)&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</description></item><item><title>All you need to know about networking and internet protocol</title><link>https://tannal.github.io/p/all-you-need-to-know-about-networking-and-internet-protocol/</link><pubDate>Fri, 13 Sep 2024 14:23:11 +0000</pubDate><guid>https://tannal.github.io/p/all-you-need-to-know-about-networking-and-internet-protocol/</guid><description>&lt;h2 id="history"&gt;History
+&lt;/h2&gt;&lt;h2 id="kernel-space-networking"&gt;Kernel-space networking
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;TCP/IP - The Transmission Control Protocol/Internet Protocol is the foundation of the Internet. (Vint Cerf and Bob Kahn, 1974)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;UDP - The User Datagram Protocol is a simple, connectionless protocol that is used for real-time applications. (David P. Reed, 1980)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;IP - The Internet Protocol is the network layer protocol that is used to route packets on the Internet. (Vint Cerf and Bob Kahn, 1974)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Ethernet - The Ethernet protocol is the most widely used local area network protocol. (Robert Metcalfe and David Boggs, 1973)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;ARP - The Address Resolution Protocol is used to map IP addresses to MAC addresses. (David C. Plummer, 1982)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;ICMP - The Internet Control Message Protocol is used to send error messages and control messages on the Internet. (Jon Postel, 1981)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;DNS - The Domain Name System is used to translate domain names to IP addresses. (Paul Mockapetris, 1983)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;DHCP - The Dynamic Host Configuration Protocol is used to assign IP addresses to hosts on a network. (Ralph Droms, 1993)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;NAT - Network Address Translation is used to map private IP addresses to public IP addresses. (Masataka Ohta, 1994)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;BGP - The Border Gateway Protocol is used to route packets between autonomous systems on the Internet. (Yakov Rekhter and Kirk Lougheed, 1989)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;OSPF - The Open Shortest Path First protocol is used to route packets within an autonomous system. (John Moy, 1988)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;RIP - The Routing Information Protocol is a simple routing protocol that is used on small networks. (Charles Hedrick, 1988)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;IPsec - The Internet Protocol Security protocol is used to secure IP communications. (Steven Bellovin, John Ioannidis, and Aviel Rubin, 1994)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;SSL/TLS - The Secure Sockets Layer/Transport Layer Security protocol is used to secure web communications. (Netscape Communications, 1994)&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="user-space-networking"&gt;User-space networking
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;HTTP - The Hypertext Transfer Protocol is used to transfer web pages on the Internet. (Tim Berners-Lee, 1991)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;FTP - The File Transfer Protocol is used to transfer files on the Internet. (Abhay Bhushan, 1971)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;SMTP - The Simple Mail Transfer Protocol is used to send email on the Internet. (Jon Postel, 1982)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;POP3 - The Post Office Protocol version 3 is used to retrieve email from a server. (Marshall Rose, 1988)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;IMAP - The Internet Message Access Protocol is used to retrieve email from a server. (Mark Crispin, 1986)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Telnet - The Telnet protocol is used to access remote computers over a network. (Paul Mockapetris, 1983)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;SSH - The Secure Shell protocol is used to access remote computers securely. (Tatu Ylönen, 1995)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;SNMP - The Simple Network Management Protocol is used to manage network devices. (Marshall Rose, 1988)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;NTP - The Network Time Protocol is used to synchronize the clocks of computers on a network. (David L. Mills, 1985)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;DHCP - The Dynamic Host Configuration Protocol is used to assign IP addresses to hosts on a network. (Ralph Droms, 1993)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;DNS - The Domain Name System is used to translate domain names to IP addresses. (Paul Mockapetris, 1983)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;NAT - Network Address Translation is used to map private IP addresses to public IP addresses. (Masataka Ohta, 1994)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;BGP - The Border Gateway Protocol is used to route packets between autonomous systems on the Internet. (Yakov Rekhter and Kirk Lougheed, 1989)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;OSPF - The Open Shortest Path First protocol is used to route packets within an autonomous system. (John Moy, 1988)&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="client-networking"&gt;Client networking
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Web browser - A software application that is used to access web pages on the Internet. (Tim Berners-Lee, 1991)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Email client - A software application that is used to send and receive email on the Internet. (Jon Postel, 1982)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;FTP client - A software application that is used to transfer files on the Internet. (Abhay Bhushan, 1971)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;SSH client - A software application that is used to access remote computers securely. (Tatu Ylönen, 1995)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Telnet client - A software application that is used to access remote computers over a network. (Paul Mockapetris, 1983)&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="server-networking"&gt;Server Networking
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Web server - A software application that is used to serve web pages on the Internet. (Tim Berners-Lee, 1991)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Email server - A software application that is used to send and receive email on the Internet. (Jon Postel, 1982)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;FTP server - A software application that is used to transfer files on the Internet. (Abhay Bhushan, 1971)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;SSH server - A software application that is used to access remote computers securely. (Tatu Ylönen, 1995)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Telnet server - A software application that is used to access remote computers over a network. (Paul Mockapetris, 1983)&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</description></item><item><title>All you need to know about storage system and DBMS</title><link>https://tannal.github.io/p/all-you-need-to-know-about-storage-system-and-dbms/</link><pubDate>Fri, 13 Sep 2024 14:23:11 +0000</pubDate><guid>https://tannal.github.io/p/all-you-need-to-know-about-storage-system-and-dbms/</guid><description>&lt;h2 id="history"&gt;History
+&lt;/h2&gt;</description></item><item><title>KTV in 9-11</title><link>https://tannal.github.io/p/ktv-in-9-11/</link><pubDate>Fri, 13 Sep 2024 14:23:11 +0000</pubDate><guid>https://tannal.github.io/p/ktv-in-9-11/</guid><description>&lt;script defer src="https://tannal.github.io/bilibili-player.js" type="module"&gt;&lt;/script&gt;
+&lt;p&gt;&lt;bilibili-player bvid="BV1eM4EeeET2"&gt;&lt;/bilibili-player&gt;;&lt;/p&gt;</description></item><item><title>KTV in 9-11</title><link>https://tannal.github.io/p/ktv-in-9-11/</link><pubDate>Fri, 13 Sep 2024 14:23:11 +0000</pubDate><guid>https://tannal.github.io/p/ktv-in-9-11/</guid><description>&lt;script defer src="https://tannal.github.io/bilibili-player.js" type="module"&gt;&lt;/script&gt;
+&lt;p&gt;&lt;bilibili-player bvid="BV1eM4EeeET2"&gt;&lt;/bilibili-player&gt;;&lt;/p&gt;</description></item><item><title>The phylosophy of AI</title><link>https://tannal.github.io/p/the-phylosophy-of-ai/</link><pubDate>Fri, 06 Sep 2024 10:51:56 +0800</pubDate><guid>https://tannal.github.io/p/the-phylosophy-of-ai/</guid><description>&lt;h2 id="be-concise-and-different"&gt;Be concise and different
+&lt;/h2&gt;&lt;p&gt;We must teach ai which part should it keep the same with the data&lt;/p&gt;
+&lt;p&gt;which part should it be flexiable and different with the data&lt;/p&gt;
+&lt;h2 id="human-can-precive-something-exist-that-cannt-be-uniform-defined"&gt;Human can precive something exist that cann&amp;rsquo;t be uniform defined.
+&lt;/h2&gt;&lt;p&gt;I know it when I see it.&lt;/p&gt;
+&lt;h2 id=""&gt;
+&lt;/h2&gt;&lt;h2 id="pytorch版本的gpt2"&gt;Pytorch版本的GPT2
+&lt;/h2&gt;&lt;h2 id="gpt2"&gt;GPT2
+&lt;/h2&gt;&lt;h3 id="模型实现"&gt;模型实现
+&lt;/h3&gt;&lt;h4 id="flash-注意力"&gt;Flash 注意力
+&lt;/h4&gt;&lt;h4 id="混合精度"&gt;混合精度
+&lt;/h4&gt;&lt;h3 id="前向传播"&gt;前向传播
+&lt;/h3&gt;&lt;h3 id="反向传播"&gt;反向传播
+&lt;/h3&gt;&lt;h3 id="自动微分"&gt;自动微分
+&lt;/h3&gt;&lt;h3 id="梯度更新"&gt;梯度更新
+&lt;/h3&gt;&lt;h3 id="内存管理"&gt;内存管理
+&lt;/h3&gt;&lt;h3 id="cuda后端"&gt;CUDA后端
+&lt;/h3&gt;&lt;h3 id="单机多卡"&gt;单机多卡
+&lt;/h3&gt;&lt;h3 id="多机多卡"&gt;多机多卡
+&lt;/h3&gt;&lt;h2 id="llama3"&gt;LLama3
+&lt;/h2&gt;</description></item><item><title>About</title><link>https://tannal.github.io/about/</link><pubDate>Sun, 06 Mar 2022 00:00:00 +0000</pubDate><guid>https://tannal.github.io/about/</guid><description>&lt;p&gt;Hi, I&amp;rsquo;m Mego Tan. I&amp;rsquo;m a passionate developer with a deep interest in browser engines, web technologies, and open-source contributions.&lt;/p&gt;
+&lt;h2 id="key-interests"&gt;Key Interests:
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;Browser engines (WebKit, Gecko, Servo)&lt;/li&gt;
+&lt;li&gt;Web standards and specifications&lt;/li&gt;
+&lt;li&gt;Open-source development&lt;/li&gt;
+&lt;li&gt;Systems programming (C++, Rust)&lt;/li&gt;
+&lt;li&gt;Performance optimization&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="consulting"&gt;Consulting
+&lt;/h2&gt;&lt;p&gt;I&amp;rsquo;m available for consulting on a variety of topics, including:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;WebAssembly and SIMD&lt;/li&gt;
+&lt;li&gt;Web standards and browser compatibility&lt;/li&gt;
+&lt;li&gt;Performance optimization&lt;/li&gt;
+&lt;li&gt;Open-source development&lt;/li&gt;
+&lt;li&gt;LLMs and Articifial Intelligence&lt;/li&gt;
+&lt;/ul&gt;</description></item><item><title>Archives</title><link>https://tannal.github.io/archives/</link><pubDate>Sun, 06 Mar 2022 00:00:00 +0000</pubDate><guid>https://tannal.github.io/archives/</guid><description/></item><item><title/><link>https://tannal.github.io/p/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://tannal.github.io/p/</guid><description/></item><item><title>Search</title><link>https://tannal.github.io/search/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://tannal.github.io/search/</guid><description/></item></channel></rss>
