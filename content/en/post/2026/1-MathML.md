@@ -13,6 +13,10 @@ First create MathMLAnchorElement mathml_anchor_element.h and mathml_anchor_eleme
 
 ```idl
 // mathml_anchor_element.idl
+// Copyright 2026 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
 // https://mathml-refresh.github.io/mathml-core/#dom-and-global-attributes
 [Exposed=Window]
 interface MathMLAnchorElement : MathMLElement {
@@ -20,56 +24,61 @@ interface MathMLAnchorElement : MathMLElement {
     [CEReactions, Reflect] attribute DOMString target;
     [CEReactions, Reflect] attribute DOMString download;
     [CEReactions, Reflect] attribute DOMString rel;
-    [CEReactions, Reflect] attribute DOMString referrerpolicy;
+    [CEReactions, Reflect, ReflectOnly="noreferrer", ReflectOnly="no-referrer", ReflectOnly="origin", ReflectOnly="no-referrer-when-downgrade", ReflectOnly="origin-when-cross-origin", ReflectOnly="unsafe-url"] attribute DOMString referrerpolicy;
     [PutForwards=value] readonly attribute DOMTokenList relList;
 
-    // 支持 tabindex 等全局属性已在 MathMLElement 中处理
+    // 添加 Ping 属性以对齐 HTML/SVG 的功能
+    [CEReactions, Reflect] attribute DOMString ping;
 };
 ```
 
 ```c++
 // mathml_anchor_element.h
 
+// Copyright 2026 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
 #ifndef THIRD_PARTY_BLINK_RENDERER_CORE_MATHML_MATHML_ANCHOR_ELEMENT_H_
 #define THIRD_PARTY_BLINK_RENDERER_CORE_MATHML_MATHML_ANCHOR_ELEMENT_H_
 
+#include "third_party/blink/renderer/core/core_export.h"
+#include "third_party/blink/renderer/core/dom/rel_list.h"
 #include "third_party/blink/renderer/core/mathml/mathml_element.h"
-#include "third_party/blink/renderer/core/dom/element_rare_data_field.h"
-#include "third_party/blink/renderer/platform/weborigin/kurl.h"
 
 namespace blink {
 
-class MathMLAnchorElement final : public MathMLElement {
+class MouseEvent;
+
+class CORE_EXPORT MathMLAnchorElement final : public MathMLElement {
   DEFINE_WRAPPERTYPEINFO();
 
  public:
   explicit MathMLAnchorElement(Document&);
 
-  // 核心链接功能支持
-  bool HasActivationBehavior() const override { return true; }
-  void DefaultEventHandler(Event&) override;
-  
-  // 属性解析与状态
-  void ParseAttribute(const AttributeModificationParams&) override;
-  bool IsURLAttribute(const Attribute&) const override;
-  bool IsFocusableState(UpdateBehavior) const override;
-  int DefaultTabIndex() const override;
-  
-  // 布局关联
-  LayoutObject* CreateLayoutObject(const ComputedStyle&) override;
-
-  // IDL 接口实现
-  KURL Href() const;
-  void setHref(const String&);
-  
   void Trace(Visitor*) const override;
 
- private:
-  // 参考 HTMLAnchorElementBase 的逻辑
-  void HandleClick(MouseEvent&);
-  void NavigateToHyperlink(Event&, NavigationPolicy);
+  // 链接核心状态
+  bool HasActivationBehavior() const override;
+  void DefaultEventHandler(Event&) override;
+  bool IsInteractiveContent() const override { return true; }
+
+  // 属性解析
+  void ParseAttribute(const AttributeModificationParams&) override;
+  bool IsURLAttribute(const Attribute&) const override;
   
-  unsigned link_relations_ : 16; // 存储 rel 属性关系
+  // 布局与焦点
+  LayoutObject* CreateLayoutObject(const ComputedStyle&) override;
+  FocusableState SupportsFocus(UpdateBehavior) const override;
+  int DefaultTabIndex() const override;
+
+  RelList* relList() const { return rel_list_.Get(); }
+
+ private:
+  void HandleClick(MouseEvent&);
+  
+  Member<RelList> rel_list_;
+  unsigned link_relations_ : 16;
 };
 
 }  // namespace blink
@@ -81,45 +90,76 @@ class MathMLAnchorElement final : public MathMLElement {
 
 ```c++
 // mathml_anchor_element.cc
+// Copyright 2026 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
 #include "third_party/blink/renderer/core/mathml/mathml_anchor_element.h"
 
+#include "third_party/blink/renderer/core/dom/document.h"
 #include "third_party/blink/renderer/core/events/mouse_event.h"
-#include "third_party/blink/renderer/core/mathml_names.h"
-#include "third_party/blink/renderer/core/layout/mathml/layout_mathml_block.h"
 #include "third_party/blink/renderer/core/html/anchor_element_utils.h"
+#include "third_party/blink/renderer/core/html/html_anchor_element.h"
+#include "third_party/blink/renderer/core/layout/mathml/layout_mathml_block.h"
+#include "third_party/blink/renderer/core/mathml_names.h"
+#include "third_party/blink/renderer/core/loader/frame_load_request.h"
+#include "third_party/blink/renderer/platform/weborigin/security_origin.h"
 
 namespace blink {
 
 MathMLAnchorElement::MathMLAnchorElement(Document& document)
-    : MathMLElement(mathml_names::kATag, document), link_relations_(0) {}
+    : MathMLElement(mathml_names::kATag, document),
+      rel_list_(MakeGarbageCollected<RelList>(this, mathml_names::kRelAttr)),
+      link_relations_(0) {}
+
+void MathMLAnchorElement::Trace(Visitor* visitor) const {
+  visitor->Trace(rel_list_);
+  MathMLElement::Trace(visitor);
+}
 
 LayoutObject* MathMLAnchorElement::CreateLayoutObject(const ComputedStyle& style) {
-  // MathML <a> 应该是透明的容器，LayoutMathMLBlock 能够处理内部数学布局
-  return new LayoutMathMLBlock(this);
+  // 借鉴 SVG：MathML <a> 作为一个“透明”的容器块
+  // LayoutMathMLBlock 会根据 MathML 规则排列其子元素
+  return MakeGarbageCollected<LayoutMathMLBlock>(this);
 }
 
 void MathMLAnchorElement::ParseAttribute(const AttributeModificationParams& params) {
   if (params.name == mathml_names::kHrefAttr) {
+    bool was_link = IsLink();
     SetIsLink(!params.new_value.IsNull());
-    PseudoStateChanged(CSSSelector::kPseudoAnyLink);
-    PseudoStateChanged(CSSSelector::kPseudoLink);
+    if (was_link != IsLink()) {
+      PseudoStateChanged(CSSSelector::kPseudoLink);
+      PseudoStateChanged(CSSSelector::kPseudoVisited);
+      PseudoStateChanged(CSSSelector::kPseudoAnyLink);
+    }
   } else if (params.name == mathml_names::kRelAttr) {
     link_relations_ = AnchorElementUtils::ParseRelAttribute(params.new_value, GetDocument());
+    rel_list_->DidUpdateAttributeValue(params.old_value, params.new_value);
   } else {
     MathMLElement::ParseAttribute(params);
   }
 }
 
+bool MathMLAnchorElement::IsURLAttribute(const Attribute& attribute) const {
+  return attribute.GetName() == mathml_names::kHrefAttr ||
+         MathMLElement::IsURLAttribute(attribute);
+}
+
+bool MathMLAnchorElement::HasActivationBehavior() const {
+  return IsLink();
+}
+
 void MathMLAnchorElement::DefaultEventHandler(Event& event) {
   if (IsLink()) {
-    // 处理 Enter 键触发链接
-    if (event.type() == event_type_names::kKeydown && IsEnterKeyKeydownEvent(event)) {
+    // 1. 处理键盘激活 (Enter)
+    if (IsFocused() && IsEnterKeyKeydownEvent(event)) {
       event.SetDefaultHandled();
       DispatchSimulatedClick(&event);
       return;
     }
-    // 处理鼠标点击
-    if (event.type() == event_type_names::kClick && event.IsMouseEvent()) {
+
+    // 2. 处理鼠标点击
+    if (IsLinkClick(event)) {
       HandleClick(To<MouseEvent>(event));
       return;
     }
@@ -129,31 +169,52 @@ void MathMLAnchorElement::DefaultEventHandler(Event& event) {
 
 void MathMLAnchorElement::HandleClick(MouseEvent& event) {
   event.SetDefaultHandled();
-  
-  KURL completed_url = GetDocument().CompleteURL(FastGetAttribute(mathml_names::kHrefAttr));
-  
-  // 发送 Ping 统计 (复用 HTML 的逻辑)
+
+  LocalDOMWindow* window = GetDocument().domWindow();
+  if (!window || !window->GetFrame()) return;
+
+  const KURL& completed_url = GetDocument().CompleteURL(
+      StripLeadingAndTrailingHtmlSpaces(FastGetAttribute(mathml_names::kHrefAttr)));
+
   AnchorElementUtils::SendPings(completed_url, GetDocument(), FastGetAttribute(mathml_names::kPingAttr));
 
-  // 具体的跳转逻辑可以进一步抽象，或直接调用 Frame 导航
-  // 参考 HTMLAnchorElementBase::NavigateToHyperlink
+  ResourceRequest request(completed_url);
+  AnchorElementUtils::HandleReferrerPolicyAttribute(
+      request, FastGetAttribute(mathml_names::kReferrerpolicyAttr), link_relations_, GetDocument());
+  
+  request.SetHasUserGesture(LocalFrame::HasTransientUserActivation(window->GetFrame()));
+  NavigationPolicy navigation_policy = NavigationPolicyFromEvent(&event);
+
+  // 处理 Download 属性
+  if (FastHasAttribute(mathml_names::kDownloadAttr) &&
+      navigation_policy != kNavigationPolicyDownload &&
+      window->GetSecurityOrigin()->CanReadContent(completed_url)) {
+    const String download_attr = FastGetAttribute(mathml_names::kDownloadAttr);
+    AnchorElementUtils::HandleDownloadAttribute(this, download_attr, completed_url, window, event.isTrusted(), std::move(request));
+    return;
+  }
+
+  // 执行导航
+  FrameLoadRequest frame_request(window, request);
+  frame_request.SetNavigationPolicy(navigation_policy);
+  frame_request.SetClientNavigationReason(ClientNavigationReason::kAnchorClick);
+  frame_request.SetSourceElement(this);
+  
+  AtomicString target(FastGetAttribute(mathml_names::kTargetAttr));
+  frame_request.SetTriggeringEventInfo(event.isTrusted() ? mojom::blink::TriggeringEventInfo::kFromTrustedEvent : mojom::blink::TriggeringEventInfo::kFromUntrustedEvent);
+
+  if (Frame* target_frame = window->GetFrame()->Tree().FindOrCreateFrameForNavigation(frame_request, target).frame) {
+    target_frame->Navigate(frame_request, WebFrameLoadType::kStandard);
+  }
+}
+
+FocusableState MathMLAnchorElement::SupportsFocus(UpdateBehavior update_behavior) const {
+  if (IsLink()) return FocusableState::kFocusable;
+  return MathMLElement::SupportsFocus(update_behavior);
 }
 
 int MathMLAnchorElement::DefaultTabIndex() const {
-  return 0; // 默认可聚焦
-}
-
-bool MathMLAnchorElement::IsFocusableState(UpdateBehavior update_behavior) const {
-  if (IsLink()) return true;
-  return MathMLElement::IsFocusableState(update_behavior);
-}
-
-bool MathMLAnchorElement::IsURLAttribute(const Attribute& attribute) const {
-  return attribute.GetName() == mathml_names::kHrefAttr || MathMLElement::IsURLAttribute(attribute);
-}
-
-void MathMLAnchorElement::Trace(Visitor* visitor) const {
-  MathMLElement::Trace(visitor);
+  return 0;
 }
 
 }  // namespace blink
@@ -170,6 +231,20 @@ math a:-webkit-any-link {
 ```
 
 ```json
-// mathml_tag_names.json5
+// third_party/blink/renderer/core/mathml_tag_names.json5
+{
+  name: "a",
+  interfaceName: "MathMLAnchorElement",
+},
+```
 
+```gni
+// third_party/blink/renderer/core/core_idl_files.gni
+mathml_anchor_element.idl
+```
+
+```gni
+// third_party/blink/renderer/core/mathml/build.gni
+mathml_anchor_element.cc
+mathml_anchor_element.h
 ```
