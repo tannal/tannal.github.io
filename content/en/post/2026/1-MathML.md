@@ -180,12 +180,15 @@ void MathMLAnchorElement::HandleClick(MouseEvent& event) {
 
   ResourceRequest request(completed_url);
   AnchorElementUtils::HandleReferrerPolicyAttribute(
-      request, FastGetAttribute(mathml_names::kReferrerpolicyAttr), link_relations_, GetDocument());
+request, FastGetAttribute(mathml_names::kReferrerpolicyAttr), link_relations_, GetDocument());
+
+    if (AnchorElementUtils::HasRel(link_relations_, kRelationNoReferrer)) {
+        request.SetReferrerPolicy(network::mojom::ReferrerPolicy::kNever);
+    }
   
   request.SetHasUserGesture(LocalFrame::HasTransientUserActivation(window->GetFrame()));
   NavigationPolicy navigation_policy = NavigationPolicyFromEvent(&event);
 
-  // 处理 Download 属性
   if (FastHasAttribute(mathml_names::kDownloadAttr) &&
       navigation_policy != kNavigationPolicyDownload &&
       window->GetSecurityOrigin()->CanReadContent(completed_url)) {
@@ -194,11 +197,15 @@ void MathMLAnchorElement::HandleClick(MouseEvent& event) {
     return;
   }
 
-  // 执行导航
   FrameLoadRequest frame_request(window, request);
   frame_request.SetNavigationPolicy(navigation_policy);
   frame_request.SetClientNavigationReason(ClientNavigationReason::kAnchorClick);
   frame_request.SetSourceElement(this);
+
+  // 建议在 NavigateToHyperlink 或 HandleClick 中加入针对隐私的逻辑
+    if (AnchorElementUtils::HasRel(link_relations_, kRelationNoOpener)) {
+        frame_request.SetNoOpener();
+    }
   
   AtomicString target(FastGetAttribute(mathml_names::kTargetAttr));
   frame_request.SetTriggeringEventInfo(event.isTrusted() ? mojom::blink::TriggeringEventInfo::kFromTrustedEvent : mojom::blink::TriggeringEventInfo::kFromUntrustedEvent);
