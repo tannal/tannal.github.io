@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>计算机 on 谭盟</title><link>https://tannal.github.io/zh-cn/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/</link><description>Recent content in 计算机 on 谭盟</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Thu, 12 Jun 2025 10:51:56 +0800</lastBuildDate><atom:link href="https://tannal.github.io/zh-cn/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/index.xml" rel="self" type="application/rss+xml"/><item><title>我们不是推理机器，我们是类比机器。</title><link>https://tannal.github.io/zh-cn/p/%E6%88%91%E4%BB%AC%E4%B8%8D%E6%98%AF%E6%8E%A8%E7%90%86%E6%9C%BA%E5%99%A8%E6%88%91%E4%BB%AC%E6%98%AF%E7%B1%BB%E6%AF%94%E6%9C%BA%E5%99%A8/</link><pubDate>Thu, 12 Jun 2025 10:51:56 +0800</pubDate><guid>https://tannal.github.io/zh-cn/p/%E6%88%91%E4%BB%AC%E4%B8%8D%E6%98%AF%E6%8E%A8%E7%90%86%E6%9C%BA%E5%99%A8%E6%88%91%E4%BB%AC%E6%98%AF%E7%B1%BB%E6%AF%94%E6%9C%BA%E5%99%A8/</guid><description>&lt;script defer src="https://tannal.github.io/youtube.js" type="module"&gt;&lt;/script&gt;
+&lt;blockquote&gt;
+&lt;p&gt;我们不关心真假，我们只关心概率，而且我们只关心非集合论下的概率。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id="重新定义算法"&gt;重新定义算法
+&lt;/h2&gt;&lt;p&gt;&lt;youtube-player video-id="DDAoEDdw4Y8"&gt;&lt;/youtube-player&gt;&lt;/p&gt;
+&lt;p&gt;我们重新定义算法，沿着一个明确的方向单向前进，
+并且在过程中建立起沿方向传递的单调或独立性质的计算机程序&lt;/p&gt;
+&lt;p&gt;整数和一般意义上的离散系统具备以下性质&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;自反性质，我等于我自己&lt;/li&gt;
+&lt;li&gt;区别性质，除了我以外没人跟我一样&lt;/li&gt;
+&lt;li&gt;传递性质，也叫鄙视链性质，我跟别人不一样，不仅不一样，一定能分出高下。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;传递性质可以形成鄙视链机制，也就是层级关系。&lt;/p&gt;
+&lt;p&gt;传递性质的利用是算法时间复杂度差异的来源，简单来说利用传递性质分批处理能够减小算法的时间复杂度。&lt;/p&gt;
+&lt;p&gt;&amp;mdash; 这部分还没想好，暂时用Claude3内容代替 &amp;mdash;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-fallback" data-lang="fallback"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;class SortingAlgorithms {
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; // 1. 传递性质的利用
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; class TransitiveProperty {
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; // 比较关系的传递性
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; void compare() {
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; // if a &amp;gt; b &amp;amp;&amp;amp; b &amp;gt; c then a &amp;gt; c
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; // 这个性质允许我们：
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; // 1. 不需要比较所有对
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; // 2. 可以批量处理
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; // 3. 保证结果正确性
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; // 2. 不同批次大小的实现
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; class BatchProcessing {
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; // 插入排序 (批次=1)
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; void insertionSort() {
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; // 一次处理一个元素
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; // O(n^2) - 没有利用批处理
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; // 归并排序 (批次=n/2)
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; void mergeSort() {
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; // 每次处理一半数据
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; // O(n log n) - 批处理带来优化
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; // 快速排序 (批次=基于pivot的分区)
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; void quickSort() {
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; // 动态批次大小
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; // O(n log n) - 平均情况
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; // 堆排序 (批次=堆的层级)
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; void heapSort() {
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; // 利用堆的性质批处理
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; // O(n log n) - 稳定的批处理
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&amp;mdash; 这部分还没想好，暂时用Claude3内容代替 &amp;mdash;&lt;/p&gt;
+&lt;p&gt;计算机无法解决没有方向单向前进，同时不具备传递性质的计算问题
+计算机只能处理有明确方向性和沿着方向性传递单调或独立性质的结构&lt;/p&gt;
+&lt;p&gt;时间在分布式系统中被理解为事件的发生顺序，顺序这个概念同时满足三个性质。&lt;/p&gt;
+&lt;p&gt;计算机科学中的树是层级系统最完美的体现，层级系统也是人类的 System 2 的运行基础。&lt;/p&gt;
+&lt;p&gt;计算机对于实数连续域上的问题求解的困难很大程度上来自于实数不具备上面三个性质。&lt;/p&gt;
+&lt;p&gt;使得处理自然科学问题的计算机科学家不得不开发出各种数值算法和半数值算法。&lt;/p&gt;
+&lt;h2 id="经典系统"&gt;经典系统
+&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;自反性质，我等于我自己&lt;/li&gt;
+&lt;li&gt;区别性质，除了我以外没人跟我一样&lt;/li&gt;
+&lt;li&gt;传递性质，也叫鄙视链性质，我跟别人不一样，不仅不一样，一定能分出高下。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;满足这三个性质的系统，我们称之为经典系统。&lt;/p&gt;
+&lt;p&gt;这类系统最典型的特征就是存在单方向性质，树形结构是最完美的呈现。&lt;/p&gt;
+&lt;p&gt;如数学中的公理定理推论系统，公理是树根，定理推论是树枝树叶。&lt;/p&gt;
+&lt;p&gt;数学严密化成这样得益于人类的System 2也就是逻辑推理自己就是这种满足性质的系统。&lt;/p&gt;
+&lt;p&gt;逻辑推理的根源是有因必有果，这形成了最基本的经典系统，满足1.因果是不一样的，2.因是因，果是果，3.因导致的果，而不是果导致的因，满足传递性质。&lt;/p&gt;
+&lt;p&gt;这是现代科学的基础，那这个世界上有没有不存在因果关系，或者讲不清因果关系的现象呢？&lt;/p&gt;
+&lt;p&gt;有&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;生命体群体行为，如股市，消费者行为，蚁群&lt;/li&gt;
+&lt;li&gt;量子力学，如双缝干涉实验&lt;/li&gt;
+&lt;li&gt;经典力学的三体系统&lt;/li&gt;
+&lt;li&gt;人类直觉，如《思考快与慢》中的 System 1&lt;/li&gt;
+&lt;li&gt;大语言模型，直指NLP中的根本问题——如何处理语言中的歧义&lt;/li&gt;
+&lt;li&gt;感知与意识，如视觉错觉，平行透视&lt;/li&gt;
+&lt;li&gt;艺术创作，如音乐，绘画&lt;/li&gt;
+&lt;li&gt;睡眠中的主观体验现象&lt;/li&gt;
+&lt;li&gt;哥德尔不完备定理
+&amp;hellip;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;经典系统里面的第一大难题也是造成无数科学数学计算机系统问题的根源就是自指。&lt;/p&gt;
+&lt;p&gt;例如语言中的歧义，逻辑问题，停机问题，不可判定问题&lt;/p&gt;
+&lt;p&gt;自指来自于自反性质，即我就是我。&lt;/p&gt;
+&lt;p&gt;如鸡生蛋蛋生鸡问题，答案是&lt;/p&gt;
+&lt;p&gt;不是所有的鸡都会生蛋，也不是所有的鸡都是蛋生来的。&lt;/p&gt;
+&lt;p&gt;计算机科学家早有无数的办法应付自指，他们甚至自己创造自指&lt;/p&gt;
+&lt;p&gt;如既然编程语言需要编译器，世界上第一个编程语言的编译器是用什么写的？
+答案是机器语言不需要编译器，他需要链接器，反正不需要编译器，编程语言都需要编译器本身就是错的。&lt;/p&gt;
+&lt;p&gt;计算机科学家可以通过重复造轮子自己创造自指&lt;/p&gt;
+&lt;p&gt;例如用clang编译clang得到的可执行程序可以编译自己形成一个新的clang可执行文件&lt;/p&gt;
+&lt;p&gt;又或者我的世界里面可以造一个计算机。&lt;/p&gt;
+&lt;p&gt;还有qemu这类虚拟机器，可以运行虚拟机。&lt;/p&gt;
+&lt;p&gt;还有语言的运行时如JVM，里头自己实现了个CPU，然后跑在你买的英特尔的CPU上面也是典型的自指，怎么没有出现什么英特尔CPU递归爆炸这种类似逻辑递归自指的问题？&lt;/p&gt;
+&lt;p&gt;自指的根源就是三大性质&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;自反性质，我等于我自己&lt;/li&gt;
+&lt;li&gt;区别性质，除了我以外没人跟我一样&lt;/li&gt;
+&lt;li&gt;传递性质，也叫鄙视链性质，我跟别人不一样，不仅不一样，一定能分出高下。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;另一个世界不满足三大性质，不满足因果律，至少表面上看起来不满足，无法区分自己和别人。&lt;/p&gt;
+&lt;h2 id="超越系统"&gt;超越系统
+&lt;/h2&gt;&lt;p&gt;不满足这三个性质的系统，我们称之为超越系统，我们之前已经描述过常见的超越系统。&lt;/p&gt;
+&lt;p&gt;现在我们尝试描述超越系统的基本特点，超越系统与经典系统最根本的区别是从刻画相等与不等到刻画相似与不相似&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;相似性质，我与我自己相似&lt;/li&gt;
+&lt;li&gt;区别性质，我与别人不相似&lt;/li&gt;
+&lt;li&gt;平等性质，我与别人的不相似，无法区分高下&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;由于哥德尔不完备定理，我们总能在经典系统中意外发现超越现象。&lt;/p&gt;
+&lt;p&gt;最典型的能够在经典系统就观察到的超越现象就是因果循环，单向的因果关系链条被打破。&lt;/p&gt;
+&lt;p&gt;Q：上海市的经济为什么好？
+A：因为有大量的劳动人口和就业机会。&lt;/p&gt;
+&lt;p&gt;Q：为什么上海市有大量的劳动人口和就业机会？
+A：因为上海市的经济好。&lt;/p&gt;
+&lt;p&gt;数学家用公理系统解决了可能涉及的自指问题。&lt;/p&gt;
+&lt;p&gt;语言学家也早已注意到词典中的循环定义问题，每一个单词都由其他单词定义。&lt;/p&gt;
+&lt;p&gt;计算机科学中图结构没有明显的层次结构，尽管特殊的图有（如DAG），但层次结构不是图的一般性质。&lt;/p&gt;
+&lt;p&gt;图的一般性质是每个节点都可以有关系，这种关系可以用相似性刻画强弱，但图无法刻画两个节点相同。&lt;/p&gt;
+&lt;p&gt;一般图满足超越系统的特点，他是计算理论最最喜欢研究的对象之一，一般图中的各种性质涵盖了大量NP问题。&lt;/p&gt;
+&lt;p&gt;另一个满足超越系统特性的是神经网络&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;相似性而非相等性&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;没有完全相同的输入&lt;/p&gt;
+&lt;p&gt;相似的输入可能产生相似的输出&lt;/p&gt;
+&lt;p&gt;相似度是连续的而非离散的&lt;/p&gt;
+&lt;ol start="2"&gt;
+&lt;li&gt;分类边界是模糊的&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;边界案例难以判定&lt;/p&gt;
+&lt;p&gt;分类结果是概率分布&lt;/p&gt;
+&lt;p&gt;同一输入可能有不同解释&lt;/p&gt;
+&lt;p&gt;值得一提的是，超越系统中不存在自指问题，因为超越系统中不存在自己这个概念&lt;/p&gt;
+&lt;p&gt;在超越系统中：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;没有&amp;quot;相等&amp;quot;的概念&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;即使是&amp;quot;自己&amp;quot;也只是相似
+每一刻的&amp;quot;我&amp;quot;都是不同的
+只有相似，没有相等&lt;/p&gt;
+&lt;ol start="2"&gt;
+&lt;li&gt;无法确定&amp;quot;自己&amp;quot;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&amp;ldquo;我&amp;quot;是模糊的概念
+边界是不确定的
+无法精确定义&amp;quot;自己&amp;rdquo;&lt;/p&gt;
+&lt;ol start="3"&gt;
+&lt;li&gt;不存在自反性&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;不能说&amp;quot;我就是我&amp;quot;
+因为没有确定的&amp;quot;我&amp;quot;
+只有相似度的连续变化&lt;/p&gt;
+&lt;p&gt;想象一下，你可以跟LLM玩角色扮演。&lt;/p&gt;
+&lt;p&gt;你也可以跟你的好朋友玩角色扮演。&lt;/p&gt;
+&lt;h2 id="所以呢"&gt;所以呢？
+&lt;/h2&gt;&lt;p&gt;计算机科学家能用计算机这种经典系统做出大语言模型这种超越系统简直就是奇迹。&lt;/p&gt;
+&lt;p&gt;不过这也从侧面证明的哥德尔不完备定理的普适性和一般性。&lt;/p&gt;
+&lt;p&gt;如果神经网络属于超越系统，那他为何有明显的层次结构和方向性？&lt;/p&gt;
+&lt;p&gt;这涉及到interface和implementation的问题&lt;/p&gt;
+&lt;p&gt;由于神经网络实现在经典计算机上，他似乎受到经典计算机系统的约束&lt;/p&gt;
+&lt;p&gt;如明显的层次结构和单向的方向限制，似乎是为了方便反向传播算法，区分前向传播和反向传播过程&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Interface（神经网络的接口和目标）&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;表现为超越系统，有模式识别、相似性计算、整体涌现、不确定性这些特征&lt;/p&gt;
+&lt;p&gt;无明确层次&lt;/p&gt;
+&lt;p&gt;无固定方向&lt;/p&gt;
+&lt;p&gt;网络式关联&lt;/p&gt;
+&lt;ol start="2"&gt;
+&lt;li&gt;Implementation（神经网络在经典系统的实现）&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;必须有层次&lt;/p&gt;
+&lt;p&gt;必须有方向&lt;/p&gt;
+&lt;p&gt;必须是确定性步骤&lt;/p&gt;
+&lt;p&gt;区分前向传播和反向传播，这种训练与推理的分离&lt;/p&gt;
+&lt;p&gt;训练时（实现层）&lt;/p&gt;
+&lt;p&gt;显示层次结构&lt;/p&gt;
+&lt;p&gt;明确的方向性&lt;/p&gt;
+&lt;p&gt;确定性算法&lt;/p&gt;
+&lt;p&gt;推理时（接口层）&lt;/p&gt;
+&lt;p&gt;表现整体性&lt;/p&gt;
+&lt;p&gt;模糊的边界&lt;/p&gt;
+&lt;p&gt;涌现的行为&lt;/p&gt;
+&lt;p&gt;神经网络被经典计算机约束，无法完全有效的模拟生物神经网络?&lt;/p&gt;
+&lt;p&gt;如何在经典系统上最好地模拟超越系统？&lt;/p&gt;
+&lt;p&gt;如何在保持可计算性的同时最大化网络的表达能力？&lt;/p&gt;
+&lt;p&gt;如何最好地利用现有的计算硬件？&lt;/p&gt;
+&lt;p&gt;&amp;mdash; 神经网络这段应该还有别的没提到的，暂时用claude3的内容代替 &amp;mdash;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-fallback" data-lang="fallback"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;class BackpropagationParadox {
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; // 1. 因果律的扭曲
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; class CausalityDistortion {
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; // 正向过程：遵循因果
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; void forward() {
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; input -&amp;gt; hidden -&amp;gt; output; // 清晰的因果链
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; // 反向过程：违背因果
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; void backward() {
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; // 果反过来影响因
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; output_error -&amp;gt; hidden_error -&amp;gt; input_error;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; // 违背了经典系统的单向性
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; parameters.update(gradients);
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; // 2. 参数更新的蝴蝶效应
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; class ParameterButterfly {
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; void parameter_update() {
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; // 一个参数的改变
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; weight.update(gradient);
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; // 会影响
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; // - 所有相关的前向计算
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; // - 其他样本的预测
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; // - 整个网络的行为
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; // 形成复杂的反馈网络
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; // 打破了局部性原理
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-fallback" data-lang="fallback"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;class DeepImplications {
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; // 1. 全局耦合
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; class GlobalCoupling {
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; // 参数之间的互相影响
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; void parameter_interdependence() {
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; // 无法孤立地优化单个参数
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; // 需要考虑整体平衡
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; // 形成复杂的优化景观
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; // 2. 时间对称性的破坏
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; class TimeSymmetryBreaking {
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; // 训练过程中的不可逆性
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; void irreversibility() {
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; // 无法从当前状态推断历史
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; // 优化路径的不确定性
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; // 类似热力学第二定律
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; // 3. 涌现的复杂性
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; class EmergentComplexity {
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; // 简单规则产生复杂行为
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; void emergence() {
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; // 局部更新规则
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; // 产生全局模式
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; // 类似复杂系统
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-fallback" data-lang="fallback"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;class Phenomena {
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; // 1. 训练的不确定性
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; class TrainingUncertainty {
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; // 相同初始条件
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; // 不同训练路径
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; // 不同最终结果
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; // 2. 灾难性遗忘
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; class CatastrophicForgetting {
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; // 新任务学习
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; // 影响旧任务性能
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; // 全局知识相互干扰
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; // 3. 优化难度
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; class OptimizationDifficulty {
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; // 梯度消失/爆炸
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; // 局部最优
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; // 优化路径敏感
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&amp;mdash; 神经网络这段应该还有别的没提到的，暂时用claude3的内容代替 &amp;mdash;&lt;/p&gt;</description></item></channel></rss>
