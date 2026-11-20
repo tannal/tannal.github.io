@@ -40,6 +40,14 @@ jobs:
           hugo-version: "latest"
           extended: true
 
+      - name: Install Dart Sass
+        run: |
+          SASS_VERSION="1.108.2"
+          curl -fsSL "https://github.com/sass/dart-sass/releases/download/${SASS_VERSION}/dart-sass-${SASS_VERSION}-linux-x64.tar.gz" -o "${RUNNER_TEMP}/dart-sass.tar.gz"
+          tar -xzf "${RUNNER_TEMP}/dart-sass.tar.gz" -C "${RUNNER_TEMP}"
+          echo "${RUNNER_TEMP}/dart-sass" >> "${GITHUB_PATH}"
+          "${RUNNER_TEMP}/dart-sass/sass" --embedded --version
+
       - name: Build
         run: hugo --minify --gc
 
