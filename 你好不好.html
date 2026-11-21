@@ -1,0 +1,2081 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How Have You Been? (你好不好) — Anchor-Step Beat Ribbon Piano</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet" />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            studio: {
+              bg: '#0b0f19',
+              panel: '#121826',
+              card: '#171f31',
+              border: '#243047',
+            },
+            lh: {
+              DEFAULT: '#38bdf8',
+              deep: '#6366f1',
+            },
+            rh: {
+              DEFAULT: '#fbbf24',
+              deep: '#f97316',
+            }
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    body {
+      background-color: #0b0f19;
+      background-image:
+        radial-gradient(ellipse 80% 45% at 50% -10%, rgba(56, 189, 248, 0.11), transparent 70%),
+        radial-gradient(ellipse 60% 40% at 85% 15%, rgba(251, 191, 36, 0.08), transparent 65%);
+      color: #f1f5f9;
+      font-family: 'Inter', system-ui, sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* Glass panel aesthetics */
+    .glass-panel {
+      background: rgba(18, 24, 38, 0.82);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(148, 163, 184, 0.14);
+      box-shadow: 0 12px 32px -12px rgba(0, 0, 0, 0.55);
+    }
+
+    /* Smooth custom scrollbars for section strip on mobile */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    /* Piano key styling */
+    .piano-white-key {
+      background: linear-gradient(180deg, #f8fafc 0%, #e2e8f0 92%, #cbd5e1 100%);
+      border: 1px solid #94a3b8;
+      border-top: none;
+      border-radius: 0 0 6px 6px;
+      transition: background 75ms ease, transform 60ms ease, box-shadow 75ms ease;
+      box-shadow: inset 0 -4px 6px rgba(15, 23, 42, 0.12);
+    }
+    .piano-white-key:hover {
+      background: linear-gradient(180deg, #ffffff 0%, #f1f5f9 100%);
+    }
+    .piano-white-key.active-lh {
+      background: linear-gradient(180deg, #7dd3fc 0%, #38bdf8 65%, #0284c7 100%);
+      box-shadow: 0 0 16px rgba(56, 189, 248, 0.65), inset 0 -2px 4px rgba(15, 23, 42, 0.2);
+      transform: translateY(2px);
+    }
+    .piano-white-key.active-rh {
+      background: linear-gradient(180deg, #fde68a 0%, #fbbf24 65%, #ea580c 100%);
+      box-shadow: 0 0 16px rgba(251, 191, 36, 0.65), inset 0 -2px 4px rgba(15, 23, 42, 0.2);
+      transform: translateY(2px);
+    }
+    .piano-white-key.active-both {
+      background: linear-gradient(180deg, #a5f3fc 0%, #c084fc 55%, #fbbf24 100%);
+      box-shadow: 0 0 18px rgba(192, 132, 252, 0.75);
+      transform: translateY(2px);
+    }
+
+    .piano-black-key {
+      background: linear-gradient(180deg, #273248 0%, #0f172a 80%, #020617 100%);
+      border: 1px solid #0f172a;
+      border-top: none;
+      border-radius: 0 0 5px 5px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.65), inset 0 -3px 3px rgba(255, 255, 255, 0.08);
+      transition: background 75ms ease, transform 60ms ease, box-shadow 75ms ease;
+    }
+    .piano-black-key:hover {
+      background: linear-gradient(180deg, #334155 0%, #1e293b 100%);
+    }
+    .piano-black-key.active-lh {
+      background: linear-gradient(180deg, #38bdf8 0%, #4f46e5 100%);
+      box-shadow: 0 0 16px rgba(56, 189, 248, 0.8);
+      transform: translateY(2px);
+    }
+    .piano-black-key.active-rh {
+      background: linear-gradient(180deg, #fbbf24 0%, #ea580c 100%);
+      box-shadow: 0 0 16px rgba(251, 191, 36, 0.85);
+      transform: translateY(2px);
+    }
+    .piano-black-key.active-both {
+      background: linear-gradient(180deg, #38bdf8 0%, #f97316 100%);
+      box-shadow: 0 0 18px rgba(249, 115, 22, 0.85);
+      transform: translateY(2px);
+    }
+
+    /* Pedal pulse animation */
+    @keyframes pedalLift {
+      0% { transform: scaleY(0.35); opacity: 0.45; }
+      30% { transform: scaleY(1); opacity: 1; }
+      100% { transform: scaleY(1); opacity: 0.92; }
+    }
+    .pedal-pulse {
+      animation: pedalLift 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    /* Custom range slider */
+    input[type="range"] {
+      -webkit-appearance: none;
+      appearance: none;
+      background: #1e293b;
+      height: 6px;
+      border-radius: 999px;
+      outline: none;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #fbbf24;
+      border: 2px solid #0b0f19;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(251, 191, 36, 0.55);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between antialiased selection:bg-amber-400/30 selection:text-amber-200">
+
+  <!-- Main Container -->
+  <div class="w-full max-w-7xl mx-auto px-3 sm:px-5 py-3 sm:py-4 flex flex-col gap-3">
+
+    <!-- 1. TOP HEADER & SONG STATUS -->
+    <header class="glass-panel rounded-2xl px-4 py-3 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+      <div class="flex items-start sm:items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-400/20 via-orange-500/20 to-sky-500/20 border border-amber-400/30 flex items-center justify-center shrink-0">
+          <svg class="w-5 h-5 text-amber-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 18V5l12-2v13"></path>
+            <circle cx="6" cy="18" r="3"></circle>
+            <circle cx="18" cy="16" r="3"></circle>
+          </svg>
+        </div>
+        <div>
+          <div class="flex flex-wrap items-center gap-2">
+            <h1 class="text-base sm:text-lg font-bold tracking-tight text-slate-50">
+              How Have You Been? <span class="text-amber-300/90 font-semibold">你好不好</span>
+            </h1>
+            <span class="text-xs font-medium text-slate-400 hidden sm:inline">· Eric Chou (周興哲)</span>
+          </div>
+          <div class="flex flex-wrap items-center gap-2 mt-1">
+            <span class="inline-flex items-center gap-1.5 text-[11px] font-semibold px-2 py-0.5 rounded-full bg-violet-500/15 text-violet-200 border border-violet-400/30">
+              <span class="w-1.5 h-1.5 rounded-full bg-violet-400"></span>
+              B♭ Major · 2 Black Keys: B♭, E♭
+            </span>
+            <span id="colorShiftBadge" class="hidden inline-flex items-center gap-1.5 text-[11px] font-semibold px-2 py-0.5 rounded-full bg-fuchsia-500/20 text-fuchsia-200 border border-fuchsia-400/40 animate-pulse">
+              ✦ Color Shift: Borrowed Flats (G♭, D♭, A♭)
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Live Telemetry Badges -->
+      <div class="flex flex-wrap items-center gap-2 sm:gap-2.5">
+        <div class="px-3 py-1.5 rounded-xl bg-slate-900/80 border border-slate-700/60 flex items-center gap-2">
+          <span class="text-[10px] uppercase tracking-wider text-slate-400 font-semibold">Bar</span>
+          <span id="barCounter" class="font-mono text-sm font-bold text-slate-100">01 / 58</span>
+        </div>
+        <div class="px-3 py-1.5 rounded-xl bg-slate-900/80 border border-slate-700/60 flex items-center gap-2">
+          <span class="text-[10px] uppercase tracking-wider text-slate-400 font-semibold">Dynamic</span>
+          <span id="dynamicBadge" class="font-serif italic font-bold text-sm text-amber-300">mp</span>
+        </div>
+        <div class="px-3 py-1.5 rounded-xl bg-slate-900/80 border border-slate-700/60 flex items-center gap-2">
+          <span class="text-[10px] uppercase tracking-wider text-slate-400 font-semibold">Beat</span>
+          <span id="beatCounter" class="font-mono text-sm font-bold text-sky-300">1</span>
+        </div>
+        <div id="ritBadge" class="hidden px-2.5 py-1.5 rounded-xl bg-amber-500/15 border border-amber-400/30 text-amber-200 font-serif italic text-xs font-semibold">
+          rit.
+        </div>
+      </div>
+    </header>
+
+    <!-- 2. CLICKABLE 9-SECTION SONG MAP -->
+    <nav class="glass-panel rounded-2xl p-2" aria-label="Song Sections">
+      <div id="sectionMap" class="flex items-center gap-1.5 overflow-x-auto no-scrollbar">
+        <!-- Populated dynamically by JS -->
+      </div>
+    </nav>
+
+    <!-- 3. ANCHOR-STEP BEAT RIBBON (MAIN STAGE) -->
+    <main class="glass-panel rounded-2xl p-3 sm:p-4 flex flex-col gap-3">
+      <!-- Legend & Inspector Bar -->
+      <div class="flex flex-wrap items-center justify-between gap-2 text-xs">
+        <div class="flex flex-wrap items-center gap-3">
+          <span class="inline-flex items-center gap-1.5 text-amber-300 font-medium">
+            <span class="w-2.5 h-2.5 rounded-sm bg-gradient-to-r from-amber-400 to-orange-500"></span>
+            RH Melody (↑ up · ↓ down · = repeat)
+          </span>
+          <span class="inline-flex items-center gap-1.5 text-sky-300 font-medium">
+            <span class="w-2.5 h-2.5 rounded-sm bg-gradient-to-r from-sky-400 to-indigo-500"></span>
+            LH Anchor (Arpeggio / Bass)
+          </span>
+          <span class="inline-flex items-center gap-1.5 text-violet-300 font-medium">
+            <span class="px-1.5 py-0.2 rounded bg-violet-500/25 border border-violet-400/40 text-[10px] font-bold">♭</span>
+            Black Key Alert
+          </span>
+        </div>
+        <!-- Clicked Note Inspector -->
+        <div id="noteInspector" class="text-[11px] sm:text-xs text-slate-300 bg-slate-900/70 border border-slate-700/60 px-2.5 py-1 rounded-lg">
+          Tip: Click any note pill or piano key to audition &amp; inspect.
+        </div>
+      </div>
+
+      <!-- Current Bar + Next Bar (Lookahead) Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-3">
+        <!-- Current Bar (Prominent, 7 columns on desktop) -->
+        <section class="lg:col-span-7 rounded-xl bg-slate-900/75 border border-slate-700/70 p-3 flex flex-col gap-2.5 relative overflow-hidden">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 rounded bg-amber-400/15 text-amber-300 border border-amber-400/30">Now Playing</span>
+              <span id="currentBarLabel" class="text-xs font-semibold text-slate-300">Intro · Bar 1</span>
+            </div>
+            <span id="currentLyricCue" class="text-xs text-slate-400 italic truncate max-w-[55%]">Gentle Canon opening</span>
+          </div>
+
+          <!-- 8-Beat Timeline Container -->
+          <div class="relative rounded-xl bg-slate-950/70 border border-slate-800/80 p-2.5">
+            <!-- Smooth Playhead Cursor -->
+            <div id="playheadCursor" class="pointer-events-none absolute top-0 bottom-0 w-[12.5%] bg-gradient-to-b from-amber-400/15 via-sky-400/10 to-sky-400/15 border-x border-amber-300/40 rounded-lg transition-all duration-100 ease-out z-0" style="left: 0%;"></div>
+
+            <!-- Beat Header Row -->
+            <div class="grid grid-cols-8 gap-1 text-center mb-2 relative z-10">
+              <div class="beat-header font-mono text-xs font-bold text-slate-200 py-0.5 rounded" data-beat="0">1</div>
+              <div class="beat-header font-mono text-[11px] text-slate-500 py-0.5 rounded" data-beat="1">&amp;</div>
+              <div class="beat-header font-mono text-xs font-bold text-slate-200 py-0.5 rounded" data-beat="2">2</div>
+              <div class="beat-header font-mono text-[11px] text-slate-500 py-0.5 rounded" data-beat="3">&amp;</div>
+              <div class="beat-header font-mono text-xs font-bold text-slate-200 py-0.5 rounded" data-beat="4">3</div>
+              <div class="beat-header font-mono text-[11px] text-slate-500 py-0.5 rounded" data-beat="5">&amp;</div>
+              <div class="beat-header font-mono text-xs font-bold text-slate-200 py-0.5 rounded" data-beat="6">4</div>
+              <div class="beat-header font-mono text-[11px] text-slate-500 py-0.5 rounded" data-beat="7">&amp;</div>
+            </div>
+
+            <!-- Upper Lane: RH Melody -->
+            <div class="relative z-10 mb-2">
+              <div class="text-[10px] font-semibold uppercase tracking-wider text-amber-400/80 mb-1 flex items-center justify-between">
+                <span>Right Hand · Melody</span>
+                <span id="rhMuteTag" class="hidden text-[10px] text-slate-500 font-normal">(Muted — Practice Mode)</span>
+              </div>
+              <div id="currentRhLane" class="grid grid-cols-8 gap-1 min-h-[54px] items-center relative">
+                <!-- Populated by JS -->
+              </div>
+            </div>
+
+            <!-- Divider -->
+            <div class="border-t border-slate-800/90 my-1.5"></div>
+
+            <!-- Lower Lane: LH Anchor -->
+            <div class="relative z-10">
+              <div class="flex items-center justify-between mb-1">
+                <div class="flex items-center gap-2">
+                  <span class="text-[10px] font-semibold uppercase tracking-wider text-sky-400/80">Left Hand · Anchor</span>
+                  <span id="currentChordBadge" class="font-mono text-xs font-bold px-2 py-0.5 rounded-md bg-sky-500/20 text-sky-200 border border-sky-400/40">B♭</span>
+                  <span id="lhMuteTag" class="hidden text-[10px] text-slate-500 font-normal">(Muted)</span>
+                </div>
+                <span id="lhPatternTag" class="text-[10px] text-slate-400 font-medium">3-Note Arpeggio (1 → 2 → 3)</span>
+              </div>
+              <div id="currentLhLane" class="grid grid-cols-8 gap-1 min-h-[46px] items-center relative">
+                <!-- Populated by JS -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Live Sustain Pedal Bar -->
+          <div class="flex items-center justify-between gap-2 px-2.5 py-1.5 rounded-lg bg-slate-950/60 border border-slate-800/80">
+            <div class="flex items-center gap-2">
+              <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Sustain Pedal</span>
+              <span id="pedalStatusText" class="text-xs font-medium text-emerald-300">Clean Change · Hold Bar</span>
+            </div>
+            <div class="flex items-center gap-1.5 w-36 sm:w-44">
+              <span class="text-[10px] font-mono text-slate-500">Lift</span>
+              <div class="flex-1 h-2.5 bg-slate-800 rounded-full overflow-hidden p-0.5">
+                <div id="pedalVisualBar" class="h-full w-full rounded-full bg-gradient-to-r from-emerald-400 via-teal-400 to-sky-400 origin-bottom transition-opacity duration-200"></div>
+              </div>
+              <span class="text-[10px] font-mono text-slate-500">Hold</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Next Bar (Lookahead, 5 columns on desktop) -->
+        <section class="lg:col-span-5 rounded-xl bg-slate-900/45 border border-slate-800/70 p-3 flex flex-col gap-2.5 opacity-80 hover:opacity-100 transition-opacity">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 rounded bg-slate-700/60 text-slate-300 border border-slate-600/50">Up Next</span>
+              <span id="nextBarLabel" class="text-xs font-semibold text-slate-400">Intro · Bar 2</span>
+            </div>
+            <span id="nextChordBadge" class="font-mono text-xs font-bold px-2 py-0.5 rounded-md bg-sky-500/15 text-sky-300/90 border border-sky-400/30">F/A</span>
+          </div>
+
+          <div class="rounded-xl bg-slate-950/50 border border-slate-800/60 p-2.5 flex-1 flex flex-col justify-between">
+            <div class="grid grid-cols-8 gap-1 text-center mb-2">
+              <div class="font-mono text-[11px] font-semibold text-slate-400">1</div>
+              <div class="font-mono text-[10px] text-slate-600">&amp;</div>
+              <div class="font-mono text-[11px] font-semibold text-slate-400">2</div>
+              <div class="font-mono text-[10px] text-slate-600">&amp;</div>
+              <div class="font-mono text-[11px] font-semibold text-slate-400">3</div>
+              <div class="font-mono text-[10px] text-slate-600">&amp;</div>
+              <div class="font-mono text-[11px] font-semibold text-slate-400">4</div>
+              <div class="font-mono text-[10px] text-slate-600">&amp;</div>
+            </div>
+
+            <div class="mb-2">
+              <div class="text-[10px] font-medium uppercase tracking-wider text-amber-400/60 mb-1">RH Lookahead</div>
+              <div id="nextRhLane" class="grid grid-cols-8 gap-1 min-h-[54px] items-center">
+                <!-- Populated by JS -->
+              </div>
+            </div>
+
+            <div class="border-t border-slate-800/70 my-1.5"></div>
+
+            <div>
+              <div class="text-[10px] font-medium uppercase tracking-wider text-sky-400/60 mb-1">LH Lookahead</div>
+              <div id="nextLhLane" class="grid grid-cols-8 gap-1 min-h-[46px] items-center">
+                <!-- Populated by JS -->
+              </div>
+            </div>
+          </div>
+
+          <div class="text-[11px] text-slate-400 flex items-center justify-between px-1">
+            <span id="nextTipText" class="truncate">Prepare left hand stepping down to A2</span>
+            <button id="jumpNextBtn" class="text-sky-400 hover:text-sky-300 font-semibold shrink-0 ml-2 cursor-pointer">Jump →</button>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <!-- 4. INTERACTIVE 3.5-OCTAVE PIANO KEYBOARD (C2 to F5) -->
+    <section class="glass-panel rounded-2xl p-3 sm:p-4">
+      <div class="flex flex-wrap items-center justify-between gap-2 mb-2.5">
+        <div class="flex items-center gap-2">
+          <span class="text-xs font-bold uppercase tracking-wider text-slate-300">Interactive Keyboard</span>
+          <span class="text-[11px] text-slate-400 font-mono">C2 — F5</span>
+        </div>
+        <div class="flex flex-wrap items-center gap-3 text-[11px] text-slate-400">
+          <span class="inline-flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-violet-400 ring-2 ring-violet-400/30"></span>
+            Key Signature Landmark (B♭, E♭)
+          </span>
+          <span class="inline-flex items-center gap-1.5">
+            <span class="w-2.5 h-2.5 rounded-sm bg-sky-400"></span>
+            LH Active
+          </span>
+          <span class="inline-flex items-center gap-1.5">
+            <span class="w-2.5 h-2.5 rounded-sm bg-amber-400"></span>
+            RH Active
+          </span>
+        </div>
+      </div>
+
+      <!-- Scrollable wrapper on narrow mobile screens, full fit on desktop -->
+      <div class="w-full overflow-x-auto pb-1">
+        <div id="pianoKeyboard" class="relative select-none mx-auto h-36 sm:h-44 min-w-[680px] w-full rounded-b-xl overflow-hidden bg-slate-950 p-1 pt-0 border-t-4 border-slate-800">
+          <!-- Keys generated dynamically by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. TRANSPORT & BEGINNER PRACTICE CONTROLS -->
+    <footer class="glass-panel rounded-2xl px-4 py-3 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3">
+      <!-- Playback & Stepping Buttons -->
+      <div class="flex flex-wrap items-center gap-2">
+        <button id="playPauseBtn" class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-400 to-orange-500 hover:from-amber-300 hover:to-orange-400 text-slate-950 font-bold text-sm shadow-lg shadow-amber-500/20 active:scale-95 transition cursor-pointer min-w-[116px]" title="Play / Pause (Spacebar)">
+          <svg id="playIcon" class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          <svg id="pauseIcon" class="w-4 h-4 fill-current hidden" viewBox="0 0 24 24"><path d="M6 5h4v14H6zm8 0h4v14h-4z"/></svg>
+          <span id="playBtnText">Play</span>
+        </button>
+
+        <button id="restartBtn" class="p-2.5 rounded-xl bg-slate-800/90 hover:bg-slate-700 text-slate-200 border border-slate-700/70 active:scale-95 transition cursor-pointer" title="Restart Song">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/>
+          </svg>
+        </button>
+
+        <div class="h-6 w-px bg-slate-700/70 mx-0.5 hidden sm:block"></div>
+
+        <!-- Step Beat Back / Forward -->
+        <div class="inline-flex items-center rounded-xl bg-slate-900/90 border border-slate-700/70 p-0.5">
+          <button id="stepBackBtn" class="px-3 py-2 rounded-lg hover:bg-slate-800 text-slate-200 text-xs font-semibold flex items-center gap-1 active:scale-95 transition cursor-pointer" title="Previous Eighth-Note Beat (Left Arrow)">
+            ← Step
+          </button>
+          <div class="w-px h-4 bg-slate-700/70"></div>
+          <button id="stepFwdBtn" class="px-3 py-2 rounded-lg hover:bg-slate-800 text-slate-200 text-xs font-semibold flex items-center gap-1 active:scale-95 transition cursor-pointer" title="Next Eighth-Note Beat (Right Arrow)">
+            Step →
+          </button>
+        </div>
+      </div>
+
+      <!-- Practice Mode Selector -->
+      <div class="flex flex-wrap items-center gap-2">
+        <div class="inline-flex items-center rounded-xl bg-slate-900/90 border border-slate-700/70 p-1 text-xs font-semibold" role="group" aria-label="Practice Mode">
+          <button data-mode="both" class="practice-mode-btn px-2.5 py-1.5 rounded-lg bg-slate-700 text-white transition cursor-pointer">Both Hands</button>
+          <button data-mode="lh" class="practice-mode-btn px-2.5 py-1.5 rounded-lg text-slate-400 hover:text-sky-300 transition cursor-pointer">LH Only</button>
+          <button data-mode="rh" class="practice-mode-btn px-2.5 py-1.5 rounded-lg text-slate-400 hover:text-amber-300 transition cursor-pointer">RH Only</button>
+        </div>
+
+        <!-- Loop Section Toggle -->
+        <button id="loopSectionBtn" class="px-3 py-2 rounded-xl bg-slate-900/90 border border-slate-700/70 text-slate-300 hover:text-white text-xs font-semibold flex items-center gap-1.5 transition cursor-pointer" title="Loop current song section">
+          <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17 2l4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/>
+            <path d="M7 22l-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/>
+          </svg>
+          <span>Loop Section</span>
+        </button>
+
+        <!-- Sustain Pedal Toggle -->
+        <button id="pedalToggleBtn" class="px-3 py-2 rounded-xl bg-emerald-500/15 border border-emerald-400/40 text-emerald-300 text-xs font-semibold flex items-center gap-1.5 transition cursor-pointer" title="Toggle Sustain Pedal">
+          <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+          <span>Pedal: ON</span>
+        </button>
+      </div>
+
+      <!-- Tempo Slider -->
+      <div class="flex items-center gap-3 bg-slate-900/80 border border-slate-700/70 rounded-xl px-3 py-2">
+        <div class="flex flex-col">
+          <span class="text-[10px] uppercase tracking-wider text-slate-400 font-semibold leading-none">Tempo</span>
+          <span id="tempoReadout" class="font-mono text-xs font-bold text-amber-300 mt-0.5">100% · 72 BPM</span>
+        </div>
+        <input id="tempoSlider" type="range" min="50" max="120" step="5" value="100" class="w-28 sm:w-32" aria-label="Tempo percentage" />
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    /**
+     * =========================================================================
+     * 1. MUSIC THEORY UTILITIES & NOTE FREQUENCIES
+     * =========================================================================
+     */
+    const NOTE_TO_SEMITONE = {
+      'C': 0, 'C#': 1, 'Db': 1, 'D': 2, 'D#': 3, 'Eb': 3, 'E': 4,
+      'F': 5, 'F#': 6, 'Gb': 6, 'G': 7, 'G#': 8, 'Ab': 8, 'A': 9,
+      'A#': 10, 'Bb': 10, 'B': 11
+    };
+
+    const BLACK_NOTE_SET = new Set(['Db', 'Eb', 'Gb', 'Ab', 'Bb', 'C#', 'D#', 'F#', 'G#', 'A#']);
+    const KEY_SIG_BLACK_NOTES = new Set(['Bb', 'Eb']);
+    const BRIDGE_BORROWED_NOTES = new Set(['Gb', 'Db', 'Ab']);
+
+    function parseNote(noteStr) {
+      const match = /^([A-G][b#]?)(\d)$/.exec(noteStr);
+      if (!match) return { pitchClass: 'C', octave: 4, midi: 60 };
+      const pitchClass = match[1];
+      const octave = parseInt(match[2], 10);
+      const midi = (octave + 1) * 12 + NOTE_TO_SEMITONE[pitchClass];
+      return { pitchClass, octave, midi };
+    }
+
+    function noteToFreq(noteStr) {
+      const { midi } = parseNote(noteStr);
+      return 440 * Math.pow(2, (midi - 69) / 12);
+    }
+
+    function formatDisplayNote(noteStr) {
+      return noteStr.replace(/b/g, '♭').replace(/#/g, '♯');
+    }
+
+    function isBlackKey(noteStr) {
+      const { pitchClass } = parseNote(noteStr);
+      return BLACK_NOTE_SET.has(pitchClass);
+    }
+
+    // Chord tone sets for inspector feedback
+    const CHORD_TONES = {
+      'B♭':   ['Bb', 'D', 'F'],
+      'F/A':  ['F', 'A', 'C'],
+      'Gm':   ['G', 'Bb', 'D'],
+      'Dm/F': ['D', 'F', 'A'],
+      'Dm':   ['D', 'F', 'A'],
+      'E♭':   ['Eb', 'G', 'Bb'],
+      'F/E♭': ['F', 'A', 'C', 'Eb'],
+      'B♭/D': ['Bb', 'D', 'F'],
+      'Cm':   ['C', 'Eb', 'G'],
+      'F':    ['F', 'A', 'C'],
+      'G♭':   ['Gb', 'Bb', 'Db'],
+      'A♭':   ['Ab', 'C', 'Eb'],
+    };
+
+    function getNoteRole(noteStr, chordName) {
+      const { pitchClass } = parseNote(noteStr);
+      const tones = CHORD_TONES[chordName] || [];
+      if (tones.includes(pitchClass)) return 'Chord Tone (Safe Anchor)';
+      if (['Bb', 'C', 'D', 'Eb', 'F', 'G', 'A'].includes(pitchClass)) return 'Scale Passing Tone';
+      return 'Expressive Borrowed Color Tone';
+    }
+
+    /**
+     * =========================================================================
+     * 2. WEB AUDIO API GRAND PIANO ENGINE
+     * =========================================================================
+     */
+    class GrandPianoEngine {
+      constructor() {
+        this.ctx = null;
+        this.masterGain = null;
+        this.convolver = null;
+        this.dryGain = null;
+        this.wetGain = null;
+        this.activeVoices = [];
+        this.sustainEnabled = true;
+      }
+
+      init() {
+        if (this.ctx) {
+          if (this.ctx.state === 'suspended') {
+            this.ctx.resume();
+          }
+          return;
+        }
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        this.ctx = new AudioCtx();
+
+        // Master bus with gentle compression to prevent clipping on rich chords
+        const compressor = this.ctx.createDynamicsCompressor();
+        compressor.threshold.value = -14;
+        compressor.knee.value = 18;
+        compressor.ratio.value = 4;
+        compressor.attack.value = 0.005;
+        compressor.release.value = 0.2;
+
+        this.masterGain = this.ctx.createGain();
+        this.masterGain.gain.value = 0.78;
+
+        this.dryGain = this.ctx.createGain();
+        this.dryGain.gain.value = 0.84;
+
+        this.wetGain = this.ctx.createGain();
+        this.wetGain.gain.value = 0.22;
+
+        // Algorithmic warm studio reverb impulse response
+        this.convolver = this.ctx.createConvolver();
+        this.convolver.buffer = this._createReverbImpulse(2.1, 2.8);
+
+        this.dryGain.connect(compressor);
+        this.wetGain.connect(this.convolver);
+        this.convolver.connect(compressor);
+        compressor.connect(this.masterGain);
+        this.masterGain.connect(this.ctx.destination);
+      }
+
+      _createReverbImpulse(duration, decay) {
+        const rate = this.ctx.sampleRate;
+        const length = Math.floor(rate * duration);
+        const impulse = this.ctx.createBuffer(2, length, rate);
+        for (let ch = 0; ch < 2; ch++) {
+          const data = impulse.getChannelData(ch);
+          for (let i = 0; i < length; i++) {
+            const env = Math.pow(1 - i / length, decay);
+            // Soft low-passed noise tail
+            data[i] = (Math.random() * 2 - 1) * env * 0.55;
+          }
+        }
+        return impulse;
+      }
+
+      // Release sustained voices cleanly when pedal lifts at the start of a new bar
+      liftPedal() {
+        if (!this.ctx) return;
+        const now = this.ctx.currentTime;
+        this.activeVoices.forEach(v => {
+          if (v.sustained) {
+            try {
+              v.gainNode.gain.cancelScheduledValues(now);
+              v.gainNode.gain.setValueAtTime(Math.max(v.gainNode.gain.value, 0.0001), now);
+              v.gainNode.gain.exponentialRampToValueAtTime(0.0001, now + 0.16);
+              v.oscNodes.forEach(o => o.stop(now + 0.18));
+            } catch (e) {}
+            v.sustained = false;
+          }
+        });
+        this.activeVoices = this.activeVoices.filter(v => v.endTime > now);
+      }
+
+      stopAll() {
+        if (!this.ctx) return;
+        const now = this.ctx.currentTime;
+        this.activeVoices.forEach(v => {
+          try {
+            v.gainNode.gain.cancelScheduledValues(now);
+            v.gainNode.gain.setValueAtTime(Math.max(v.gainNode.gain.value, 0.0001), now);
+            v.gainNode.gain.exponentialRampToValueAtTime(0.0001, now + 0.08);
+            v.oscNodes.forEach(o => o.stop(now + 0.1));
+          } catch (e) {}
+        });
+        this.activeVoices = [];
+      }
+
+      playNote(noteStr, { velocity = 0.65, durationSec = 1.1, isLH = false, delaySec = 0 } = {}) {
+        this.init();
+        const now = this.ctx.currentTime + delaySec;
+        const freq = noteToFreq(noteStr);
+        const { midi } = parseNote(noteStr);
+
+        // Stereo pan: bass slightly left (-0.32), treble slightly right (+0.32)
+        const panValue = Math.max(-0.35, Math.min(0.35, ((midi - 60) / 24) * 0.32));
+        const panner = this.ctx.createStereoPanner ? this.ctx.createStereoPanner() : null;
+        if (panner) panner.pan.setValueAtTime(panValue, now);
+
+        // Velocity-sensitive warm lowpass filter
+        const filter = this.ctx.createBiquadFilter();
+        filter.type = 'lowpass';
+        const peakCutoff = Math.min(7200, freq * (2.6 + velocity * 4.5));
+        const restCutoff = Math.min(2600, freq * (1.4 + velocity * 1.4));
+        filter.frequency.setValueAtTime(peakCutoff, now);
+        filter.frequency.exponentialRampToValueAtTime(Math.max(240, restCutoff), now + 0.45);
+        filter.Q.value = 0.7;
+
+        const envGain = this.ctx.createGain();
+        const peakGain = (isLH ? 0.22 : 0.27) * velocity;
+        const holdTime = this.sustainEnabled ? Math.max(durationSec, 2.2) : Math.max(durationSec, 0.35);
+
+        envGain.gain.setValueAtTime(0.0001, now);
+        envGain.gain.linearRampToValueAtTime(peakGain, now + 0.009); // Soft 9ms hammer attack
+        envGain.gain.exponentialRampToValueAtTime(peakGain * 0.48, now + 0.28);
+        envGain.gain.exponentialRampToValueAtTime(0.0008, now + holdTime);
+
+        // Oscillator blend: fundamental sine + soft triangle + gentle 2nd & 3rd harmonics
+        const osc1 = this.ctx.createOscillator();
+        const osc2 = this.ctx.createOscillator();
+        const osc3 = this.ctx.createOscillator();
+        const osc4 = this.ctx.createOscillator();
+
+        osc1.type = 'sine';
+        osc1.frequency.setValueAtTime(freq, now);
+
+        osc2.type = 'triangle';
+        osc2.frequency.setValueAtTime(freq, now);
+
+        osc3.type = 'sine';
+        osc3.frequency.setValueAtTime(freq * 2, now);
+
+        osc4.type = 'sine';
+        osc4.frequency.setValueAtTime(freq * 3, now);
+
+        const g1 = this.ctx.createGain(); g1.gain.value = 0.62;
+        const g2 = this.ctx.createGain(); g2.gain.value = 0.24;
+        const g3 = this.ctx.createGain(); g3.gain.value = 0.12;
+        const g4 = this.ctx.createGain(); g4.gain.value = 0.04;
+
+        osc1.connect(g1).connect(filter);
+        osc2.connect(g2).connect(filter);
+        osc3.connect(g3).connect(filter);
+        osc4.connect(g4).connect(filter);
+
+        filter.connect(envGain);
+        if (panner) {
+          envGain.connect(panner);
+          panner.connect(this.dryGain);
+          panner.connect(this.wetGain);
+        } else {
+          envGain.connect(this.dryGain);
+          envGain.connect(this.wetGain);
+        }
+
+        const stopTime = now + holdTime + 0.05;
+        [osc1, osc2, osc3, osc4].forEach(o => {
+          o.start(now);
+          o.stop(stopTime);
+        });
+
+        this.activeVoices.push({
+          oscNodes: [osc1, osc2, osc3, osc4],
+          gainNode: envGain,
+          sustained: this.sustainEnabled,
+          endTime: stopTime,
+        });
+
+        // Periodic cleanup
+        if (this.activeVoices.length > 48) {
+          this.activeVoices = this.activeVoices.filter(v => v.endTime > this.ctx.currentTime);
+        }
+      }
+    }
+
+    const pianoEngine = new GrandPianoEngine();
+
+    /**
+     * =========================================================================
+     * 3. FULL 58-BAR ARRANGEMENT OF "HOW HAVE YOU BEEN?" (B♭ MAJOR)
+     * =========================================================================
+     */
+    // Helper builders for standard 3-note & 4-note left-hand arpeggios
+    const arp3 = (n1, n2, n3) => [
+      { note: n1, beat: 0, dur: 2 },
+      { note: n2, beat: 2, dur: 2 },
+      { note: n3, beat: 4, dur: 4 },
+    ];
+    const arp4 = (n1, n2, n3) => [
+      { note: n1, beat: 0, dur: 2 },
+      { note: n2, beat: 2, dur: 2 },
+      { note: n3, beat: 4, dur: 2 },
+      { note: n2, beat: 6, dur: 2 },
+    ];
+    const bassHold = (n1) => [
+      { note: n1, beat: 0, dur: 8 },
+    ];
+
+    const SONG_BARS = [
+      // ==================== 1. INTRO (8 bars, mp) ====================
+      {
+        section: 'Intro', barNumber: 1, chord: 'B♭', dynamic: 'mp', pedal: 'clean-bar',
+        cue: 'Iconic descending Canon opening',
+        lh: arp3('Bb2', 'F3', 'Bb3'),
+        rh: [
+          { note: 'F4', beat: 1, dur: 1, motion: '•' },
+          { note: 'F4', beat: 2, dur: 1, motion: '=' },
+          { note: 'C5', beat: 3, dur: 1, motion: '↑' },
+          { note: 'D5', beat: 4, dur: 1, motion: '↑' },
+          { note: 'C5', beat: 5, dur: 1, motion: '↓' },
+          { note: 'D5', beat: 6, dur: 2, motion: '↑' },
+        ]
+      },
+      {
+        section: 'Intro', barNumber: 2, chord: 'F/A', dynamic: 'mp', pedal: 'clean-bar',
+        cue: 'Bass steps down B♭ → A',
+        lh: arp3('A2', 'F3', 'A3'),
+        rh: [
+          { note: 'C5', beat: 0, dur: 3, motion: '↓' },
+          { note: 'F4', beat: 3, dur: 2, motion: '↓' },
+          { note: 'F4', beat: 5, dur: 3, motion: '=' },
+        ]
+      },
+      {
+        section: 'Intro', barNumber: 3, chord: 'Gm', dynamic: 'mp', pedal: 'clean-bar',
+        cue: 'Warm minor color on G',
+        lh: arp3('G2', 'D3', 'G3'),
+        rh: [
+          { note: 'F4', beat: 1, dur: 1, motion: '=' },
+          { note: 'A4', beat: 2, dur: 2, motion: '↑' },
+          { note: 'A4', beat: 4, dur: 4, motion: '=' },
+        ]
+      },
+      {
+        section: 'Intro', barNumber: 4, chord: 'Dm/F', dynamic: 'mp', pedal: 'clean-bar',
+        cue: 'Gentle repeated F4 pulse',
+        lh: arp3('F2', 'D3', 'F3'),
+        rh: [
+          { note: 'A4', beat: 2, dur: 2, motion: '=' },
+          { note: 'F4', beat: 4, dur: 1, motion: '↓' },
+          { note: 'F4', beat: 5, dur: 1, motion: '=' },
+          { note: 'F4', beat: 6, dur: 2, motion: '=' },
+        ]
+      },
+      {
+        section: 'Intro', barNumber: 5, chord: 'E♭', dynamic: 'mp', pedal: 'clean-bar',
+        cue: 'Watch for E♭ & B♭ black keys',
+        lh: arp3('Eb2', 'Bb2', 'Eb3'),
+        rh: [
+          { note: 'G4', beat: 1, dur: 2, motion: '↑' },
+          { note: 'A4', beat: 3, dur: 2, motion: '↑' },
+          { note: 'G4', beat: 5, dur: 3, motion: '↓' },
+        ]
+      },
+      {
+        section: 'Intro', barNumber: 6, chord: 'B♭/D', dynamic: 'mp', pedal: 'clean-bar',
+        cue: 'Tender descent F4 → E♭4',
+        lh: arp3('D2', 'Bb2', 'D3'),
+        rh: [
+          { note: 'F4', beat: 0, dur: 4, motion: '↓' },
+          { note: 'Eb4', beat: 4, dur: 4, motion: '↓' },
+        ]
+      },
+      {
+        section: 'Intro', barNumber: 7, chord: 'Cm', dynamic: 'mp', pedal: 'clean-bar',
+        cue: 'Soft turnaround on Cm',
+        lh: arp3('C2', 'G2', 'C3'),
+        rh: [
+          { note: 'Eb4', beat: 1, dur: 1, motion: '=' },
+          { note: 'F4', beat: 2, dur: 2, motion: '↑' },
+          { note: 'C4', beat: 4, dur: 2, motion: '↓' },
+          { note: 'D4', beat: 6, dur: 2, motion: '↑' },
+        ]
+      },
+      {
+        section: 'Intro', barNumber: 8, chord: 'F', dynamic: 'mp', pedal: 'clean-bar',
+        cue: 'Resolve gently into Verse 1',
+        lh: arp3('F2', 'C3', 'F3'),
+        rh: [
+          { note: 'C4', beat: 0, dur: 4, motion: '↓' },
+          { note: 'F4', beat: 4, dur: 4, motion: '↑' },
+        ]
+      },
+
+      // ==================== 2. VERSE 1 (8 bars, mp) ====================
+      {
+        section: 'Verse 1', barNumber: 9, chord: 'B♭', dynamic: 'mp', pedal: 'clean-bar',
+        cue: '是不是還那麼愛遲到',
+        lh: arp3('Bb2', 'F3', 'Bb3'),
+        rh: [
+          { note: 'D4', beat: 1, dur: 1, motion: '↓' },
+          { note: 'F4', beat: 2, dur: 1, motion: '↑' },
+          { note: 'F4', beat: 3, dur: 1, motion: '=' },
+          { note: 'F4', beat: 4, dur: 1, motion: '=' },
+          { note: 'G4', beat: 5, dur: 1, motion: '↑' },
+          { note: 'F4', beat: 6, dur: 1, motion: '↓' },
+          { note: 'D4', beat: 7, dur: 1, motion: '↓' },
+        ]
+      },
+      {
+        section: 'Verse 1', barNumber: 10, chord: 'F/A', dynamic: 'mp', pedal: 'clean-bar',
+        cue: '熬夜工作又睡不好',
+        lh: arp3('A2', 'F3', 'A3'),
+        rh: [
+          { note: 'C4', beat: 0, dur: 2, motion: '↓' },
+          { note: 'F4', beat: 2, dur: 1, motion: '↑' },
+          { note: 'F4', beat: 3, dur: 1, motion: '=' },
+          { note: 'F4', beat: 4, dur: 1, motion: '=' },
+          { note: 'G4', beat: 5, dur: 1, motion: '↑' },
+          { note: 'F4', beat: 6, dur: 1, motion: '↓' },
+          { note: 'C4', beat: 7, dur: 1, motion: '↓' },
+        ]
+      },
+      {
+        section: 'Verse 1', barNumber: 11, chord: 'Gm', dynamic: 'mp', pedal: 'clean-bar',
+        cue: '等你完成你的目標',
+        lh: arp3('G2', 'D3', 'G3'),
+        rh: [
+          { note: 'D4', beat: 0, dur: 2, motion: '↑' },
+          { note: 'D4', beat: 2, dur: 1, motion: '=' },
+          { note: 'G4', beat: 3, dur: 1, motion: '↑' },
+          { note: 'G4', beat: 4, dur: 1, motion: '=' },
+          { note: 'A4', beat: 5, dur: 1, motion: '↑' },
+          { note: 'G4', beat: 6, dur: 1, motion: '↓' },
+          { note: 'F4', beat: 7, dur: 1, motion: '↓' },
+        ]
+      },
+      {
+        section: 'Verse 1', barNumber: 12, chord: 'Dm/F', dynamic: 'mp', pedal: 'clean-bar',
+        cue: 'Breathing space before next line',
+        lh: arp3('F2', 'D3', 'F3'),
+        rh: [
+          { note: 'F4', beat: 0, dur: 3, motion: '=' },
+          { note: 'D4', beat: 3, dur: 2, motion: '↓' },
+          { note: 'C4', beat: 5, dur: 1, motion: '↓' },
+          { note: 'D4', beat: 6, dur: 2, motion: '↑' },
+        ]
+      },
+      {
+        section: 'Verse 1', barNumber: 13, chord: 'E♭', dynamic: 'mp', pedal: 'clean-bar',
+        cue: '要戒掉逞強的嗜好',
+        lh: arp3('Eb2', 'Bb2', 'Eb3'),
+        rh: [
+          { note: 'Eb4', beat: 0, dur: 2, motion: '↑' },
+          { note: 'G4', beat: 2, dur: 1, motion: '↑' },
+          { note: 'G4', beat: 3, dur: 1, motion: '=' },
+          { note: 'G4', beat: 4, dur: 1, motion: '=' },
+          { note: 'A4', beat: 5, dur: 1, motion: '↑' },
+          { note: 'G4', beat: 6, dur: 1, motion: '↓' },
+          { note: 'F4', beat: 7, dur: 1, motion: '↓' },
+        ]
+      },
+      {
+        section: 'Verse 1', barNumber: 14, chord: 'B♭/D', dynamic: 'mp', pedal: 'clean-bar',
+        cue: '都怪我 把自尊放太高',
+        lh: arp3('D2', 'Bb2', 'D3'),
+        rh: [
+          { note: 'F4', beat: 0, dur: 2, motion: '=' },
+          { note: 'D4', beat: 2, dur: 2, motion: '↓' },
+          { note: 'D4', beat: 4, dur: 2, motion: '=' },
+          { note: 'F4', beat: 6, dur: 2, motion: '↑' },
+        ]
+      },
+      {
+        section: 'Verse 1', barNumber: 15, chord: 'Cm', dynamic: 'mp', pedal: 'clean-bar',
+        cue: '沒有把你照顧好',
+        lh: arp3('C2', 'G2', 'C3'),
+        rh: [
+          { note: 'Eb4', beat: 0, dur: 2, motion: '↓' },
+          { note: 'Eb4', beat: 2, dur: 1, motion: '=' },
+          { note: 'F4', beat: 3, dur: 1, motion: '↑' },
+          { note: 'G4', beat: 4, dur: 1, motion: '↑' },
+          { note: 'F4', beat: 5, dur: 1, motion: '↓' },
+          { note: 'Eb4', beat: 6, dur: 1, motion: '↓' },
+          { note: 'D4', beat: 7, dur: 1, motion: '↓' },
+        ]
+      },
+      {
+        section: 'Verse 1', barNumber: 16, chord: 'F', dynamic: 'mp', pedal: 'clean-bar',
+        cue: 'Build gently into Pre-Chorus',
+        lh: arp3('F2', 'C3', 'F3'),
+        rh: [
+          { note: 'C4', beat: 0, dur: 4, motion: '↓' },
+          { note: 'D4', beat: 4, dur: 2, motion: '↑' },
+          { note: 'F4', beat: 6, dur: 2, motion: '↑' },
+        ]
+      },
+
+      // ==================== 3. PRE-CHORUS (6 bars, mf) ====================
+      {
+        section: 'Pre-Chorus', barNumber: 17, chord: 'E♭', dynamic: 'mf', pedal: 'clean-bar',
+        cue: '我好想你 好想你 卻不露痕跡',
+        lh: arp3('Eb2', 'Bb2', 'Eb3'),
+        rh: [
+          { note: 'G4', beat: 0, dur: 2, motion: '↑' },
+          { note: 'G4', beat: 2, dur: 1, motion: '=' },
+          { note: 'Bb4', beat: 3, dur: 1, motion: '↑' },
+          { note: 'A4', beat: 4, dur: 2, motion: '↓' },
+          { note: 'G4', beat: 6, dur: 2, motion: '↓' },
+        ]
+      },
+      {
+        section: 'Pre-Chorus', barNumber: 18, chord: 'F/E♭', dynamic: 'mf', pedal: 'clean-bar',
+        cue: 'Emotional lift over E♭ bass',
+        lh: arp3('Eb2', 'C3', 'F3'),
+        rh: [
+          { note: 'A4', beat: 0, dur: 2, motion: '↑' },
+          { note: 'A4', beat: 2, dur: 1, motion: '=' },
+          { note: 'C5', beat: 3, dur: 1, motion: '↑' },
+          { note: 'Bb4', beat: 4, dur: 2, motion: '↓' },
+          { note: 'A4', beat: 6, dur: 2, motion: '↓' },
+        ]
+      },
+      {
+        section: 'Pre-Chorus', barNumber: 19, chord: 'Dm', dynamic: 'mf', pedal: 'clean-bar',
+        cue: '我還踮著腳思念',
+        lh: arp3('D2', 'A2', 'D3'),
+        rh: [
+          { note: 'A4', beat: 0, dur: 2, motion: '=' },
+          { note: 'F4', beat: 2, dur: 2, motion: '↓' },
+          { note: 'F4', beat: 4, dur: 2, motion: '=' },
+          { note: 'G4', beat: 6, dur: 1, motion: '↑' },
+          { note: 'A4', beat: 7, dur: 1, motion: '↑' },
+        ]
+      },
+      {
+        section: 'Pre-Chorus', barNumber: 20, chord: 'Gm', dynamic: 'mf', pedal: 'clean-bar',
+        cue: '我還任記憶盤旋',
+        lh: arp3('G2', 'D3', 'G3'),
+        rh: [
+          { note: 'Bb4', beat: 0, dur: 2, motion: '↑' },
+          { note: 'G4', beat: 2, dur: 2, motion: '↓' },
+          { note: 'G4', beat: 4, dur: 2, motion: '=' },
+          { note: 'A4', beat: 6, dur: 1, motion: '↑' },
+          { note: 'Bb4', beat: 7, dur: 1, motion: '↑' },
+        ]
+      },
+      {
+        section: 'Pre-Chorus', barNumber: 21, chord: 'Cm', dynamic: 'mf', pedal: 'clean-bar',
+        cue: '我還閉著眼流淚',
+        lh: arp3('C2', 'G2', 'C3'),
+        rh: [
+          { note: 'C5', beat: 0, dur: 2, motion: '↑' },
+          { note: 'G4', beat: 2, dur: 1, motion: '↓' },
+          { note: 'G4', beat: 3, dur: 1, motion: '=' },
+          { note: 'A4', beat: 4, dur: 2, motion: '↑' },
+          { note: 'Bb4', beat: 6, dur: 2, motion: '↑' },
+        ]
+      },
+      {
+        section: 'Pre-Chorus', barNumber: 22, chord: 'F', dynamic: 'mf', pedal: 'clean-bar',
+        cue: 'Crescendo into Chorus 1!',
+        lh: arp3('F2', 'C3', 'F3'),
+        rh: [
+          { note: 'A4', beat: 0, dur: 2, motion: '↓' },
+          { note: 'G4', beat: 2, dur: 2, motion: '↓' },
+          { note: 'F4', beat: 4, dur: 2, motion: '↓' },
+          { note: 'C5', beat: 6, dur: 2, motion: '↑' },
+        ]
+      },
+
+      // ==================== 4. CHORUS 1 (8 bars, f) ====================
+      {
+        section: 'Chorus 1', barNumber: 23, chord: 'B♭', dynamic: 'f', pedal: 'clean-bar',
+        cue: '能不能繼續 對我哭 對我笑 對我好',
+        lh: arp3('Bb2', 'F3', 'Bb3'),
+        rh: [
+          { note: 'D5', beat: 0, dur: 1, motion: '↑' },
+          { note: 'D5', beat: 1, dur: 1, motion: '=' },
+          { note: 'C5', beat: 2, dur: 1, motion: '↓' },
+          { note: 'Bb4', beat: 3, dur: 1, motion: '↓' },
+          { note: 'D5', beat: 4, dur: 2, motion: '↑' },
+          { note: 'C5', beat: 6, dur: 1, motion: '↓' },
+          { note: 'Bb4', beat: 7, dur: 1, motion: '↓' },
+        ]
+      },
+      {
+        section: 'Chorus 1', barNumber: 24, chord: 'F/A', dynamic: 'f', pedal: 'clean-bar',
+        cue: 'Lean warm weight into C5 & A4',
+        lh: arp3('A2', 'F3', 'A3'),
+        rh: [
+          { note: 'C5', beat: 0, dur: 2, motion: '↑' },
+          { note: 'C5', beat: 2, dur: 1, motion: '=' },
+          { note: 'A4', beat: 3, dur: 1, motion: '↓' },
+          { note: 'F4', beat: 4, dur: 2, motion: '↓' },
+          { note: 'A4', beat: 6, dur: 2, motion: '↑' },
+        ]
+      },
+      {
+        section: 'Chorus 1', barNumber: 25, chord: 'Gm', dynamic: 'f', pedal: 'clean-bar',
+        cue: '繼續讓我 為你想 為你瘋 陪你老',
+        lh: arp3('G2', 'D3', 'G3'),
+        rh: [
+          { note: 'Bb4', beat: 0, dur: 1, motion: '↑' },
+          { note: 'Bb4', beat: 1, dur: 1, motion: '=' },
+          { note: 'A4', beat: 2, dur: 1, motion: '↓' },
+          { note: 'G4', beat: 3, dur: 1, motion: '↓' },
+          { note: 'Bb4', beat: 4, dur: 2, motion: '↑' },
+          { note: 'A4', beat: 6, dur: 1, motion: '↓' },
+          { note: 'G4', beat: 7, dur: 1, motion: '↓' },
+        ]
+      },
+      {
+        section: 'Chorus 1', barNumber: 26, chord: 'Dm/F', dynamic: 'f', pedal: 'clean-bar',
+        cue: 'Expressive peak falling to F4',
+        lh: arp3('F2', 'D3', 'F3'),
+        rh: [
+          { note: 'A4', beat: 0, dur: 2, motion: '↑' },
+          { note: 'F4', beat: 2, dur: 2, motion: '↓' },
+          { note: 'D4', beat: 4, dur: 2, motion: '↓' },
+          { note: 'F4', beat: 6, dur: 2, motion: '↑' },
+        ]
+      },
+      {
+        section: 'Chorus 1', barNumber: 27, chord: 'E♭', dynamic: 'f', pedal: 'clean-bar',
+        cue: '你好不好 好想知道',
+        lh: arp3('Eb2', 'Bb2', 'Eb3'),
+        rh: [
+          { note: 'G4', beat: 0, dur: 1, motion: '↑' },
+          { note: 'G4', beat: 1, dur: 1, motion: '=' },
+          { note: 'A4', beat: 2, dur: 1, motion: '↑' },
+          { note: 'Bb4', beat: 3, dur: 1, motion: '↑' },
+          { note: 'C5', beat: 4, dur: 2, motion: '↑' },
+          { note: 'Bb4', beat: 6, dur: 1, motion: '↓' },
+          { note: 'G4', beat: 7, dur: 1, motion: '↓' },
+        ]
+      },
+      {
+        section: 'Chorus 1', barNumber: 28, chord: 'B♭/D', dynamic: 'f', pedal: 'clean-bar',
+        cue: 'Soaring leap up to B♭4',
+        lh: arp3('D2', 'Bb2', 'D3'),
+        rh: [
+          { note: 'F4', beat: 0, dur: 2, motion: '↓' },
+          { note: 'D4', beat: 2, dur: 2, motion: '↓' },
+          { note: 'Bb4', beat: 4, dur: 2, motion: '↑' },
+          { note: 'A4', beat: 6, dur: 2, motion: '↓' },
+        ]
+      },
+      {
+        section: 'Chorus 1', barNumber: 29, chord: 'Cm', dynamic: 'f', pedal: 'clean-bar',
+        cue: '別急著把回憶都丟掉',
+        lh: arp3('C2', 'G2', 'C3'),
+        rh: [
+          { note: 'G4', beat: 0, dur: 2, motion: '↓' },
+          { note: 'G4', beat: 2, dur: 1, motion: '=' },
+          { note: 'A4', beat: 3, dur: 1, motion: '↑' },
+          { note: 'Bb4', beat: 4, dur: 1, motion: '↑' },
+          { note: 'A4', beat: 5, dur: 1, motion: '↓' },
+          { note: 'G4', beat: 6, dur: 1, motion: '↓' },
+          { note: 'F4', beat: 7, dur: 1, motion: '↓' },
+        ]
+      },
+      {
+        section: 'Chorus 1', barNumber: 30, chord: 'F', dynamic: 'mf', pedal: 'clean-bar',
+        cue: 'Settle warmly into Verse 2',
+        lh: arp3('F2', 'C3', 'F3'),
+        rh: [
+          { note: 'F4', beat: 0, dur: 4, motion: '=' },
+          { note: 'C5', beat: 4, dur: 2, motion: '↑' },
+          { note: 'A4', beat: 6, dur: 2, motion: '↓' },
+        ]
+      },
+
+      // ==================== 5. VERSE 2 (8 bars, mp) ====================
+      {
+        section: 'Verse 2', barNumber: 31, chord: 'B♭', dynamic: 'mp', pedal: 'clean-bar',
+        cue: 'Richer Verse 2 phrasing over steady LH',
+        lh: arp3('Bb2', 'F3', 'Bb3'),
+        rh: [
+          { note: 'F4', beat: 0, dur: 2, motion: '↓' },
+          { note: 'D4', beat: 2, dur: 1, motion: '↓' },
+          { note: 'F4', beat: 3, dur: 1, motion: '↑' },
+          { note: 'Bb4', beat: 4, dur: 2, motion: '↑' },
+          { note: 'A4', beat: 6, dur: 1, motion: '↓' },
+          { note: 'G4', beat: 7, dur: 1, motion: '↓' },
+        ]
+      },
+      {
+        section: 'Verse 2', barNumber: 32, chord: 'F/A', dynamic: 'mp', pedal: 'clean-bar',
+        cue: 'Syncopated right-hand lift',
+        lh: arp3('A2', 'F3', 'A3'),
+        rh: [
+          { note: 'F4', beat: 0, dur: 2, motion: '↓' },
+          { note: 'C4', beat: 2, dur: 1, motion: '↓' },
+          { note: 'F4', beat: 3, dur: 2, motion: '↑' },
+          { note: 'G4', beat: 5, dur: 1, motion: '↑' },
+          { note: 'F4', beat: 6, dur: 2, motion: '↓' },
+        ]
+      },
+      {
+        section: 'Verse 2', barNumber: 33, chord: 'Gm', dynamic: 'mp', pedal: 'clean-bar',
+        cue: 'Walking upward through G minor',
+        lh: arp3('G2', 'D3', 'G3'),
+        rh: [
+          { note: 'D4', beat: 0, dur: 1, motion: '↓' },
+          { note: 'G4', beat: 1, dur: 2, motion: '↑' },
+          { note: 'A4', beat: 3, dur: 1, motion: '↑' },
+          { note: 'Bb4', beat: 4, dur: 2, motion: '↑' },
+          { note: 'A4', beat: 6, dur: 1, motion: '↓' },
+          { note: 'G4', beat: 7, dur: 1, motion: '↓' },
+        ]
+      },
+      {
+        section: 'Verse 2', barNumber: 34, chord: 'Dm/F', dynamic: 'mp', pedal: 'clean-bar',
+        cue: 'Gentle landing on F4 & D4',
+        lh: arp3('F2', 'D3', 'F3'),
+        rh: [
+          { note: 'A4', beat: 0, dur: 2, motion: '↑' },
+          { note: 'F4', beat: 2, dur: 2, motion: '↓' },
+          { note: 'D4', beat: 4, dur: 2, motion: '↓' },
+          { note: 'F4', beat: 6, dur: 2, motion: '↑' },
+        ]
+      },
+      {
+        section: 'Verse 2', barNumber: 35, chord: 'E♭', dynamic: 'mp', pedal: 'clean-bar',
+        cue: 'Warm E♭ major arpeggio',
+        lh: arp3('Eb2', 'Bb2', 'Eb3'),
+        rh: [
+          { note: 'G4', beat: 0, dur: 2, motion: '↑' },
+          { note: 'Eb4', beat: 2, dur: 1, motion: '↓' },
+          { note: 'G4', beat: 3, dur: 1, motion: '↑' },
+          { note: 'Bb4', beat: 4, dur: 2, motion: '↑' },
+          { note: 'G4', beat: 6, dur: 2, motion: '↓' },
+        ]
+      },
+      {
+        section: 'Verse 2', barNumber: 36, chord: 'B♭/D', dynamic: 'mp', pedal: 'clean-bar',
+        cue: 'Flowing inner voice motion',
+        lh: arp3('D2', 'Bb2', 'D3'),
+        rh: [
+          { note: 'F4', beat: 0, dur: 2, motion: '↓' },
+          { note: 'D4', beat: 2, dur: 2, motion: '↓' },
+          { note: 'F4', beat: 4, dur: 2, motion: '↑' },
+          { note: 'Eb4', beat: 6, dur: 2, motion: '↓' },
+        ]
+      },
+      {
+        section: 'Verse 2', barNumber: 37, chord: 'Cm', dynamic: 'mp', pedal: 'clean-bar',
+        cue: 'Rising anticipation toward Bridge',
+        lh: arp3('C2', 'G2', 'C3'),
+        rh: [
+          { note: 'Eb4', beat: 0, dur: 2, motion: '=' },
+          { note: 'G4', beat: 2, dur: 2, motion: '↑' },
+          { note: 'Bb4', beat: 4, dur: 2, motion: '↑' },
+          { note: 'A4', beat: 6, dur: 2, motion: '↓' },
+        ]
+      },
+      {
+        section: 'Verse 2', barNumber: 38, chord: 'F', dynamic: 'mf', pedal: 'clean-bar',
+        cue: 'Prepare for Bridge borrowed flats!',
+        lh: arp3('F2', 'C3', 'F3'),
+        rh: [
+          { note: 'A4', beat: 0, dur: 2, motion: '=' },
+          { note: 'G4', beat: 2, dur: 2, motion: '↓' },
+          { note: 'F4', beat: 4, dur: 2, motion: '↓' },
+          { note: 'Bb4', beat: 6, dur: 2, motion: '↑' },
+        ]
+      },
+
+      // ==================== 6. BRIDGE (4 bars, mf -> f, Borrowed Flats) ====================
+      {
+        section: 'Bridge', barNumber: 39, chord: 'G♭', dynamic: 'mf', pedal: 'clean-bar',
+        colorShift: true,
+        cue: 'Color shift! Borrowed G♭ & D♭ black keys',
+        lh: arp3('Gb2', 'Db3', 'Gb3'),
+        rh: [
+          { note: 'Bb4', beat: 0, dur: 2, motion: '=' },
+          { note: 'Gb4', beat: 2, dur: 2, motion: '↓' },
+          { note: 'Ab4', beat: 4, dur: 2, motion: '↑' },
+          { note: 'Bb4', beat: 6, dur: 2, motion: '↑' },
+        ]
+      },
+      {
+        section: 'Bridge', barNumber: 40, chord: 'A♭', dynamic: 'f', pedal: 'clean-bar',
+        colorShift: true,
+        cue: 'Dramatic lift on A♭ major (A♭, E♭)',
+        lh: arp3('Ab2', 'Eb3', 'Ab3'),
+        rh: [
+          { note: 'C5', beat: 0, dur: 2, motion: '↑' },
+          { note: 'Ab4', beat: 2, dur: 2, motion: '↓' },
+          { note: 'Bb4', beat: 4, dur: 2, motion: '↑' },
+          { note: 'C5', beat: 6, dur: 2, motion: '↑' },
+        ]
+      },
+      {
+        section: 'Bridge', barNumber: 41, chord: 'B♭', dynamic: 'f', pedal: 'clean-bar',
+        colorShift: true,
+        cue: 'Triumphant return home to B♭ Major!',
+        lh: arp3('Bb2', 'F3', 'Bb3'),
+        rh: [
+          { note: 'D5', beat: 0, dur: 2, motion: '↑' },
+          { note: 'C5', beat: 2, dur: 2, motion: '↓' },
+          { note: 'Bb4', beat: 4, dur: 2, motion: '↓' },
+          { note: 'F4', beat: 6, dur: 2, motion: '↓' },
+        ]
+      },
+      {
+        section: 'Bridge', barNumber: 42, chord: 'F/A', dynamic: 'mf', pedal: 'clean-bar',
+        colorShift: false,
+        cue: 'Pull back softly into Quiet Drop',
+        lh: arp3('A2', 'F3', 'C4'),
+        rh: [
+          { note: 'C5', beat: 0, dur: 3, motion: '↑' },
+          { note: 'A4', beat: 3, dur: 3, motion: '↓' },
+          { note: 'F4', beat: 6, dur: 2, motion: '↓' },
+        ]
+      },
+
+      // ==================== 7. QUIET DROP (4 bars, pp, Single Sustained Bass) ====================
+      {
+        section: 'Quiet Drop', barNumber: 43, chord: 'B♭', dynamic: 'pp', pedal: 'clean-bar',
+        isQuietDrop: true,
+        cue: 'Whisper-soft: single sustained bass B♭2',
+        lh: bassHold('Bb2'),
+        rh: [
+          { note: 'D5', beat: 1, dur: 3, motion: '↑' },
+          { note: 'C5', beat: 4, dur: 4, motion: '↓' },
+        ]
+      },
+      {
+        section: 'Quiet Drop', barNumber: 44, chord: 'F/A', dynamic: 'pp', pedal: 'clean-bar',
+        isQuietDrop: true,
+        cue: 'Single sustained bass A2 — let it ring',
+        lh: bassHold('A2'),
+        rh: [
+          { note: 'A4', beat: 1, dur: 3, motion: '↓' },
+          { note: 'F4', beat: 4, dur: 4, motion: '↓' },
+        ]
+      },
+      {
+        section: 'Quiet Drop', barNumber: 45, chord: 'Gm', dynamic: 'pp', pedal: 'clean-bar',
+        isQuietDrop: true,
+        cue: 'Single sustained bass G2 — fragile & tender',
+        lh: bassHold('G2'),
+        rh: [
+          { note: 'Bb4', beat: 1, dur: 3, motion: '↑' },
+          { note: 'A4', beat: 4, dur: 4, motion: '↓' },
+        ]
+      },
+      {
+        section: 'Quiet Drop', barNumber: 46, chord: 'Dm/F', dynamic: 'p', pedal: 'clean-bar',
+        isQuietDrop: true,
+        cue: 'Swell gently for the Final Chorus!',
+        lh: bassHold('F2'),
+        rh: [
+          { note: 'F4', beat: 1, dur: 3, motion: '↓' },
+          { note: 'A4', beat: 4, dur: 2, motion: '↑' },
+          { note: 'C5', beat: 6, dur: 2, motion: '↑' },
+        ]
+      },
+
+      // ==================== 8. FINAL CHORUS (8 bars, f, Fuller 4-Note LH) ====================
+      {
+        section: 'Final Chorus', barNumber: 47, chord: 'B♭', dynamic: 'f', pedal: 'clean-bar',
+        cue: 'Full 4-note LH arpeggio — soaring climax!',
+        lh: arp4('Bb2', 'F3', 'Bb3'),
+        rh: [
+          { note: 'D5', beat: 0, dur: 1, motion: '↑' },
+          { note: 'D5', beat: 1, dur: 1, motion: '=' },
+          { note: 'C5', beat: 2, dur: 1, motion: '↓' },
+          { note: 'Bb4', beat: 3, dur: 1, motion: '↓' },
+          { note: 'D5', beat: 4, dur: 2, motion: '↑' },
+          { note: 'C5', beat: 6, dur: 1, motion: '↓' },
+          { note: 'Bb4', beat: 7, dur: 1, motion: '↓' },
+        ]
+      },
+      {
+        section: 'Final Chorus', barNumber: 48, chord: 'F/A', dynamic: 'f', pedal: 'clean-bar',
+        cue: 'Resonant high F5 peak',
+        lh: arp4('A2', 'F3', 'A3'),
+        rh: [
+          { note: 'C5', beat: 0, dur: 2, motion: '↑' },
+          { note: 'F5', beat: 2, dur: 2, motion: '↑' },
+          { note: 'C5', beat: 4, dur: 2, motion: '↓' },
+          { note: 'A4', beat: 6, dur: 2, motion: '↓' },
+        ]
+      },
+      {
+        section: 'Final Chorus', barNumber: 49, chord: 'Gm', dynamic: 'f', pedal: 'clean-bar',
+        cue: 'Full expressive phrasing',
+        lh: arp4('G2', 'D3', 'G3'),
+        rh: [
+          { note: 'Bb4', beat: 0, dur: 1, motion: '↑' },
+          { note: 'Bb4', beat: 1, dur: 1, motion: '=' },
+          { note: 'A4', beat: 2, dur: 1, motion: '↓' },
+          { note: 'G4', beat: 3, dur: 1, motion: '↓' },
+          { note: 'Bb4', beat: 4, dur: 2, motion: '↑' },
+          { note: 'A4', beat: 6, dur: 1, motion: '↓' },
+          { note: 'G4', beat: 7, dur: 1, motion: '↓' },
+        ]
+      },
+      {
+        section: 'Final Chorus', barNumber: 50, chord: 'Dm/F', dynamic: 'f', pedal: 'clean-bar',
+        cue: 'Keep LH flowing steadily underneath',
+        lh: arp4('F2', 'D3', 'F3'),
+        rh: [
+          { note: 'A4', beat: 0, dur: 2, motion: '↑' },
+          { note: 'F4', beat: 2, dur: 2, motion: '↓' },
+          { note: 'D4', beat: 4, dur: 2, motion: '↓' },
+          { note: 'F4', beat: 6, dur: 2, motion: '↑' },
+        ]
+      },
+      {
+        section: 'Final Chorus', barNumber: 51, chord: 'E♭', dynamic: 'f', pedal: 'clean-bar',
+        cue: '你好不好 好想知道',
+        lh: arp4('Eb2', 'Bb2', 'Eb3'),
+        rh: [
+          { note: 'G4', beat: 0, dur: 1, motion: '↑' },
+          { note: 'G4', beat: 1, dur: 1, motion: '=' },
+          { note: 'A4', beat: 2, dur: 1, motion: '↑' },
+          { note: 'Bb4', beat: 3, dur: 1, motion: '↑' },
+          { note: 'C5', beat: 4, dur: 2, motion: '↑' },
+          { note: 'Bb4', beat: 6, dur: 1, motion: '↓' },
+          { note: 'G4', beat: 7, dur: 1, motion: '↓' },
+        ]
+      },
+      {
+        section: 'Final Chorus', barNumber: 52, chord: 'B♭/D', dynamic: 'f', pedal: 'clean-bar',
+        cue: 'Emotional peak D5 → C5',
+        lh: arp4('D2', 'Bb2', 'D3'),
+        rh: [
+          { note: 'F4', beat: 0, dur: 2, motion: '↓' },
+          { note: 'D5', beat: 2, dur: 2, motion: '↑' },
+          { note: 'C5', beat: 4, dur: 2, motion: '↓' },
+          { note: 'Bb4', beat: 6, dur: 2, motion: '↓' },
+        ]
+      },
+      {
+        section: 'Final Chorus', barNumber: 53, chord: 'Cm', dynamic: 'mf', pedal: 'clean-bar',
+        cue: 'Softening gradually toward Outro',
+        lh: arp4('C2', 'G2', 'C3'),
+        rh: [
+          { note: 'G4', beat: 0, dur: 2, motion: '↓' },
+          { note: 'G4', beat: 2, dur: 1, motion: '=' },
+          { note: 'A4', beat: 3, dur: 1, motion: '↑' },
+          { note: 'Bb4', beat: 4, dur: 2, motion: '↑' },
+          { note: 'A4', beat: 6, dur: 2, motion: '↓' },
+        ]
+      },
+      {
+        section: 'Final Chorus', barNumber: 54, chord: 'F', dynamic: 'mf', pedal: 'clean-bar',
+        cue: 'Exhale into the gentle Outro',
+        lh: arp3('F2', 'C3', 'F3'),
+        rh: [
+          { note: 'G4', beat: 0, dur: 2, motion: '↓' },
+          { note: 'F4', beat: 2, dur: 4, motion: '↓' },
+          { note: 'A4', beat: 6, dur: 2, motion: '↑' },
+        ]
+      },
+
+      // ==================== 9. OUTRO (4 bars, p -> pp, Automatic Ritardando) ====================
+      {
+        section: 'Outro', barNumber: 55, chord: 'E♭', dynamic: 'p', pedal: 'clean-bar',
+        cue: 'Gentle echo of the Intro motif',
+        lh: arp3('Eb2', 'Bb2', 'Eb3'),
+        rh: [
+          { note: 'G4', beat: 1, dur: 2, motion: '↓' },
+          { note: 'A4', beat: 3, dur: 2, motion: '↑' },
+          { note: 'G4', beat: 5, dur: 3, motion: '↓' },
+        ]
+      },
+      {
+        section: 'Outro', barNumber: 56, chord: 'B♭/D', dynamic: 'p', pedal: 'clean-bar',
+        cue: 'Tender descent F4 → E♭4',
+        lh: arp3('D2', 'Bb2', 'D3'),
+        rh: [
+          { note: 'F4', beat: 0, dur: 4, motion: '↓' },
+          { note: 'Eb4', beat: 4, dur: 4, motion: '↓' },
+        ]
+      },
+      {
+        section: 'Outro', barNumber: 57, chord: 'Cm', dynamic: 'pp', pedal: 'clean-bar',
+        ritFactor: 0.78,
+        cue: 'rit. — Slowing down smoothly...',
+        lh: arp3('C2', 'G2', 'C3'),
+        rh: [
+          { note: 'Eb4', beat: 1, dur: 1, motion: '=' },
+          { note: 'F4', beat: 2, dur: 2, motion: '↑' },
+          { note: 'C4', beat: 4, dur: 2, motion: '↓' },
+          { note: 'D4', beat: 6, dur: 2, motion: '↑' },
+        ]
+      },
+      {
+        section: 'Outro', barNumber: 58, chord: 'B♭', dynamic: 'pp', pedal: 'hold',
+        ritFactor: 0.56,
+        isRolledEnd: true,
+        cue: 'rit. — Warm rolled B♭ major resolution',
+        lh: [
+          { note: 'Bb2', beat: 0, dur: 8 },
+          { note: 'F3',  beat: 1, dur: 7 },
+          { note: 'Bb3', beat: 2, dur: 6 },
+        ],
+        rh: [
+          { note: 'D4', beat: 3, dur: 5, motion: '•' },
+          { note: 'F4', beat: 4, dur: 4, motion: '↑' },
+        ]
+      },
+    ];
+
+    // Derive section metadata automatically from SONG_BARS
+    const SECTIONS = [];
+    SONG_BARS.forEach((bar, idx) => {
+      const existing = SECTIONS.find(s => s.name === bar.section);
+      if (!existing) {
+        SECTIONS.push({ name: bar.section, startIdx: idx, endIdx: idx, count: 1 });
+      } else {
+        existing.endIdx = idx;
+        existing.count++;
+      }
+    });
+
+    /**
+     * =========================================================================
+     * 4. APPLICATION STATE
+     * =========================================================================
+     */
+    const BASE_BPM = 72;
+    const state = {
+      barIdx: 0,
+      beatIdx: 0,          // 0..7 (eighth-note grid)
+      isPlaying: false,
+      tempoPct: 100,       // 50..120
+      practiceMode: 'both', // 'both' | 'lh' | 'rh'
+      loopSection: false,
+      sustainPedal: true,
+      timerId: null,
+      activeLhNotes: new Set(),
+      activeRhNotes: new Set(),
+    };
+
+    const DYNAMIC_VELOCITY = {
+      pp: 0.34,
+      p:  0.46,
+      mp: 0.58,
+      mf: 0.72,
+      f:  0.88,
+    };
+
+    const BEAT_LABELS = ['1', '1&', '2', '2&', '3', '3&', '4', '4&'];
+
+    /**
+     * =========================================================================
+     * 5. BUILD 3.5-OCTAVE PIANO KEYBOARD (C2 to F5)
+     * =========================================================================
+     */
+    const keyElements = new Map(); // canonical note name (e.g. 'Bb3') -> DOM element
+
+    function buildPianoKeyboard() {
+      const container = document.getElementById('pianoKeyboard');
+      container.innerHTML = '';
+      keyElements.clear();
+
+      // Generate ordered keys from C2 (MIDI 36) to F5 (MIDI 77)
+      const whiteSpecs = [];
+      const blackSpecs = [];
+      const chromaticNames = ['C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B'];
+
+      let whiteIndex = 0;
+      for (let midi = 36; midi <= 77; midi++) {
+        const pitchClass = chromaticNames[midi % 12];
+        const octave = Math.floor(midi / 12) - 1;
+        const noteStr = `${pitchClass}${octave}`;
+        const isBlack = pitchClass.includes('b');
+        if (!isBlack) {
+          whiteSpecs.push({ noteStr, pitchClass, octave, whiteIndex });
+          whiteIndex++;
+        } else {
+          blackSpecs.push({ noteStr, pitchClass, octave, afterWhiteIndex: whiteIndex - 1 });
+        }
+      }
+
+      const totalWhites = whiteSpecs.length; // 25 white keys
+      const whiteWidthPct = 100 / totalWhites;
+
+      // Render white keys
+      whiteSpecs.forEach(spec => {
+        const el = document.createElement('button');
+        el.type = 'button';
+        el.dataset.note = spec.noteStr;
+        el.className = 'piano-white-key absolute top-0 bottom-0 flex flex-col items-center justify-end pb-2 cursor-pointer focus:outline-none';
+        el.style.left = `${spec.whiteIndex * whiteWidthPct}%`;
+        el.style.width = `${whiteWidthPct}%`;
+
+        const label = document.createElement('span');
+        label.className = 'key-label text-[10px] font-mono font-bold pointer-events-none transition-colors ' +
+          (spec.pitchClass === 'C' ? 'text-slate-500' : 'text-slate-400/70');
+        label.textContent = spec.pitchClass === 'C' ? `C${spec.octave}` : '';
+        el.appendChild(label);
+
+        el.addEventListener('pointerdown', (e) => {
+          e.preventDefault();
+          auditionKey(spec.noteStr);
+        });
+
+        container.appendChild(el);
+        keyElements.set(spec.noteStr, el);
+      });
+
+      // Render black keys
+      const blackWidthPct = whiteWidthPct * 0.64;
+      blackSpecs.forEach(spec => {
+        const el = document.createElement('button');
+        el.type = 'button';
+        el.dataset.note = spec.noteStr;
+        el.className = 'piano-black-key absolute top-0 h-[62%] z-20 flex flex-col items-center justify-end pb-1.5 cursor-pointer focus:outline-none';
+        el.style.left = `${(spec.afterWhiteIndex + 1) * whiteWidthPct - blackWidthPct / 2}%`;
+        el.style.width = `${blackWidthPct}%`;
+
+        // Permanent key signature landmark dot on B♭ and E♭
+        if (KEY_SIG_BLACK_NOTES.has(spec.pitchClass)) {
+          const dot = document.createElement('span');
+          dot.className = 'landmark-dot w-2 h-2 rounded-full bg-violet-400/90 ring-2 ring-violet-400/30 mb-1 pointer-events-none';
+          el.appendChild(dot);
+        } else if (BRIDGE_BORROWED_NOTES.has(spec.pitchClass)) {
+          const dot = document.createElement('span');
+          dot.className = 'borrowed-dot hidden w-2 h-2 rounded-full bg-fuchsia-400 ring-2 ring-fuchsia-400/40 mb-1 pointer-events-none';
+          el.appendChild(dot);
+        }
+
+        const label = document.createElement('span');
+        label.className = 'key-label text-[9px] font-mono font-bold text-slate-300/80 pointer-events-none';
+        label.textContent = KEY_SIG_BLACK_NOTES.has(spec.pitchClass) ? formatDisplayNote(spec.pitchClass) : '';
+        el.appendChild(label);
+
+        el.addEventListener('pointerdown', (e) => {
+          e.preventDefault();
+          auditionKey(spec.noteStr);
+        });
+
+        container.appendChild(el);
+        keyElements.set(spec.noteStr, el);
+      });
+    }
+
+    function auditionKey(noteStr) {
+      const bar = SONG_BARS[state.barIdx];
+      pianoEngine.playNote(noteStr, { velocity: 0.72, durationSec: 1.0, isLH: parseNote(noteStr).midi < 58 });
+      const el = keyElements.get(noteStr);
+      if (el) {
+        el.classList.add('active-rh');
+        setTimeout(() => {
+          if (!state.activeRhNotes.has(noteStr)) el.classList.remove('active-rh');
+        }, 280);
+      }
+      const role = getNoteRole(noteStr, bar.chord);
+      const blackTag = isBlackKey(noteStr) ? ' · Black Key' : '';
+      document.getElementById('noteInspector').innerHTML =
+        `<span class="font-mono font-bold text-amber-300">${formatDisplayNote(noteStr)}</span> over <span class="font-mono font-bold text-sky-300">${bar.chord}</span> → <span class="text-slate-200">${role}${blackTag}</span>`;
+    }
+
+    /**
+     * =========================================================================
+     * 6. RENDER SECTION MAP, BEAT RIBBONS, AND KEYBOARD HIGHLIGHTS
+     * =========================================================================
+     */
+    function renderSectionMap() {
+      const nav = document.getElementById('sectionMap');
+      nav.innerHTML = '';
+      const currentBar = SONG_BARS[state.barIdx];
+
+      SECTIONS.forEach(sec => {
+        const isActive = currentBar.section === sec.name;
+        const isPast = state.barIdx > sec.endIdx;
+        let fillPct = 0;
+        if (isPast) fillPct = 100;
+        else if (isActive) {
+          const barsInto = (state.barIdx - sec.startIdx) + (state.beatIdx / 8);
+          fillPct = Math.min(100, Math.max(8, (barsInto / sec.count) * 100));
+        }
+
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = `relative overflow-hidden shrink-0 px-3 py-2 rounded-xl border text-left transition cursor-pointer ${
+          isActive
+            ? 'bg-slate-800/95 border-amber-400/50 text-amber-200 shadow-md shadow-amber-500/10'
+            : 'bg-slate-900/60 border-slate-800 text-slate-400 hover:text-slate-200 hover:border-slate-700'
+        }`;
+
+        btn.innerHTML = `
+          <div class="absolute inset-y-0 left-0 ${isActive ? 'bg-amber-400/15' : 'bg-sky-400/10'} transition-all duration-150" style="width:${fillPct}%"></div>
+          <div class="relative z-10 flex items-center gap-1.5">
+            <span class="text-xs font-semibold whitespace-nowrap">${sec.name}</span>
+            <span class="text-[10px] font-mono opacity-70">${sec.count}b</span>
+          </div>
+        `;
+
+        btn.addEventListener('click', () => {
+          jumpToBar(sec.startIdx);
+        });
+        nav.appendChild(btn);
+      });
+    }
+
+    function renderLaneNotes(containerId, notes, { hand, chord, isCurrent, muted }) {
+      const container = document.getElementById(containerId);
+      container.innerHTML = '';
+
+      // Create 8 slot wrappers so grid alignment stays exact
+      const notesByBeat = new Map();
+      notes.forEach(n => notesByBeat.set(n.beat, n));
+
+      let beat = 0;
+      while (beat < 8) {
+        const item = notesByBeat.get(beat);
+        if (item) {
+          const span = Math.min(item.dur || 1, 8 - beat);
+          const isActiveNow = isCurrent && state.beatIdx >= item.beat && state.beatIdx < item.beat + span;
+          const isStrikeNow = isCurrent && state.beatIdx === item.beat;
+          const black = isBlackKey(item.note);
+
+          const pill = document.createElement('button');
+          pill.type = 'button';
+          pill.style.gridColumn = `span ${span} / span ${span}`;
+
+          const baseStyle = hand === 'rh'
+            ? (isStrikeNow
+                ? 'bg-gradient-to-r from-amber-400 to-orange-500 text-slate-950 border-amber-200 shadow-lg shadow-amber-500/35 scale-[1.03]'
+                : isActiveNow
+                  ? 'bg-amber-400/30 text-amber-100 border-amber-400/70'
+                  : 'bg-amber-500/15 hover:bg-amber-500/25 text-amber-200 border-amber-400/30')
+            : (isStrikeNow
+                ? 'bg-gradient-to-r from-sky-400 to-indigo-500 text-slate-950 border-sky-200 shadow-lg shadow-sky-500/35 scale-[1.03]'
+                : isActiveNow
+                  ? 'bg-sky-400/30 text-sky-100 border-sky-400/70'
+                  : 'bg-sky-500/15 hover:bg-sky-500/25 text-sky-200 border-sky-400/30');
+
+          pill.className = `h-10 rounded-lg border px-1.5 flex items-center justify-between gap-1 transition-all duration-100 cursor-pointer relative overflow-hidden ${baseStyle} ${muted ? 'opacity-30 grayscale' : ''}`;
+
+          const motionBadge = (hand === 'rh' && item.motion)
+            ? `<span class="text-[11px] font-bold opacity-85">${item.motion}</span>`
+            : '';
+
+          const blackBadge = black
+            ? `<span class="text-[9px] font-bold px-1 rounded ${isStrikeNow ? 'bg-slate-950/25 text-slate-950' : 'bg-violet-500/35 text-violet-100 border border-violet-300/40'}">♭</span>`
+            : '';
+
+          const tailVisual = span > 1
+            ? `<span class="flex-1 h-1 rounded-full mx-1 ${isStrikeNow ? 'bg-slate-950/30' : (hand === 'rh' ? 'bg-amber-400/35' : 'bg-sky-400/35')}"></span>`
+            : '';
+
+          pill.innerHTML = `
+            <span class="inline-flex items-center gap-0.5 font-mono text-xs font-bold whitespace-nowrap">
+              ${motionBadge}${formatDisplayNote(item.note)}
+            </span>
+            ${tailVisual}
+            ${blackBadge}
+          `;
+
+          pill.addEventListener('click', () => {
+            auditionKey(item.note);
+          });
+
+          container.appendChild(pill);
+          beat += span;
+        } else {
+          // Empty eighth-note rest cell
+          const rest = document.createElement('div');
+          rest.className = 'h-10 rounded-lg border border-dashed border-slate-800/70 flex items-center justify-center text-slate-700 text-[10px] font-mono select-none';
+          rest.textContent = '·';
+          container.appendChild(rest);
+          beat += 1;
+        }
+      }
+    }
+
+    function updateKeyboardHighlights() {
+      const bar = SONG_BARS[state.barIdx];
+      const isBridge = !!bar.colorShift;
+
+      // Toggle borrowed flat dots during Bridge
+      document.querySelectorAll('.borrowed-dot').forEach(dot => {
+        dot.classList.toggle('hidden', !isBridge);
+      });
+
+      keyElements.forEach((el, noteStr) => {
+        const lhOn = state.activeLhNotes.has(noteStr);
+        const rhOn = state.activeRhNotes.has(noteStr);
+        el.classList.remove('active-lh', 'active-rh', 'active-both');
+
+        const label = el.querySelector('.key-label');
+        const { pitchClass, octave } = parseNote(noteStr);
+
+        if (lhOn && rhOn) {
+          el.classList.add('active-both');
+          if (label) {
+            label.textContent = formatDisplayNote(noteStr);
+            label.className = 'key-label text-[9px] font-mono font-extrabold text-slate-950 pointer-events-none';
+          }
+        } else if (lhOn) {
+          el.classList.add('active-lh');
+          if (label) {
+            label.textContent = formatDisplayNote(noteStr);
+            label.className = 'key-label text-[9px] font-mono font-extrabold text-slate-950 pointer-events-none';
+          }
+        } else if (rhOn) {
+          el.classList.add('active-rh');
+          if (label) {
+            label.textContent = formatDisplayNote(noteStr);
+            label.className = 'key-label text-[9px] font-mono font-extrabold text-slate-950 pointer-events-none';
+          }
+        } else {
+          if (label) {
+            if (isBlackKey(noteStr)) {
+              label.textContent = KEY_SIG_BLACK_NOTES.has(pitchClass) ? formatDisplayNote(pitchClass) : '';
+              label.className = 'key-label text-[9px] font-mono font-bold text-slate-300/80 pointer-events-none';
+            } else {
+              label.textContent = pitchClass === 'C' ? `C${octave}` : '';
+              label.className = 'key-label text-[10px] font-mono font-bold pointer-events-none ' +
+                (pitchClass === 'C' ? 'text-slate-500' : 'text-slate-400/70');
+            }
+          }
+        }
+      });
+    }
+
+    function renderAll() {
+      const bar = SONG_BARS[state.barIdx];
+      const nextBar = SONG_BARS[state.barIdx + 1] || null;
+
+      // Header telemetry
+      document.getElementById('barCounter').textContent =
+        `${String(bar.barNumber).padStart(2, '0')} / ${SONG_BARS.length}`;
+      document.getElementById('dynamicBadge').textContent = bar.dynamic;
+      document.getElementById('beatCounter').textContent = BEAT_LABELS[state.beatIdx];
+      document.getElementById('colorShiftBadge').classList.toggle('hidden', !bar.colorShift);
+      document.getElementById('ritBadge').classList.toggle('hidden', !bar.ritFactor);
+
+      // Current Bar Metadata
+      document.getElementById('currentBarLabel').textContent = `${bar.section} · Bar ${bar.barNumber}`;
+      document.getElementById('currentLyricCue').textContent = bar.cue || '';
+      document.getElementById('currentChordBadge').textContent = bar.chord;
+      document.getElementById('lhPatternTag').textContent = bar.isQuietDrop
+        ? 'Single Sustained Bass (Hold 4 Beats)'
+        : bar.isRolledEnd
+          ? 'Warm Rolled Final Chord'
+          : bar.lh.length === 4
+            ? '4-Note Flowing Arpeggio'
+            : '3-Note Arpeggio (1 → 2 → 3)';
+
+      // Mute indicators
+      const lhMuted = state.practiceMode === 'rh';
+      const rhMuted = state.practiceMode === 'lh';
+      document.getElementById('lhMuteTag').classList.toggle('hidden', !lhMuted);
+      document.getElementById('rhMuteTag').classList.toggle('hidden', !rhMuted);
+
+      // Playhead & Beat Headers
+      document.getElementById('playheadCursor').style.left = `${state.beatIdx * 12.5}%`;
+      document.querySelectorAll('.beat-header').forEach(el => {
+        const b = parseInt(el.dataset.beat, 10);
+        const active = b === state.beatIdx;
+        el.classList.toggle('bg-amber-400/20', active);
+        el.classList.toggle('text-amber-300', active);
+      });
+
+      // Render Current Bar Lanes
+      renderLaneNotes('currentRhLane', bar.rh, { hand: 'rh', chord: bar.chord, isCurrent: true, muted: rhMuted });
+      renderLaneNotes('currentLhLane', bar.lh, { hand: 'lh', chord: bar.chord, isCurrent: true, muted: lhMuted });
+
+      // Render Pedal Visual
+      const pedalBar = document.getElementById('pedalVisualBar');
+      const pedalText = document.getElementById('pedalStatusText');
+      if (!state.sustainPedal) {
+        pedalBar.style.opacity = '0.15';
+        pedalText.textContent = 'Pedal Off (Dry)';
+        pedalText.className = 'text-xs font-medium text-slate-500';
+      } else {
+        pedalBar.style.opacity = '1';
+        pedalText.textContent = bar.pedal === 'hold' ? 'Hold Final Resonance' : 'Lift & Press on Beat 1';
+        pedalText.className = 'text-xs font-medium text-emerald-300';
+      }
+
+      // Render Next Bar (Lookahead)
+      if (nextBar) {
+        document.getElementById('nextBarLabel').textContent = `${nextBar.section} · Bar ${nextBar.barNumber}`;
+        document.getElementById('nextChordBadge').textContent = nextBar.chord;
+        renderLaneNotes('nextRhLane', nextBar.rh, { hand: 'rh', chord: nextBar.chord, isCurrent: false, muted: rhMuted });
+        renderLaneNotes('nextLhLane', nextBar.lh, { hand: 'lh', chord: nextBar.chord, isCurrent: false, muted: lhMuted });
+        const nextBass = nextBar.lh[0] ? formatDisplayNote(nextBar.lh[0].note) : '';
+        document.getElementById('nextTipText').textContent = `Next anchor: ${nextBar.chord} (Bass ${nextBass})`;
+        document.getElementById('jumpNextBtn').classList.remove('hidden');
+      } else {
+        document.getElementById('nextBarLabel').textContent = 'End of Song';
+        document.getElementById('nextChordBadge').textContent = 'Fin';
+        document.getElementById('nextRhLane').innerHTML = '<div class="col-span-8 text-center text-xs text-slate-500 italic">Final resonance — well played!</div>';
+        document.getElementById('nextLhLane').innerHTML = '';
+        document.getElementById('nextTipText').textContent = 'Press Restart or click any section to practice again.';
+        document.getElementById('jumpNextBtn').classList.add('hidden');
+      }
+
+      renderSectionMap();
+      updateKeyboardHighlights();
+    }
+
+    /**
+     * =========================================================================
+     * 7. PLAYBACK ENGINE & BEAT SCHEDULER
+     * =========================================================================
+     */
+    function getEighthNoteMs(bar) {
+      const effectiveBpm = BASE_BPM * (state.tempoPct / 100) * (bar.ritFactor || 1);
+      // 1 quarter note = 60000 / BPM ms; 1 eighth note = half of that
+      return (60000 / effectiveBpm) / 2;
+    }
+
+    function triggerCurrentBeatAudio() {
+      const bar = SONG_BARS[state.barIdx];
+      const stepSec = getEighthNoteMs(bar) / 1000;
+      const baseVel = DYNAMIC_VELOCITY[bar.dynamic] || 0.6;
+
+      // Clean pedal lift & re-press at beat 0 of every new bar
+      if (state.beatIdx === 0 && state.sustainPedal && bar.pedal === 'clean-bar') {
+        pianoEngine.liftPedal();
+        const pedalBar = document.getElementById('pedalVisualBar');
+        pedalBar.classList.remove('pedal-pulse');
+        void pedalBar.offsetWidth; // trigger reflow
+        pedalBar.classList.add('pedal-pulse');
+      }
+
+      // Track currently sounding keys for keyboard highlight
+      state.activeLhNotes.clear();
+      state.activeRhNotes.clear();
+
+      const playLH = state.practiceMode === 'both' || state.practiceMode === 'lh';
+      const playRH = state.practiceMode === 'both' || state.practiceMode === 'rh';
+
+      bar.lh.forEach(n => {
+        if (state.beatIdx >= n.beat && state.beatIdx < n.beat + (n.dur || 1)) {
+          if (playLH) state.activeLhNotes.add(n.note);
+        }
+        if (n.beat === state.beatIdx && playLH) {
+          pianoEngine.playNote(n.note, {
+            velocity: baseVel * (n.beat === 0 ? 1.0 : 0.86),
+            durationSec: (n.dur || 2) * stepSec * 1.15,
+            isLH: true,
+          });
+        }
+      });
+
+      bar.rh.forEach(n => {
+        if (state.beatIdx >= n.beat && state.beatIdx < n.beat + (n.dur || 1)) {
+          if (playRH) state.activeRhNotes.add(n.note);
+        }
+        if (n.beat === state.beatIdx && playRH) {
+          pianoEngine.playNote(n.note, {
+            velocity: Math.min(0.95, baseVel * 1.08),
+            durationSec: (n.dur || 1) * stepSec * 1.1,
+            isLH: false,
+          });
+        }
+      });
+    }
+
+    function advanceBeat(delta = 1) {
+      const currentSection = SECTIONS.find(s => state.barIdx >= s.startIdx && state.barIdx <= s.endIdx);
+      let nextBeat = state.beatIdx + delta;
+      let nextBar = state.barIdx;
+
+      if (nextBeat >= 8) {
+        nextBeat = 0;
+        nextBar++;
+        if (state.loopSection && currentSection && nextBar > currentSection.endIdx) {
+          nextBar = currentSection.startIdx;
+        } else if (nextBar >= SONG_BARS.length) {
+          // End of full song reached
+          pausePlayback();
+          return false;
+        }
+      } else if (nextBeat < 0) {
+        nextBeat = 7;
+        nextBar = Math.max(0, nextBar - 1);
+      }
+
+      state.barIdx = nextBar;
+      state.beatIdx = nextBeat;
+      return true;
+    }
+
+    function scheduleNextTick() {
+      if (!state.isPlaying) return;
+      const bar = SONG_BARS[state.barIdx];
+      const delayMs = getEighthNoteMs(bar);
+
+      state.timerId = setTimeout(() => {
+        if (!state.isPlaying) return;
+        const ok = advanceBeat(1);
+        if (!ok) return;
+        triggerCurrentBeatAudio();
+        renderAll();
+        scheduleNextTick();
+      }, delayMs);
+    }
+
+    function startPlayback() {
+      pianoEngine.init();
+      if (state.barIdx === SONG_BARS.length - 1 && state.beatIdx === 7) {
+        state.barIdx = 0;
+        state.beatIdx = 0;
+      }
+      state.isPlaying = true;
+      updatePlayButtonUI();
+      triggerCurrentBeatAudio();
+      renderAll();
+      scheduleNextTick();
+    }
+
+    function pausePlayback() {
+      state.isPlaying = false;
+      if (state.timerId) {
+        clearTimeout(state.timerId);
+        state.timerId = null;
+      }
+      updatePlayButtonUI();
+    }
+
+    function togglePlayback() {
+      if (state.isPlaying) pausePlayback();
+      else startPlayback();
+    }
+
+    function jumpToBar(barIndex) {
+      const wasPlaying = state.isPlaying;
+      pausePlayback();
+      pianoEngine.stopAll();
+      state.barIdx = Math.max(0, Math.min(SONG_BARS.length - 1, barIndex));
+      state.beatIdx = 0;
+      state.activeLhNotes.clear();
+      state.activeRhNotes.clear();
+      if (wasPlaying) {
+        startPlayback();
+      } else {
+        triggerCurrentBeatAudio();
+        renderAll();
+      }
+    }
+
+    function stepManual(delta) {
+      pausePlayback();
+      pianoEngine.init();
+      const ok = advanceBeat(delta);
+      if (ok) {
+        triggerCurrentBeatAudio();
+        renderAll();
+      }
+    }
+
+    function updatePlayButtonUI() {
+      const playIcon = document.getElementById('playIcon');
+      const pauseIcon = document.getElementById('pauseIcon');
+      const playText = document.getElementById('playBtnText');
+      playIcon.classList.toggle('hidden', state.isPlaying);
+      pauseIcon.classList.toggle('hidden', !state.isPlaying);
+      playText.textContent = state.isPlaying ? 'Pause' : 'Play';
+    }
+
+    /**
+     * =========================================================================
+     * 8. WIRE UP CONTROLS & KEYBOARD SHORTCUTS
+     * =========================================================================
+     */
+    function initControls() {
+      document.getElementById('playPauseBtn').addEventListener('click', togglePlayback);
+
+      document.getElementById('restartBtn').addEventListener('click', () => {
+        jumpToBar(0);
+      });
+
+      document.getElementById('stepBackBtn').addEventListener('click', () => stepManual(-1));
+      document.getElementById('stepFwdBtn').addEventListener('click', () => stepManual(1));
+
+      document.getElementById('jumpNextBtn').addEventListener('click', () => {
+        if (state.barIdx + 1 < SONG_BARS.length) jumpToBar(state.barIdx + 1);
+      });
+
+      // Practice Mode buttons
+      document.querySelectorAll('.practice-mode-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          state.practiceMode = btn.dataset.mode;
+          document.querySelectorAll('.practice-mode-btn').forEach(b => {
+            const active = b.dataset.mode === state.practiceMode;
+            b.className = `practice-mode-btn px-2.5 py-1.5 rounded-lg transition cursor-pointer ${
+              active ? 'bg-slate-700 text-white shadow-sm' : 'text-slate-400 hover:text-slate-200'
+            }`;
+          });
+          renderAll();
+        });
+      });
+
+      // Loop Section button
+      const loopBtn = document.getElementById('loopSectionBtn');
+      loopBtn.addEventListener('click', () => {
+        state.loopSection = !state.loopSection;
+        loopBtn.className = state.loopSection
+          ? 'px-3 py-2 rounded-xl bg-amber-500/20 border border-amber-400/50 text-amber-200 text-xs font-semibold flex items-center gap-1.5 transition cursor-pointer'
+          : 'px-3 py-2 rounded-xl bg-slate-900/90 border border-slate-700/70 text-slate-300 hover:text-white text-xs font-semibold flex items-center gap-1.5 transition cursor-pointer';
+      });
+
+      // Sustain Pedal Toggle
+      const pedalBtn = document.getElementById('pedalToggleBtn');
+      pedalBtn.addEventListener('click', () => {
+        state.sustainPedal = !state.sustainPedal;
+        pianoEngine.sustainEnabled = state.sustainPedal;
+        if (!state.sustainPedal) pianoEngine.liftPedal();
+        pedalBtn.className = state.sustainPedal
+          ? 'px-3 py-2 rounded-xl bg-emerald-500/15 border border-emerald-400/40 text-emerald-300 text-xs font-semibold flex items-center gap-1.5 transition cursor-pointer'
+          : 'px-3 py-2 rounded-xl bg-slate-900/90 border border-slate-700/70 text-slate-400 text-xs font-semibold flex items-center gap-1.5 transition cursor-pointer';
+        pedalBtn.innerHTML = state.sustainPedal
+          ? '<span class="w-2 h-2 rounded-full bg-emerald-400"></span><span>Pedal: ON</span>'
+          : '<span class="w-2 h-2 rounded-full bg-slate-600"></span><span>Pedal: OFF</span>';
+        renderAll();
+      });
+
+      // Tempo Slider
+      const tempoSlider = document.getElementById('tempoSlider');
+      const tempoReadout = document.getElementById('tempoReadout');
+      tempoSlider.addEventListener('input', (e) => {
+        state.tempoPct = parseInt(e.target.value, 10);
+        const bpm = Math.round(BASE_BPM * (state.tempoPct / 100));
+        tempoReadout.textContent = `${state.tempoPct}% · ${bpm} BPM`;
+      });
+
+      // Keyboard shortcuts: Space = Play/Pause, Left/Right = Step Beat
+      window.addEventListener('keydown', (e) => {
+        if (e.target.tagName === 'INPUT') return;
+        if (e.code === 'Space') {
+          e.preventDefault();
+          togglePlayback();
+        } else if (e.code === 'ArrowRight') {
+          e.preventDefault();
+          stepManual(1);
+        } else if (e.code === 'ArrowLeft') {
+          e.preventDefault();
+          stepManual(-1);
+        }
+      });
+    }
+
+    // Initialize App on Load
+    window.addEventListener('DOMContentLoaded', () => {
+      buildPianoKeyboard();
+      initControls();
+      renderAll();
+    });
+  </script>
+</body>
+</html>
